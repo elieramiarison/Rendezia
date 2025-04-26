@@ -6,7 +6,7 @@ import Image from "next/image";
 import { TailSpin } from "react-loader-spinner";
 
 const Profile = () => {
-    const { data: session, status }: any = useSession()
+    const { data: session, status }: Record<string, any> = useSession()
     if (!session || !session.user) {
         <div className="flex justify-center items-center h-screen ">
             <TailSpin color="#08a6a0" height={80} width={80} strokeWidth={3} />

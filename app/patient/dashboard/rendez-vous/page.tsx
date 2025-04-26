@@ -15,7 +15,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 
 const AppointmentForm = () => {
   const { dispo, loading } = useDisponibilite();
-  const { data: session }: any = useSession();
+  const { data: session }: Record<string, any> = useSession();
   const [disabledButtons, setDisabledButtons] = useState<{ [key: string]: boolean }>({});
   const [selectedDoctor, setSelectedDoctor] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -29,7 +29,7 @@ const AppointmentForm = () => {
 
       if (res.ok) {
         const userAppointments = await res.json();
-        const takenDates = userAppointments.reduce((acc: any, rdv: any) => {
+        const takenDates = userAppointments.reduce((acc: Record<string, any>, rdv: Record<string, any>) => {
           acc[rdv.id] = true;
           return acc;
         }, {} as { [key: string]: boolean });
@@ -133,7 +133,7 @@ const AppointmentForm = () => {
         throw new Error("Échec de la réservation !");
       }
       setDisabledButtons((prev) => ({ ...prev, [id]: true }));
-    } catch (error: any) {
+    } catch (error) {
       setDisabledButtons((prev) => ({ ...prev, [id]: false }));
     } finally {
       NProgress.done();

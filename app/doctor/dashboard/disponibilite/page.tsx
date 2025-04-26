@@ -28,7 +28,7 @@ export default function AddAvailability() {
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   const [availabilities, setAvailabilities] = useState<Disponibilite[]>([]);
-  const { data: session }: any = useSession()
+  const { data: session }: Record<string, any> = useSession()
   const [currentId, setCurrentId] = useState<string | null>(null);
   const [toggle, setIsToggle] = useState(false)
   const [loading, setLoading] = useState(false)

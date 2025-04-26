@@ -8,7 +8,7 @@ import Image from "next/image";
 
 export default function Login() {
   const router = useRouter()
-  const { data: session, status, update }: any = useSession()
+  const { data: session, status, update }: Record<string, any> = useSession()
   const [formData, setFormData] = useState({
     name: "",
     email: "",

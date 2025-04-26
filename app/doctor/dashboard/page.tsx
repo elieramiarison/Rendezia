@@ -37,7 +37,7 @@ const Dashboard = () => {
         const res = await fetch('/api/rdvDoc')
         const data = await res.json()
         setRdv(data)
-      } catch (error: any) {
+      } catch (error) {
         alert("Il y a une erreur sur la recuperation")
       }
     }

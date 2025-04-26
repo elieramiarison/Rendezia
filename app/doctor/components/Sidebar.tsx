@@ -9,7 +9,7 @@ import { MdOutlinePerson } from "react-icons/md";
 import Image from "next/image";
 
 const Sidebar = () => {
-  const { data: session }: any = useSession()
+  const { data: session }: Record<string, any> = useSession()
   const pathname = usePathname();
 
   const navItems = [

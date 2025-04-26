@@ -20,7 +20,7 @@ interface IUser {
 }
 
 export default function UpdateProfil() {
-    const { data: session, status, update }: any = useSession()
+    const { data: session, status, update }: Record<string, any> = useSession()
     const [formData, setFormData] = useState<IUser>({
         name: "",
         firstName: "",
