@@ -1,7 +1,7 @@
 "use client"
 import Link from "next/link"
 import Image from "next/image";
-import { FaCalendarAlt, FaInstagram } from "react-icons/fa";
+import { FaCalendarAlt } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { MdSecurity } from "react-icons/md";
 import Footer from "./doctor/dashboard/components/footer/page";

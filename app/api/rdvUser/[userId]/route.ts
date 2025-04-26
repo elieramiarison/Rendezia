@@ -1,10 +1,10 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { Rdv } from "@/lib/models/RendezVous";
 import { connectDB } from "@/lib/mongodb";
 
 connectDB();
 
-export async function GET(context: { params: { userId: string } }) {
+export async function GET(req: NextRequest, context: { params: { userId: string } }) {
     try {
         const userId = context?.params?.userId;
 

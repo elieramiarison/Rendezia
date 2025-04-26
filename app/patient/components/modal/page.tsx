@@ -1,4 +1,5 @@
 "use client"
+
 import { useDoctors } from "@/app/hooks/useDoctor";
 import { AiOutlineClose } from "react-icons/ai";
 
@@ -7,7 +8,7 @@ export default function Modal({ doctor, onClose }: { doctor: string | null, onCl
     const { data } = useDoctors()
     const data_ = data.find((item) => item._id === doctor)
     if (!data_) return null
-    const imageUrl = data_.pdpDoc;
+    const imageUrl = data_?.pdpDoc || "/default-avatar.png";
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
@@ -22,11 +23,13 @@ export default function Modal({ doctor, onClose }: { doctor: string | null, onCl
 
                 </div>
                 <div className="flex flex-col justify-center items-center">
-                    <img
-                        src={imageUrl}
-                        alt={`Photo de ${data_.name}`}
-                        className="md:w-24 md:h-24 sm:w-24 sm:h-24 w-24 h-24 object-cover rounded-full mb-3 my-2 border-2 border-gray-400"
-                    />
+                    {imageUrl && (
+                        <img
+                            src={imageUrl}
+                            alt={`Photo de ${data_.name}`}
+                            className="md:w-24 md:h-24 sm:w-24 sm:h-24 w-24 h-24 object-cover rounded-full mb-3 my-2 border-2 border-gray-400"
+                        />
+                    )}
                     <h2 className="text-xl font-semibold mb-2">Dr {data_?.name} {data_.firstName}</h2>
                 </div>
                 <div className="mt-4">

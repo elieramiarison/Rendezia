@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
 
 connectDB()
-export async function DELETE({ params }: { params: { id?: string } }) {
+export async function DELETE(req: NextRequest, { params }: { params: { id?: string } }) {
     if (!params?.id) {
         return NextResponse.json({ message: "Id manquant" }, { status: 400 })
     }

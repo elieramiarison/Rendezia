@@ -7,7 +7,7 @@ interface IProfile {
     tel: string,
     specialite: string,
     genre: string,
-    pdpDoc: Record<string, any>,
+    pdpDoc: any,
     firstName: string,
     clinic: string
 }
