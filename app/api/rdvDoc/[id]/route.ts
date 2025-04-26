@@ -1,10 +1,9 @@
 import { Rdv } from "@/lib/models/RendezVous";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
-import mongoose from "mongoose";
 
 connectDB()
-export async function DELETE(req: NextRequest, { params }: { params: { id?: string } }) {
+export async function DELETE({ params }: { params: { id?: string } }) {
     try {
         const { id } = params
         console.log("Id est :::", id)

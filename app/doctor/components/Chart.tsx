@@ -27,7 +27,6 @@ const Chart = () => {
         fetchData();
     }, []);
 
-    // Regrouper par date et compter le nombre de rendez-vous
     const aggregatedData = rdv.reduce<{ date: string; count: number }[]>((acc, curr: RendezVous) => {
         const existing = acc.find((item) => item.date === curr.date);
         if (existing) {

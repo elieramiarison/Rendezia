@@ -5,7 +5,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import Modal from "../../components/modal/page";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";

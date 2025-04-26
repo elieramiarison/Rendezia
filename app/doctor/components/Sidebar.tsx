@@ -4,13 +4,12 @@ import { signOut } from "next-auth/react";
 import { HomeIcon } from "lucide-react";
 import { FaPowerOff } from "react-icons/fa";
 import { Calendar } from "lucide-react";
-import { IoPerson } from "react-icons/io5";
 import { usePathname } from "next/navigation";
 import { MdOutlinePerson } from "react-icons/md";
 import Image from "next/image";
 
 const Sidebar = () => {
-  const { data: session, status }: any = useSession()
+  const { data: session }: any = useSession()
   const pathname = usePathname();
 
   const navItems = [

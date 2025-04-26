@@ -1,14 +1,9 @@
 "use client"
-import { useEffect, useState } from "react";
-import { useDoc } from "@/app/context/DocContext";
-import { Calendar, User, LogOut } from "lucide-react";
+
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { TailSpin } from "react-loader-spinner";
-import { redirect } from "next/navigation";
-import SkeletonProfil from "../../components/skeleton/profil/page";
 
 const Profile = () => {
     const { data: session, status }: any = useSession()

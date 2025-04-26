@@ -5,12 +5,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
-import { useAuth } from "@/app/context/AuthContext";
 import { signIn } from "next-auth/react";
 import { TailSpin } from "react-loader-spinner";
-// pour le chargement
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import Footer from "../components/footer/page";

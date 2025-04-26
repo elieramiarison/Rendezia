@@ -3,7 +3,6 @@
 import Image from "next/image"
 import { useSession } from "next-auth/react"
 import Link from "next/link";
-import { Calendar, User, LogOut, Home } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { useState, useEffect } from "react";
@@ -11,7 +10,7 @@ import { IoAccessibility, IoPerson, IoSettingsOutline, IoTrailSignOutline } from
 import { FaHome } from "react-icons/fa";
 
 export default function Navbar() {
-  const { data: session, status } = useSession()
+  const { data: session } = useSession()
   const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {

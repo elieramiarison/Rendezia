@@ -5,15 +5,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { TailSpin } from "react-loader-spinner";
 import { signIn } from "next-auth/react";
-// pour le chargement
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import Footer from "../dashboard/components/footer/page";
-import { IoMagnetOutline } from "react-icons/io5";
 
 export default function Login() {
     const [email, setEmail] = useState('')

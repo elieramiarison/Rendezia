@@ -1,7 +1,7 @@
 import { Doctor } from "@/lib/models/Doctor";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET({ params }: { params: { id: string } }) {
     try {
         const { id } = params
         const doctor = await Doctor.findById(id)

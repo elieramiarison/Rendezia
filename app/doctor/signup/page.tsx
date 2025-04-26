@@ -25,7 +25,6 @@ export default function Login() {
   const [preview, setPreview] = useState<string | null>(null);
 
   const router = useRouter()
-  // const { login } = useDoc()
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -75,7 +74,6 @@ export default function Login() {
     <div>
       <div className="w-full h-16 bg-[#08a6a0] shadow-md flex justify-between items-center fixed z-[100] top-0 lg:px-20 md:px-20 sm:px-12 px-[1rem]">
         <div>
-          {/* <Image src="/logo2.png" alt="logo" width={80} height={20} className="lg:w-[5rem] md:w-[5rem] sm:w-[4rem] w-[3.5rem]" /> */}
           <h1 className="font-[cursive] md:text-3xl text-2xl text-white">Rendezia</h1>
         </div>
         <div className="flex lg:gap-6 md:gap-6 sm:gap-4 gap-3 items-center">
@@ -91,7 +89,6 @@ export default function Login() {
         <div>
           <Card className="lg:w-[450px] md:w-[400px] sm:w-[350px] w-[350px] mt-14">
             <CardHeader className="flex items-start">
-              {/* <CardTitle className="font-bold text-xl text-[#20363d]">Nouveau sur e-Rdv ?</CardTitle> */}
               <CardTitle className="font-bold text-xl text-[#20363d]">Vous êtes docteur ?</CardTitle>
               <p className="text-sm text-[#20363d]">C'est le moment de créer votre compte !</p>
               <p className="text-sm">Les champs avec <span className="text-red-600">*</span> sont obligatoire</p>

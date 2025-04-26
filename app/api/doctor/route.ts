@@ -1,7 +1,7 @@
 import { Doctor } from "@/lib/models/Doctor";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
     try {
         const res = await Doctor.find()
         return NextResponse.json(res)

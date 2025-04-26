@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { MdDelete } from "react-icons/md";
 import { FiEdit } from "react-icons/fi";
@@ -25,19 +24,14 @@ interface Disponibilite {
 }
 
 export default function AddAvailability() {
-  const router = useRouter();
   const [date, setDate] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   const [availabilities, setAvailabilities] = useState<Disponibilite[]>([]);
-  const { data: session, status }: any = useSession()
+  const { data: session }: any = useSession()
   const [currentId, setCurrentId] = useState<string | null>(null);
   const [toggle, setIsToggle] = useState(false)
   const [loading, setLoading] = useState(false)
-
-  // if (!session) {
-  //   return <p>Chargement...</p>
-  // }
 
   const handleClic = (id: string) => {
     setCurrentId(id);

@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn, useSession } from "next-auth/react";
-import { redirect } from "next/navigation"
 import { TailSpin } from "react-loader-spinner";
 import Image from "next/image";
 
@@ -21,15 +20,6 @@ export default function Login() {
     password: "",
   })
   const [newPassword, setNewPassword] = useState("")
-  // if (!session || !session.user) {
-  //   return (
-  //     <div className="flex justify-center items-center h-screen ">
-  //       <TailSpin color="#08a6a0" height={80} width={80} strokeWidth={3} />
-  //     </div>
-  //   )
-  // }
-
-
   const [pdpDoc_, setPdpDoc] = useState<File | null>(null)
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false)
