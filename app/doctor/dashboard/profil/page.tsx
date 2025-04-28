@@ -4,8 +4,21 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 
+interface UserSession {
+  user?: {
+    name?: string;
+    firstName?: string;
+    email?: string;
+    tel?: string;
+    specialite?: string;
+    clinic?: string;
+    genre?: string;
+    image?: string;
+  };
+}
+
 const Profile = () => {
-  const { data: session }: Record<string, any> = useSession()
+  const { data: session } = useSession() as { data: UserSession };
   if (!session || !session.user) {
     return <p>Chargement de la session...</p>;
   }

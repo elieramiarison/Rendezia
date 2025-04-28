@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
             specialite: doc.specialite
         })
 
-    } catch (error) {
+    } catch {
         return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
     }
 } 

@@ -7,7 +7,7 @@ interface IProfile {
     tel: string,
     specialite: string,
     genre: string,
-    pdpDoc: any,
+    pdpDoc: string | null,
     firstName: string,
     clinic: string
 }
@@ -22,10 +22,10 @@ export const useDoctors = () => {
                 const res = await fetch('/api/doctor')
                 const data = await res.json()
                 setData(data)
-            } catch (error: any) {
-                setError(error.message)
+            } catch (error: unknown) {
+                setError(error instanceof Error ? error.message : 'Une erreur inconnue est survenue');
             } finally {
-                setLoading(false)
+                setLoading(false);
             }
         }
         fetchDoctors()

@@ -5,7 +5,12 @@ export async function GET() {
     try {
         const res = await Doctor.find()
         return NextResponse.json(res)
-    } catch (error) {
-        return NextResponse.json({ message: "Votre donnees n'est pas recupere via le backend" }, { status: 400 })
+    } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : "Erreur inconnue";
+        console.error("Échec de récupération des médecins :", errorMessage);
+        return NextResponse.json(
+            { message: "Échec de la récupération des données des médecins", error: errorMessage },
+            { status: 500 }
+        );
     }
 }

@@ -10,7 +10,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
         }
         return NextResponse.json(doctor)
 
-    } catch (error) {
+    } catch {
         return NextResponse.json({ message: "Erreur lors de la récupération du médecin" }, { status: 500 });
     }
 }

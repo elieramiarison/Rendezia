@@ -1,3 +1,82 @@
+// import "next-auth";
+// import "next-auth/jwt";
+
+// declare module "next-auth/jwt" {
+//     interface JWT {
+//         id: string;
+//         name?: string | null;
+//         email?: string | null;
+//         image?: string | null;
+//         tel?: string | null;
+//         genre?: string | null;
+//         lieu?: string | null;
+//         adresse?: string | null;
+//         specialite?: string | null;
+//         firstName?: string | null;
+//         annif?: string | null;
+//         clinic?: string | null;
+//         type: string;
+//     }
+// }
+
+// declare module "next-auth" {
+//     interface Session {
+//         user: {
+//             id: string;
+//             name?: string | null;
+//             email?: string | null;
+//             image?: string | null;
+//             tel?: string | null;
+//             genre?: string | null;
+//             lieu?: string | null;
+//             adresse?: string | null;
+//             specialite?: string | null;
+//             firstName?: string | null;
+//             annif?: Date | null;
+//             clinic?: string | null;
+//             type: string;
+//         };
+//     }
+// }
+
+// // declare module "next-auth/jwt" {
+// //     interface JWT {
+// //         id: string;
+// //         name?: string | null;
+// //         email?: string | null;
+// //         image?: string | null;
+// //         tel?: string | null;
+// //         genre?: string | null;
+// //         lieu?: string | null;
+// //         adresse?: string | null;
+// //         specialite?: string | null;
+// //         firstName?: string | null;
+// //         annif?: string | null; // Changé de Date à string
+// //         clinic?: string | null;
+// //         type: "patient" | "doctor"; // Spécifié comme union littérale
+// //     }
+// // }
+
+// // declare module "next-auth" {
+// //     interface Session {
+// //         user: {
+// //             id: string;
+// //             name?: string | null;
+// //             email?: string | null;
+// //             image?: string | null;
+// //             tel?: string | null;
+// //             genre?: string | null;
+// //             lieu?: string | null;
+// //             adresse?: string | null;
+// //             specialite?: string | null;
+// //             firstName?: string | null;
+// //             annif?: string | null;
+// //             clinic?: string | null;
+// //             type: "patient" | "doctor";
+// //         } & DefaultSession["user"]; // Conserve les propriétés par défaut
+// //     }
+// // }
+
 import NextAuth, { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
@@ -6,20 +85,50 @@ import { connectDB } from "./mongodb";
 import { JWT } from "next-auth/jwt";
 import { User } from "./models/User";
 
-// interface IUser {
-//     id: string,
-//     name: string,
-//     email: string
-//     tel: string,
-//     genre: string,
-//     lieu: string,
-//     adresse: string,
-//     specialite: string,
-//     firstName: string,
-//     annif: string,
-//     clinic: string,
-//     type: string
-// }
+// Définir les interfaces pour User et Doctor (basées sur ce que tu utilises)
+interface IUser {
+    id: string;
+    name: string;
+    email: string;
+    tel: string;
+    genre: string;
+    lieu: string;
+    adresse: string;
+    specialite: string;
+    firstName: string;
+    annif: string;
+    clinic: string;
+    type: string;
+}
+
+interface IDoctor extends IUser {
+    // Un médecin peut avoir des champs supplémentaires
+    tel: string;
+    genre: string;
+    specialite: string;
+    clinic: string;
+}
+
+// Définir un type spécifique pour la session et le JWT
+interface SessionUser extends IUser {
+    image?: string;
+}
+
+interface JWTToken extends JWT {
+    id: string;
+    name: string;
+    email: string;
+    image?: string;
+    tel?: string | null;
+    genre?: string | null;
+    lieu?: string | null;
+    adresse?: string | null;
+    specialite?: string | null;
+    firstName?: string | null;
+    annif?: string | null;
+    clinic?: string | null;
+    type: string;
+}
 
 export const authOptions: AuthOptions = {
     debug: true,
@@ -29,31 +138,27 @@ export const authOptions: AuthOptions = {
             credentials: {
                 email: { type: "email" },
                 password: { type: "password" },
-                type: { type: "text" }
+                type: { type: "text" },
             },
             async authorize(credentials) {
-                // console.log("Tentative de connexion avec :", credentials);
                 await connectDB();
 
-                let user
+                let user: IUser | IDoctor | null = null;
                 if (credentials?.type === "patient") {
-                    user = await User.findOne({ email: credentials.email })
+                    user = await User.findOne({ email: credentials.email });
                 } else {
                     user = await Doctor.findOne({ email: credentials?.email });
                 }
 
                 if (!user) {
-                    // console.log("⚠️ Utilisateur non trouvé !");
                     throw new Error("Utilisateur non trouvé");
                 }
-                // console.log("📌 Utilisateur trouvé :", user);
 
                 const isValidPassword = credentials?.password
                     ? await bcrypt.compare(credentials.password, user.password)
                     : false;
 
                 if (!isValidPassword) {
-                    // console.log("⚠️ Mot de passe incorrect !");
                     throw new Error("Mot de passe incorrect");
                 }
 
@@ -68,7 +173,8 @@ export const authOptions: AuthOptions = {
                         adresse: user.adresse,
                         image: user.pdp,
                         type: "patient",
-                    } : {
+                    }
+                    : {
                         id: user._id.toString(),
                         name: user.name,
                         email: user.email,
@@ -78,19 +184,17 @@ export const authOptions: AuthOptions = {
                         specialite: user.specialite,
                         clinic: user.clinic,
                         type: "doctor",
-                    }
+                    };
 
-                // console.log("✅ Données renvoyées par authorize :", userData);
-                return userData
+                return userData;
             },
         }),
     ],
     pages: {
-        signIn: "/patinet/login",
+        signIn: "/patient/login", // Correction du typo sur "patinet"
     },
     session: {
         strategy: "jwt",
-        // maxAge: 60 * 60 * 24 * 7
     },
     cookies: {
         sessionToken: {
@@ -104,15 +208,14 @@ export const authOptions: AuthOptions = {
         },
     },
     callbacks: {
-        async session({ session, token }: { session: any; token: JWT }) {
-            let updatedUser;
+        async session({ session, token }: { session: { user: SessionUser }; token: JWTToken }) {
+            let updatedUser: IUser | IDoctor | null;
             if (token.type === "patient") {
                 updatedUser = await User.findById(token.id);
             } else {
                 updatedUser = await Doctor.findById(token.id);
             }
 
-            // 🛠 Mettre à jour la session avec les nouvelles données
             if (updatedUser) {
                 session.user = {
                     id: updatedUser._id.toString(),
@@ -132,7 +235,7 @@ export const authOptions: AuthOptions = {
             }
             return session;
         },
-        async jwt({ token, user }: { token: JWT; user?: any }) {
+        async jwt({ token, user }: { token: JWTToken; user?: SessionUser }) {
             if (user) {
                 token.id = user.id;
                 token.name = user.name;

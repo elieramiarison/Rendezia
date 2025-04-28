@@ -13,13 +13,43 @@ import toast from "react-hot-toast";
 import SkeletonCard from "../../components/skeleton/rendez-vous/page";
 import 'react-loading-skeleton/dist/skeleton.css';
 
+interface Appointment {
+  _id: string;
+  nameDoc: string;
+  specialiteDoc: string;
+  date: string;
+  startTime: string;
+  endTime: string;
+  doctorId: string;
+}
+
+interface UserSession {
+  id?: string;
+  name?: string;
+  firstName?: string;
+  email?: string;
+  annif?: string;
+  lieu?: string;
+  adresse?: string;
+  tel?: string;
+  image?: string;
+}
+
+interface CustomSession {
+  user?: UserSession;
+}
+
+interface UserAppointment {
+  id: string;
+}
+
+
 const AppointmentForm = () => {
   const { dispo, loading } = useDisponibilite();
-  const { data: session }: Record<string, any> = useSession();
+  const { data: session } = useSession() as { data: CustomSession | null };
   const [disabledButtons, setDisabledButtons] = useState<{ [key: string]: boolean }>({});
   const [selectedDoctor, setSelectedDoctor] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [cancelButtons, setCancelButton] = useState<{ [key: string]: boolean }>({})
 
   useEffect(() => {
     const fetchUserAppointments = async () => {
@@ -29,7 +59,7 @@ const AppointmentForm = () => {
 
       if (res.ok) {
         const userAppointments = await res.json();
-        const takenDates = userAppointments.reduce((acc: Record<string, any>, rdv: Record<string, any>) => {
+        const takenDates = userAppointments.reduce((acc: Record<string, boolean>, rdv: UserAppointment) => {
           acc[rdv.id] = true;
           return acc;
         }, {} as { [key: string]: boolean });
@@ -133,7 +163,7 @@ const AppointmentForm = () => {
         throw new Error("Échec de la réservation !");
       }
       setDisabledButtons((prev) => ({ ...prev, [id]: true }));
-    } catch (error) {
+    } catch {
       setDisabledButtons((prev) => ({ ...prev, [id]: false }));
     } finally {
       NProgress.done();
@@ -164,7 +194,7 @@ const AppointmentForm = () => {
         )
         : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-3">
-            {dispo.map((rdv) => (
+            {dispo.map((rdv: Appointment) => (
               <Card key={rdv._id} className="p-4">
                 <CardHeader>
                   {/* <Image src={rdv.pdp} /> */}
@@ -173,7 +203,7 @@ const AppointmentForm = () => {
                 <CardContent>
                   <p>Date : {rdv.date}</p>
                   <p>Du : {rdv.startTime}</p>
-                  <p>Jusqu'à : {rdv.endTime}</p>
+                  <p>Jusqu&ops;à : {rdv.endTime}</p>
                   <div className="flex gap-3">
                     {disabledButtons[rdv._id] ? <Button
                       className="mt-2 bg-red-600 hover:bg-red-700 w-full"

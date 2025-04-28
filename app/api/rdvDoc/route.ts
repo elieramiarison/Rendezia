@@ -5,15 +5,21 @@ import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
 
 connectDB()
+interface AuthenticatedDoctor {
+    id: string;
+}
+
 export async function POST(req: NextRequest) {
     try {
-        const session: any = await getServerSession(authOptions)
-        if (!session || !session.user) {
-            return NextResponse.json({ message: "Non autorise" }, { status: 401 })
+        const session = await getServerSession(authOptions)
+        const user = session?.user as AuthenticatedDoctor | undefined;
+
+        if (!user?.id) {
+            return NextResponse.json({ message: "Non autorisé" }, { status: 401 });
         }
 
         const { id, firstName, email, annif, lieu, adresse, tel, date, startTime, endTime, name, doctorId, pdp } = await req.json()
-        const userId = session.user.id
+        const userId = user.id
 
         if (!id || !date || !startTime || !endTime || !name || !doctorId || !pdp) {
             return NextResponse.json({ message: "Il y a une champs manquant" }, { status: 400 })
@@ -30,23 +36,26 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ message: "Rendez-vous docteur ajoutée avec succès" }, { status: 201 })
 
     } catch (error) {
-        // console.log("Erreur serveur", error)
+        console.log("Erreur serveur", error)
         return NextResponse.json({ message: "Erreur serveur" }, { status: 500 });
     }
 }
 
 export async function GET() {
     try {
-        const session: any = await getServerSession(authOptions)
-        if (!session || !session.user) {
-            return NextResponse.json({ message: "Non autorise" }, { status: 401 })
+        const session = await getServerSession(authOptions)
+        const user = session?.user as AuthenticatedDoctor | undefined;
+
+        if (!user?.id) {
+            return NextResponse.json({ message: "Non autorisé" }, { status: 401 });
         }
-        const doctorId = session.user.id
+
+        const doctorId = user.id
         const teste = await Rdv.find({ doctorId })
         return NextResponse.json(teste, { status: 200 });
 
     } catch (error) {
-        // console.log("Erreur serveur", error);
+        console.log("Erreur serveur", error);
         return NextResponse.json({ message: "Erreur serveur" }, { status: 500 });
     }
 }

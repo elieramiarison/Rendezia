@@ -6,6 +6,7 @@ import Charte from "../components/BarChart";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import PieCharte from "../components/PieChart";
+import Image from 'next/image';
 
 interface IRdv {
   _id: string,
@@ -25,10 +26,11 @@ interface IRdv {
 const Dashboard = () => {
 
   const [rdv, setRdv] = useState<IRdv[]>([])
-  const [openPatient, setOpenPatient] = useState(null)
+  const [openPatient, setOpenPatient] = useState<string | null>(null)
 
-  const toggleDetails = (id: any) => {
-    setOpenPatient(openPatient === id ? null : id)
+  const toggleDetails = (id: string) => {
+    // setOpenPatient(openPatient === id ? null : id)
+    setOpenPatient(prev => prev === id ? null : id);
   }
 
   useEffect(() => {
@@ -37,7 +39,7 @@ const Dashboard = () => {
         const res = await fetch('/api/rdvDoc')
         const data = await res.json()
         setRdv(data)
-      } catch (error) {
+      } catch {
         alert("Il y a une erreur sur la recuperation")
       }
     }
@@ -57,7 +59,7 @@ const Dashboard = () => {
       {rdv.length === 0 ? (
         <div className="flex flex-col items-center justify-center min-h-[67vh] py-0">
           <p className="text-xl font-semibold text-gray-500">Aucun patient pour le moment</p>
-          <p className="text-sm text-gray-400">Les données s'afficheront ici dès qu'un patient aura pris rendez-vous.</p>
+          <p className="text-sm text-gray-400">Les données s&apos;afficheront ici dès qu&apos;un patient aura pris rendez-vous.</p>
         </div>
 
       ) : (
@@ -76,9 +78,11 @@ const Dashboard = () => {
                 <div key={patient._id} className="border-b last:border-none">
                   <div className="flex justify-between items-center p-0 px-4 hover:bg-gray-50 hover:text-blue-500 cursor-pointer">
                     <div className="flex justify-center items-center gap-4">
-                      <img
+                      <Image
                         src={patient.pdp}
                         alt={`Photo de ${patient.name}`}
+                        width={96}
+                        height={96}
                         className="md:w-12 md:h-12 sm:w-24 sm:h-24 w-24 h-24 object-cover rounded-full mb-5 my-2"
                       />
                       <h2 className="text-lg font-semibold font-sans">{patient.name} {patient.firstName}</h2>
@@ -101,7 +105,7 @@ const Dashboard = () => {
                         <h1 className="font-semibold text-[#0e1b1f]">A propos du rendez-vous</h1>
                         <p className="text-gray-700">Le : {patient.date}</p>
                         <p className="text-gray-700">Du : {patient.startTime}</p>
-                        <p className="text-gray-600">Jusqu'à : {patient.endTime}</p>
+                        <p className="text-gray-600">Jusqu&apos;à : {patient.endTime}</p>
                       </div>
 
                       <p className="text-sm pb-4">

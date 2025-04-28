@@ -3,7 +3,7 @@
 import { motion, useAnimation } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useDisponibilite } from "@/app/hooks/useDisponibilite";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 const MyAnimatedCarousel = () => {
     const { dispo } = useDisponibilite();
@@ -11,7 +11,7 @@ const MyAnimatedCarousel = () => {
     const [offset, setOffset] = useState(0);
     const CARD_WIDTH = 220;
 
-    const startAutoScroll = () => {
+    const startAutoScroll = useCallback(() => {
         controls.start({
             x: ["0%", "-100%"],
             transition: {
@@ -20,11 +20,11 @@ const MyAnimatedCarousel = () => {
                 repeat: Infinity,
             },
         });
-    };
+    }, [controls]); // Ajout de controls comme dépendance
 
     useEffect(() => {
         startAutoScroll();
-    }, []);
+    }, [startAutoScroll]);
 
     const stopAndMove = async (direction: "left" | "right") => {
         await controls.stop();
@@ -70,7 +70,7 @@ const MyAnimatedCarousel = () => {
                             <h3 className="font-bold text-sm">Dr {rdv.nameDoc}</h3>
                             <p className="text-sm">Date : {rdv.date}</p>
                             <p className="text-sm">Du : {rdv.startTime}</p>
-                            <p className="text-sm">Jusqu'à : {rdv.endTime}</p>
+                            <p className="text-sm">Jusqu&apos;à : {rdv.endTime}</p>
                             <button
                                 onClick={() => alert("Bonjour, cette section est encore en cours de développement...")}
                                 className="text-[#067f7a] bg-white border border-[#067f7a] hover:text-white hover:bg-[#067f7a] rounded-3xl mt-1 text-xs px-3 py-1"

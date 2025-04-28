@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
+import { Session } from "next-auth";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
@@ -19,8 +20,32 @@ interface IUser {
     password: string,
 }
 
+// Définir des interfaces pour le typage
+interface UserData {
+    name?: string;
+    firstName?: string;
+    email?: string;
+    annif?: string;
+    lieu?: string;
+    adresse?: string;
+    tel?: string;
+    image?: string;
+}
+
+interface UserSession {
+    user?: UserData;
+}
+
+interface SessionReturn {
+    data: UserSession | null;
+    status: 'loading' | 'authenticated' | 'unauthenticated';
+    update: (data?: Partial<UserData>) => Promise<Session | null>;
+}
+
+
 export default function UpdateProfil() {
-    const { data: session, status, update }: Record<string, any> = useSession()
+    const { data: session, status, update } = useSession() as SessionReturn
+
     const [formData, setFormData] = useState<IUser>({
         name: "",
         firstName: "",
@@ -103,10 +128,12 @@ export default function UpdateProfil() {
             router.refresh();
             router.push('/patient/dashboard/profil');
             NProgress.done()
-        } catch (error: any) {
-            console.error("Erreur API :", error.message);
-            alert(error.message);
-        } finally {
+        } catch (error: unknown) {
+            const errorMessage = error instanceof Error ? error.message : "Erreur inconnue";
+            console.error("Erreur API :", errorMessage);
+            alert(errorMessage);
+        }
+        finally {
             setLoading(false);
         }
     }
@@ -224,9 +251,10 @@ export default function UpdateProfil() {
                         </div>
                     </div>
                     <div className=" mt-4">
-                        <Button type="submit" className="bg-[#08a6a0] hover:bg-[#067f7a] md:text-base text-[0.6rem]">
-                            Enregistrer la modification
+                        <Button type="submit" disabled={loading} className="...">
+                            {loading ? "Enregistrement..." : "Enregistrer la modification"}
                         </Button>
+
                     </div>
                 </form>
             </div>

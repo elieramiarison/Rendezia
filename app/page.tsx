@@ -56,7 +56,7 @@ export default function Home() {
             </h1>
             <h4 className="md:text-2xl sm:text-xl text-white p-1">Rapide, gratuit et sécurisé</h4>
             <p className="text-white lg:text-base md:text-base sm:text-base text-xs p-1">
-              Accédez en quelques clics à des médecins, spécialistes et centres de soins près de chez vous. Gagnez du temps, évitez les files d'attente, et choisissez le créneau qui vous convient, directement en ligne.
+              Accédez en quelques clics à des médecins, spécialistes et centres de soins près de chez vous. Gagnez du temps, évitez les files d&apos;attente, et choisissez le créneau qui vous convient, directement en ligne.
             </p>
             <div className="mt-2">
               <div className="flex gap-4">
@@ -126,7 +126,7 @@ export default function Home() {
               <h1 className="md:text-4xl sm:text-4xl text-3xl font-bold text-[#20363d]">Bienvenue sur Rendezia, votre plateforme de rendez-vous médicaux en ligne</h1>
               <h4 className="text-xl font-semibold text-[#20363d]">Prenez rendez-vous rapidement, gratuitement et en toute sécurité</h4>
               <p className="text-[#20363d] lg:text-base md:text-base sm:text-base text-sm ">
-                Accédez à une large sélection de professionnels de santé et choisissez l'heure qui vous convient, le tout en quelques clics
+                Accédez à une large sélection de professionnels de santé et choisissez l&apos;heure qui vous convient, le tout en quelques clics
               </p>
             </div>
           </AnimatedSection1>
@@ -197,7 +197,7 @@ export default function Home() {
               <li>Le Médecin Généraliste</li>
               <li>La gynécologie</li>
               <li>La dermatologie</li>
-              <li>L'ophtalmologie</li>
+              <li>L&apos;ophtalmologie</li>
             </ul>
           </div>
         </AnimatedSection1>

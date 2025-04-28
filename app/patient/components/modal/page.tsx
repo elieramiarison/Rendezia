@@ -2,10 +2,12 @@
 
 import { useDoctors } from "@/app/hooks/useDoctor";
 import { AiOutlineClose } from "react-icons/ai";
+import Image from "next/image";
 
 export default function Modal({ doctor, onClose }: { doctor: string | null, onClose: () => void }) {
-    if (!doctor) return null;
+
     const { data } = useDoctors()
+    if (!doctor) return null;
     const data_ = data.find((item) => item._id === doctor)
     if (!data_) return null
     const imageUrl = data_?.pdpDoc || "/default-avatar.png";
@@ -24,9 +26,11 @@ export default function Modal({ doctor, onClose }: { doctor: string | null, onCl
                 </div>
                 <div className="flex flex-col justify-center items-center">
                     {imageUrl && (
-                        <img
+                        <Image
                             src={imageUrl}
                             alt={`Photo de ${data_.name}`}
+                            width={96}
+                            height={96}
                             className="md:w-24 md:h-24 sm:w-24 sm:h-24 w-24 h-24 object-cover rounded-full mb-3 my-2 border-2 border-gray-400"
                         />
                     )}

@@ -20,7 +20,7 @@ const Chart = () => {
                 const res = await fetch("/api/rdvDoc");
                 const data = await res.json();
                 setRdv(data);
-            } catch (error) {
+            } catch {
                 alert("Il y a une erreur sur la récupération des données");
             }
         };

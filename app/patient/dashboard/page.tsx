@@ -10,7 +10,7 @@ import { TailSpin } from "react-loader-spinner";
 import AnimatedSection1 from "@/app/animation/animationdif";
 
 export default function DoctorDashboard() {
-    const { data: session, status }: Record<string, any> = useSession()
+    const { data: session, status } = useSession()
 
     const handleClick = () => {
         alert("Bonjour, cette section est encore en cours de développement...")

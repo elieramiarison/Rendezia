@@ -22,7 +22,7 @@ const PieCharte = () => {
                 const res = await fetch("/api/rdvDoc");
                 const data = await res.json();
                 setRdv(data);
-            } catch (error) {
+            } catch {
                 console.log("Il y a une erreur sur la récupération des données")
             }
         };

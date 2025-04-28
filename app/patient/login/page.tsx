@@ -19,7 +19,7 @@ export default function Login() {
     const [password, setPassword] = useState('')
     const router = useRouter()
     const [loading, setLoading] = useState(false)
-    const [userType, setUserType] = useState<"doctor" | "patient">("patient")
+    // const [userType, setUserType] = useState<"doctor" | "patient">("patient")
     const [error, setError] = useState<string | null>(null);
 
     const handleLogin = async (e: React.FormEvent) => {
@@ -31,7 +31,8 @@ export default function Login() {
         const res = await signIn("credentials", {
             email,
             password,
-            type: userType,
+            // type: userType,
+            type: "patient",
             callbackUrl: "/patient/dashboard",
             redirect: false
         })
@@ -108,7 +109,7 @@ export default function Login() {
                                     Pas encore de compte ? <Link
                                         href="/patient/signup"
                                         className="text-[#067f7a] underline"
-                                    >S'inscrire ici</Link>
+                                    >S&apos;inscrire ici</Link>
                                 </p>
                             </div>
                             <div className="mt-4">

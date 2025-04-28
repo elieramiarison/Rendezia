@@ -2,6 +2,7 @@ import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import { MdNotificationsNone } from "react-icons/md";
 import { CiSettings } from "react-icons/ci";
+import Image from "next/image";
 
 const Navbar = () => {
     const { data: session } = useSession()
@@ -36,11 +37,20 @@ const Navbar = () => {
                     <h1 className="ml-2">Paramètres</h1>
                 </div>
 
-                <img
-                    src={session?.user?.image || "Pas d'image"}
-                    alt="User"
-                    className="w-10 h-10 rounded-full"
-                />
+                {session?.user?.image ? (
+                    <Image
+                        src={session.user.image}
+                        alt="Photo de profil"
+                        width={40}
+                        height={40}
+                        className="rounded-full"
+                        priority={false}
+                    />
+                ) : (
+                    <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center">
+                        <span className="text-xs">Avatar</span>
+                    </div>
+                )}
             </div>
 
         </nav>

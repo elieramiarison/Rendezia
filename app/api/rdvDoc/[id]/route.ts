@@ -12,7 +12,7 @@ export async function DELETE(req: NextRequest, { params }: { params: { id?: stri
             return NextResponse.json({ message: "Disponibilite introuvable" }, { status: 404 })
         }
         return NextResponse.json({ message: "Disponibilité supprimée avec succès" });
-    } catch (error) {
+    } catch {
         return NextResponse.json({ message: "Erreur serveur" }, { status: 500 });
     }
 }

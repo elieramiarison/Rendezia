@@ -15,7 +15,7 @@ export async function GET(req: NextRequest, context: { params: { userId: string 
         const userAppointments = await Rdv.find({ userId });
         return NextResponse.json(userAppointments, { status: 200 });
     } catch (error) {
-        // console.error("Erreur serveur", error);
+        console.error("Erreur serveur", error);
         return NextResponse.json({ message: "Erreur serveur" }, { status: 500 });
     }
 }

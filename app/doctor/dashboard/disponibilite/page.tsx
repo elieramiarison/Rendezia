@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
+import type { Session } from "next-auth";
 import { MdDelete } from "react-icons/md";
 import { FiEdit } from "react-icons/fi";
 import { TailSpin } from "react-loader-spinner";
@@ -23,12 +24,25 @@ interface Disponibilite {
   email?: string;
 }
 
+interface UserSession extends Session {
+  user?: {
+    id: string;
+    name?: string;
+    specialite?: string;
+    clinic?: string;
+    tel?: string;
+    firstName?: string;
+    email?: string;
+    image?: string;
+  };
+}
+
 export default function AddAvailability() {
   const [date, setDate] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   const [availabilities, setAvailabilities] = useState<Disponibilite[]>([]);
-  const { data: session }: Record<string, any> = useSession()
+  const { data: session } = useSession() as { data: UserSession | null }
   const [currentId, setCurrentId] = useState<string | null>(null);
   const [toggle, setIsToggle] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -115,10 +129,10 @@ export default function AddAvailability() {
       if (res.ok) {
         setAvailabilities(availabilities.filter(item => item._id !== id))
       } else {
-        alert("Tsy poins e")
+        alert("Donnee n'est pas supprimer")
       }
-    } catch (error: any) {
-      alert(error.message)
+    } catch {
+      alert("Donnee n'est pas supprimer")
     }
   }
 

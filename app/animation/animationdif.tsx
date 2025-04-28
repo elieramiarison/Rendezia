@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { ReactNode } from 'react';
 
 interface AnimatedSectionProps {
-    children: React.ReactNode;
+    children: ReactNode;
     delay: number;
 }
 

@@ -18,7 +18,6 @@ export default function Login() {
     const [password, setPassword] = useState('')
     const router = useRouter()
     const [loading, setLoading] = useState(false)
-    const [userType, setUserType] = useState<"doctor" | "patient">("patient")
     const [error, setError] = useState<string | null>(null);
 
     const handleLogin = async (e: React.FormEvent) => {
@@ -108,7 +107,7 @@ export default function Login() {
                                     Pas encore de compte ? <Link
                                         href="/doctor/signup"
                                         className="text-[#067f7a] underline"
-                                    >S'inscrire ici</Link>
+                                    >S&apos;inscrire ici</Link>
                                 </p>
                             </div>
                             <div className="mt-4">

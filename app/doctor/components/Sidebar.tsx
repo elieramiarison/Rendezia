@@ -6,10 +6,20 @@ import { FaPowerOff } from "react-icons/fa";
 import { Calendar } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { MdOutlinePerson } from "react-icons/md";
+import { Session } from "next-auth";
 import Image from "next/image";
 
+interface CustomSession extends Session {
+  user?: {
+    name?: string | null;
+    firstName?: string | null;
+    image?: string | null;
+    email?: string | null;
+  };
+}
+
 const Sidebar = () => {
-  const { data: session }: Record<string, any> = useSession()
+  const { data: session } = useSession() as { data: CustomSession | null };
   const pathname = usePathname();
 
   const navItems = [

@@ -43,17 +43,25 @@ export async function POST(req: NextRequest) {
 
         return NextResponse.json({ message: "Vouz avez connecté" }, { status: 201 })
 
-    } catch (error: any) {
-        // console.error("Erreur lors de l'inscription :", error);
-        return NextResponse.json({ message: "Erreur serveur", error: error.message }, { status: 500 });
+    } catch (error) {
+        console.error("Erreur lors de l'inscription :", error);
+        return NextResponse.json({ message: "Erreur serveur" }, { status: 500 });
     }
+}
+
+interface AuthenticatedSession {
+    id: string;
+    email?: string;
+    // Ajouter d'autres champs si nécessaire
 }
 
 export async function PUT(req: NextRequest) {
     try {
-        const session: any = await getServerSession(authOptions)
-        if (!session) {
-            return NextResponse.json({ message: "Non autorise" }, { status: 401 })
+        const session = await getServerSession(authOptions)
+        const user = session?.user as AuthenticatedSession | undefined;
+
+        if (!user?.id) {
+            return NextResponse.json({ message: "Non autorisé" }, { status: 401 });
         }
 
         const formData = await req.formData();
@@ -68,7 +76,7 @@ export async function PUT(req: NextRequest) {
         const pdpDoc = formData.get("pdpDoc") as File | null;
         const newPassword = formData.get("newPassword") as string || null
 
-        const doctor = await Doctor.findById(session?.user?.id)
+        const doctor = await Doctor.findById(user.id)
         if (!doctor) {
             return NextResponse.json({ message: "Docteur introuvable" }, { status: 404 });
         }
@@ -111,8 +119,9 @@ export async function PUT(req: NextRequest) {
             pdpDoc: doctor.pdpDoc
         }, { status: 200 });
 
-    } catch (error: any) {
-        // console.error("Erreur lors de la modification du profil :", error);
-        return NextResponse.json({ message: "Erreur serveur", error: error.message }, { status: 500 });
+    } catch (error: unknown) {
+        // return NextResponse.json({ message: "Erreur serveur", error: error.message }, { status: 500 });
+        const errorMessage = error instanceof Error ? error.message : "Erreur inconnue";
+        return NextResponse.json({ message: "Erreur serveur", error: errorMessage }, { status: 500 });
     }
 }

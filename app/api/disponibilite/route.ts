@@ -18,24 +18,55 @@ export async function POST(req: NextRequest) {
         const savedDisponibilite = await newDisponibilite.save()
 
         return NextResponse.json(savedDisponibilite, { status: 201 })
-    } catch (error) {
+    } catch {
         // console.log("Erreur serveur", error)
         return NextResponse.json({ message: "Erreur serveur" }, { status: 500 });
     }
 }
 
+// export async function GET(req: NextRequest) {
+//     try {
+//         const session: any = await getServerSession(authOptions)
+//         if (!session || !session.user) {
+//             return NextResponse.json({ message: "Non autorise" }, { status: 401 })
+//         }
+//         const doctorId = session.user.id
+//         const teste = await Dispo.find({ doctorId })
+//         return NextResponse.json(teste, { status: 200 });
+
+//     } catch (error) {
+//         // console.log("Erreur serveur", error);
+//         return NextResponse.json({ message: "Erreur serveur" }, { status: 500 });
+//     }
+// }
+
+interface AuthenticatedUser {
+    id: string;
+    name?: string;
+    email?: string;
+}
+
 export async function GET() {
     try {
-        const session: any = await getServerSession(authOptions)
-        if (!session || !session.user) {
-            return NextResponse.json({ message: "Non autorise" }, { status: 401 })
-        }
-        const doctorId = session.user.id
-        const teste = await Dispo.find({ doctorId })
-        return NextResponse.json(teste, { status: 200 });
+        const session = await getServerSession(authOptions);
+        const user = session?.user as AuthenticatedUser | undefined;
 
-    } catch (error) {
-        // console.log("Erreur serveur", error);
-        return NextResponse.json({ message: "Erreur serveur" }, { status: 500 });
+        // Vérification consolidée
+        if (!user?.id) {
+            return NextResponse.json({ message: "Non autorisé" }, { status: 401 });
+        }
+
+        // Utilisation cohérente du typage
+        const doctorId = user.id; // Plus besoin de 'as AuthenticatedSession'
+        const disponibilites = await Dispo.find({ doctorId });
+
+        return NextResponse.json(disponibilites, { status: 200 });
+
+    } catch (error: unknown) {
+        console.error("Erreur serveur:", error);
+        return NextResponse.json(
+            { message: "Erreur serveur" },
+            { status: 500 }
+        );
     }
 }

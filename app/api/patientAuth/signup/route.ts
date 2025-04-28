@@ -53,15 +53,23 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ message: "Connexion reussi" }, { status: 201 });
 
     } catch (error) {
-        // console.error("Erreur lors de l'inscription :", error);
+        console.error("Erreur lors de l'inscription :", error);
         return NextResponse.json({ message: "Erreur serveur" }, { status: 500 });
     }
 }
 
+interface AuthenticatedSession {
+    id: string;
+    email?: string;
+    // Ajouter d'autres champs si nécessaire
+}
+
 export async function PUT(req: NextRequest) {
-    const session: any = await getServerSession(authOptions)
-    if (!session) {
-        return NextResponse.json({ message: "Non autorise" }, { status: 401 })
+    const session = await getServerSession(authOptions)
+    const user_ = session?.user as AuthenticatedSession | undefined;
+
+    if (!user_?.id) {
+        return NextResponse.json({ message: "Non autorisé" }, { status: 401 });
     }
     const formData = await req.formData()
     const name = formData.get("name") as string || null
@@ -74,7 +82,7 @@ export async function PUT(req: NextRequest) {
     const password = formData.get("password") as string || null
     const nouvPassword = formData.get("NouvPassword") as string || null
 
-    const user = await User.findById(session?.user?.id)
+    const user = await User.findById(user_.id)
     if (!user) {
         return NextResponse.json({ message: "Utilisateur introuvable" }, { status: 404 })
     }

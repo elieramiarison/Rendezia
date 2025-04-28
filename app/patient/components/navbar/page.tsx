@@ -14,7 +14,7 @@ import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 
 export default function Navbar() {
-    const { data: session, status } = useSession()
+    const { data: session } = useSession()
     const [isOpen, setIsOpen] = useState(false)
 
     useEffect(() => {

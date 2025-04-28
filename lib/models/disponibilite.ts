@@ -1,7 +1,7 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, Types } from "mongoose";
 
 interface IDispo {
-    doctorId: any,
+    doctorId: Types.ObjectId,
     nameDoc: string,
     specialiteDoc: string,
     date: string,
@@ -14,7 +14,12 @@ interface IDispo {
 }
 
 const dispoSchema = new Schema<IDispo>({
-    doctorId: { type: mongoose.Schema.Types.ObjectId, ref: "Doctor", required: true },
+    // doctorId: { type: mongoose.Schema.Types.ObjectId, ref: "Doctor", required: true },
+    doctorId: {
+        type: Schema.Types.ObjectId,
+        ref: "Doctor",
+        required: true
+    },
     nameDoc: { type: String, required: true },
     specialiteDoc: { type: String, },
     date: { type: String, required: true },

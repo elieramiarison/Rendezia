@@ -90,7 +90,7 @@ export default function Login() {
           <Card className="lg:w-[450px] md:w-[400px] sm:w-[350px] w-[350px] mt-14">
             <CardHeader className="flex items-start">
               <CardTitle className="font-bold text-xl text-[#20363d]">Vous êtes docteur ?</CardTitle>
-              <p className="text-sm text-[#20363d]">C'est le moment de créer votre compte !</p>
+              <p className="text-sm text-[#20363d]">C&apos;est le moment de créer votre compte !</p>
               <p className="text-sm">Les champs avec <span className="text-red-600">*</span> sont obligatoire</p>
             </CardHeader>
 
@@ -211,6 +211,6 @@ export default function Login() {
 
 const SubmitButton = () => {
   return (
-    <Button type="submit" className="bg-[#067f7a] hover:bg-[#1d6965] text-white px-4 py-2 rounded-full">S'inscrire</Button>
+    <Button type="submit" className="bg-[#067f7a] hover:bg-[#1d6965] text-white px-4 py-2 rounded-full">S&apos;inscrire</Button>
   )
 }

@@ -4,11 +4,31 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn, useSession } from "next-auth/react";
 import { TailSpin } from "react-loader-spinner";
+import { Session } from "next-auth";
 import Image from "next/image";
+
+interface UserSession {
+  user?: {
+    name?: string;
+    firstName?: string;
+    email?: string;
+    tel?: string;
+    specialite?: string;
+    clinic?: string;
+    genre?: string;
+    image?: string;
+  };
+}
+
+interface SessionReturn {
+  data: UserSession;
+  status: 'loading' | 'authenticated' | 'unauthenticated';
+  update: (data?: unknown) => Promise<Session | null>;
+}
 
 export default function Login() {
   const router = useRouter()
-  const { data: session, status, update }: Record<string, any> = useSession()
+  const { data: session, status, update } = useSession() as SessionReturn;
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -82,9 +102,9 @@ export default function Login() {
       await signIn("credentials", { redirect: false });
       router.refresh();
       router.push('/doctor/dashboard/profil');
-    } catch (error: any) {
-      console.error("Erreur API :", error.message);
-      alert(error.message);
+    } catch (error) {
+      console.error("Erreur API :", error);
+      alert(error);
     } finally {
       setLoading(false);
     }

@@ -24,8 +24,8 @@ export function useDisponibilite() {
                 setTimeout(() => {
                     setLoading(false);
                 }, 2000);
-            } catch (error) {
-                console.log("Erreur de serveur")
+            } catch {
+                // console.log("Erreur de serveur")
                 setLoading(false)
             }
         }

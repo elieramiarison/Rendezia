@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
             pdp: user.pdp
         })
 
-    } catch (error) {
+    } catch {
         return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
     }
 }
