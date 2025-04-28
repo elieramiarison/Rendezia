@@ -87,40 +87,42 @@ export default function Navbar() {
                 </button>
 
                 {/* Menu déroulant */}
-                {isOpen && (
-                    <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg py-2">
-                        <Link href="/patient/dashboard/profil" onClick={() => setIsOpen(false)} className="flex items-center gap-2 font-bold px-4 py-1 hover:bg-gray-100">
-                            <IoPerson size={17} /> {session?.user?.name}
-                        </Link>
+                <div style={{ display: isOpen ? "block" : "none" }} className="absolute">
+                    {isOpen && (
+                        <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg py-2">
+                            <Link href="/patient/dashboard/profil" onClick={() => setIsOpen(false)} className="flex items-center gap-2 font-bold px-4 py-1 hover:bg-gray-100">
+                                <IoPerson size={17} /> {session?.user?.name}
+                            </Link>
 
-                        <hr className="my-1" />
+                            <hr className="my-1" />
 
-                        <Link href="/patient/dashboard/" onClick={() => setIsOpen(false)} className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
-                            <IoHomeOutline size={17} />Accueil
-                        </Link>
+                            <Link href="/patient/dashboard/" onClick={() => setIsOpen(false)} className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
+                                <IoHomeOutline size={17} />Accueil
+                            </Link>
 
-                        <Link href="/patient/dashboard/rendez-vous" onClick={() => setIsOpen(false)} className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
-                            <IoAccessibilityOutline size={17} /> Rendez-vous
-                        </Link>
+                            <Link href="/patient/dashboard/rendez-vous" onClick={() => setIsOpen(false)} className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
+                                <IoAccessibilityOutline size={17} /> Rendez-vous
+                            </Link>
 
-                        <Link href="/patient/dashboard/updateProfil" onClick={() => setIsOpen(false)} className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
-                            <MdEdit size={17} /> Modifier profil
-                        </Link>
+                            <Link href="/patient/dashboard/updateProfil" onClick={() => setIsOpen(false)} className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
+                                <MdEdit size={17} /> Modifier profil
+                            </Link>
 
-                        <div onClick={handleClick} className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                            <Settings size={17} /> Paramètres
+                            <div onClick={handleClick} className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                                <Settings size={17} /> Paramètres
+                            </div>
+
+                            <hr className="my-1" />
+                            <span className="px-4 text-gray-500 text-xs">DECONNEXION</span>
+
+                            <div className="px-4 py-2 hover:bg-gray-100 hover:text-red-500">
+                                <button onClick={() => { setIsOpen(false); handleLogout(); }} className="flex items-center gap-2">
+                                    <FaPowerOff size={17} /> Déconnexion
+                                </button>
+                            </div>
                         </div>
-
-                        <hr className="my-1" />
-                        <span className="px-4 text-gray-500 text-xs">DECONNEXION</span>
-
-                        <div className="px-4 py-2 hover:bg-gray-100 hover:text-red-500">
-                            <button onClick={() => { setIsOpen(false); handleLogout(); }} className="flex items-center gap-2">
-                                <FaPowerOff size={17} /> Déconnexion
-                            </button>
-                        </div>
-                    </div>
-                )}
+                    )}
+                </div>
 
             </div>
         </div>
