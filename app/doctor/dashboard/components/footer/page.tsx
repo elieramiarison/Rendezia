@@ -1,5 +1,5 @@
 import { FaFacebook, FaInstagram, FaLinkedinIn } from "react-icons/fa";
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
 export default function Footer() {
@@ -13,15 +13,15 @@ export default function Footer() {
                 </div>
                 <div className=" flex flex-col md:flex-row sm:flex-row gap-4">
 
-                    <Button className="p-6 rounded-2xl bg-[#20363d] text-[#fff]">
+                    <button className="p-6 rounded-2xl bg-[#20363d] text-[#fff]">
                         <Image src="/apple.svg" alt="apple" width={30} height={30} className="w-6 lg:w-8 md:w-8 sm:w-8" />
                         <div className="lg:text-xs md:text-xs sm:text-xs text-[0.6rem]">Telecharger sur <br /> <span className="font-bold text-l">App Store</span></div>
-                    </Button>
+                    </button>
 
-                    <Button className="p-6 rounded-2xl bg-[#20363d] text-[#fff]">
+                    <button className="p-6 rounded-2xl bg-[#20363d] text-[#fff]">
                         <Image src="/playstore.svg" alt="apple" width={30} height={30} className="w-6 lg:w-8 md:w-8 sm:w-8" />
                         <div className="lg:text-xs md:text-xs sm:text-xs text-[0.6rem]">Telecharger sur <br /> <span className="font-bold text-l">Play Store</span></div>
-                    </Button>
+                    </button>
 
                 </div>
             </div>

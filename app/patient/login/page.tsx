@@ -1,5 +1,5 @@
 "use client"
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -92,9 +92,9 @@ export default function Login() {
                                 </div>
 
                                 <div className="mt-3">
-                                    <Button type="submit" className="bg-[#067f7a] hover:bg-[#1d6965] w-full rounded-full">{loading ?
+                                    <button type="submit" className="bg-[#067f7a] hover:bg-[#1d6965] w-full rounded-full">{loading ?
                                         <TailSpin color="#fff" height={20} width={20} strokeWidth={5} />
-                                        : "Se connecter"}</Button>
+                                        : "Se connecter"}</button>
                                 </div>
                                 {error && (
                                     <div className="text-red-700 text-sm text-start">

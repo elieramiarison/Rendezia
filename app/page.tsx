@@ -2,7 +2,7 @@
 import Link from "next/link"
 import Image from "next/image";
 import { FaCalendarAlt } from "react-icons/fa";
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 import { MdSecurity } from "react-icons/md";
 import Footer from "./doctor/dashboard/components/footer/page";
 import AnimatedSection1 from "./animation/animationdif";
@@ -61,14 +61,14 @@ export default function Home() {
             <div className="mt-2">
               <div className="flex gap-4">
                 <Link href="/doctor/login">
-                  <Button className="bg-[#eb3e5efa] hover:bg-[#f03658] text-white px-4 py-2 rounded-full lg:flex hidden">
+                  <button className="bg-[#eb3e5efa] hover:bg-[#f03658] text-white px-4 py-2 rounded-full lg:flex hidden">
                     Se connecter en tant que docteur 👨‍⚕️
-                  </Button>
+                  </button>
                 </Link>
                 <Link href="/patient/login">
-                  <Button className="bg-[#eb3e5efa] hover:bg-[#f03658] text-white px-3 py-2 rounded-full lg:flex hidden">
+                  <button className="bg-[#eb3e5efa] hover:bg-[#f03658] text-white px-3 py-2 rounded-full lg:flex hidden">
                     Se connecter en tant que patient 🙎‍♂️
-                  </Button>
+                  </button>
                 </Link>
               </div>
 

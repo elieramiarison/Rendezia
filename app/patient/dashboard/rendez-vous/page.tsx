@@ -2,7 +2,7 @@
 
 import { useDisponibilite } from "@/app/hooks/useDisponibilite";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import Modal from "../../components/modal/page";
@@ -205,24 +205,24 @@ const AppointmentForm = () => {
                   <p>Du : {rdv.startTime}</p>
                   <p>Jusqu&ops;à : {rdv.endTime}</p>
                   <div className="flex gap-3">
-                    {disabledButtons[rdv._id] ? <Button
+                    {disabledButtons[rdv._id] ? <button
                       className="mt-2 bg-red-600 hover:bg-red-700 w-full"
                       onClick={() => handleClick_(rdv._id)}
                     >
                       Annuler ce date
-                    </Button> :
-                      <Button
+                    </button> :
+                      <button
                         className="mt-2 bg-[#067f7a] hover:bg-[#1d6965] w-full"
                         onClick={() => handleClick(rdv._id, rdv.date, rdv.startTime, rdv.endTime, rdv.doctorId)}
                       >
                         Prendre ce date
-                      </Button>}
-                    <Button
+                      </button>}
+                    <button
                       className="mt-2 bg-blue-600 hover:bg-blue-700 w-full"
                       onClick={() => openModal(rdv.doctorId)}
                     >
                       Voir le profil
-                    </Button>
+                    </button>
                   </div>
                 </CardContent>
               </Card>

@@ -1,5 +1,5 @@
 "use client"
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { Session } from "next-auth";
@@ -251,9 +251,9 @@ export default function UpdateProfil() {
                         </div>
                     </div>
                     <div className=" mt-4">
-                        <Button type="submit" disabled={loading} className="...">
+                        <button type="submit" disabled={loading} className="...">
                             {loading ? "Enregistrement..." : "Enregistrer la modification"}
-                        </Button>
+                        </button>
 
                     </div>
                 </form>

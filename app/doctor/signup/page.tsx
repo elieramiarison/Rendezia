@@ -1,5 +1,5 @@
 "use client"
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -211,6 +211,6 @@ export default function Login() {
 
 const SubmitButton = () => {
   return (
-    <Button type="submit" className="bg-[#067f7a] hover:bg-[#1d6965] text-white px-4 py-2 rounded-full">S&apos;inscrire</Button>
+    <button type="submit" className="bg-[#067f7a] hover:bg-[#1d6965] text-white px-4 py-2 rounded-full">S&apos;inscrire</button>
   )
 }

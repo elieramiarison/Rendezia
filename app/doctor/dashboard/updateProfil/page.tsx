@@ -1,5 +1,5 @@
 "use client"
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn, useSession } from "next-auth/react";
@@ -223,11 +223,11 @@ export default function Login() {
             </div>
           </div>
           <div className=" mt-4">
-            <Button type="submit" className="bg-[#08a6a0] hover:bg-[#067f7a] md:text-base w-64 text-[0.6rem]">
+            <button type="submit" className="bg-[#08a6a0] hover:bg-[#067f7a] md:text-base p-2 rounded-md text-white w-64 text-[0.6rem]">
               {loading ?
                 <TailSpin color="#fff" height={30} width={30} strokeWidth={5} />
                 : "Enregistrer la modification"}
-            </Button>
+            </button>
           </div>
         </form>
       </div>
