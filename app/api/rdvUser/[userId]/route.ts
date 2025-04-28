@@ -2,10 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { Rdv } from "@/lib/models/RendezVous";
 import { connectDB } from "@/lib/mongodb";
 
-connectDB();
+// connectDB();
 
 export async function GET(req: NextRequest, context: { params: { userId: string } }) {
     try {
+        await connectDB()
         const userId = context?.params?.userId;
 
         if (!userId) {

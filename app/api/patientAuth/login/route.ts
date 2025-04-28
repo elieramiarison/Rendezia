@@ -4,12 +4,13 @@ import { User } from "@/lib/models/User";
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken";
 
-connectDB()
+// connectDB()
 
 const SECRET_KEY = "process.env.JWT_SECRET"
 
 export async function POST(req: NextRequest) {
     try {
+        await connectDB()
         const { email, password } = await req.json()
         const user = await User.findOne({ email })
         if (!user) {

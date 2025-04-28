@@ -7,9 +7,10 @@ import { connectDB } from '@/lib/mongodb';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 
-connectDB()
+// connectDB()
 export async function POST(req: NextRequest) {
     try {
+        await connectDB()
         const formData = await req.formData()
         const name = formData.get("name") as string
         const email = formData.get("email") as string
@@ -57,6 +58,7 @@ interface AuthenticatedSession {
 
 export async function PUT(req: NextRequest) {
     try {
+        await connectDB()
         const session = await getServerSession(authOptions)
         const user = session?.user as AuthenticatedSession | undefined;
 

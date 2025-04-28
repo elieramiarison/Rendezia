@@ -2,9 +2,10 @@ import { Rdv } from "@/lib/models/RendezVous";
 import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
 
-connectDB()
+// connectDB()
 export async function DELETE(req: NextRequest, { params }: { params: { id?: string } }) {
     try {
+        await connectDB()
         const { id } = params
         console.log("Id est :::", id)
         const deleted = await Rdv.findOneAndDelete({ id })

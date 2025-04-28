@@ -4,9 +4,11 @@ import { connectDB } from "@/lib/mongodb";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
-connectDB()
+// connectDB()
+
 export async function POST(req: NextRequest) {
     try {
+        await connectDB()
 
         const { id, name, specialite, date, startTime, endTime, clinic, tel, firstName, email } = await req.json()
 
@@ -48,6 +50,7 @@ interface AuthenticatedUser {
 
 export async function GET() {
     try {
+        await connectDB()
         const session = await getServerSession(authOptions);
         const user = session?.user as AuthenticatedUser | undefined;
 

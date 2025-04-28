@@ -4,11 +4,12 @@ import bcrypt from "bcryptjs";
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 
-connectDB()
+// connectDB()
 const SECRET_KEY = "process.env.JWT_SECRET"
 
 export async function POST(req: NextRequest) {
     try {
+        await connectDB()
         const { email, password } = await req.json()
 
         const doc = await Doctor.findOne({ email })

@@ -2,12 +2,13 @@ import { Dispo } from "@/lib/models/disponibilite";
 import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
 
-connectDB()
+// connectDB()
 export async function DELETE(req: NextRequest, { params }: { params: { id?: string } }) {
     if (!params?.id) {
         return NextResponse.json({ message: "Id manquant" }, { status: 400 })
     }
     try {
+        await connectDB()
         const { id } = params
         const deleted = await Dispo.findByIdAndDelete(id)
         if (!deleted) {
@@ -26,6 +27,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id?: string 
         return NextResponse.json({ message: "Id manquant" }, { status: 400 })
     }
     try {
+        await connectDB()
         const { id } = params
         const { date, startTime, endTime } = await req.json()
         if (!date || !startTime || !endTime) {

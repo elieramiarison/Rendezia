@@ -8,10 +8,11 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import fs from "fs";
 
-connectDB();
+// connectDB();
 
 export async function POST(req: NextRequest) {
     try {
+        await connectDB()
         const formData = await req.formData();
 
         const name = formData.get("name") as string
@@ -65,6 +66,7 @@ interface AuthenticatedSession {
 }
 
 export async function PUT(req: NextRequest) {
+    await connectDB()
     const session = await getServerSession(authOptions)
     const user_ = session?.user as AuthenticatedSession | undefined;
 
