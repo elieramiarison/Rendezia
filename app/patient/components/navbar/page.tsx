@@ -14,6 +14,11 @@ import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 
 export default function Navbar() {
+    if (typeof window === "undefined") {
+        // Pendant le build => pas de session
+        return null;
+    }
+
     const { data: session } = useSession()
     const [isOpen, setIsOpen] = useState(false)
 
