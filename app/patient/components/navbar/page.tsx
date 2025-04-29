@@ -76,8 +76,6 @@ export default function Navbar() {
                 </Link>
             </div>
 
-
-
             <div className="relative" ref={dropdownRef}>
                 <button
                     onClick={() => setIsOpen(!isOpen)}

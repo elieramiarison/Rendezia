@@ -1,10 +1,13 @@
 "use client";
 
 import { SessionProvider } from "next-auth/react";
-import Navbar from "../components/navbar/page";
+// import Navbar from "../components/navbar/page";
 import Footer from "../components/footer/page";
 import { ToastContainer } from "react-toastify";
 import { Toaster } from "react-hot-toast";
+import dynamic from "next/dynamic";
+
+const Navbar = dynamic(() => import('../components/navbar/page'), { ssr: false });
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (

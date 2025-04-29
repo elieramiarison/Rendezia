@@ -1,11 +1,8 @@
-import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import { MdNotificationsNone } from "react-icons/md";
 import { CiSettings } from "react-icons/ci";
-import Image from "next/image";
 
 const Navbar = () => {
-    const { data: session } = useSession()
     const pathname = usePathname();
 
     const getTitle = (path: string) => {
