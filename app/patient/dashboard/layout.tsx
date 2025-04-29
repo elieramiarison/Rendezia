@@ -11,16 +11,16 @@ const Navbar = dynamic(() => import('../components/navbar/page'), { ssr: false }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="en">
-            <body>
-                <SessionProvider>
-                    <Navbar />
-                    <ToastContainer position="bottom-right" autoClose={3000} />
-                    <Toaster />
-                    <main className="flex-1 bg-gray-100">{children}</main>
-                    <Footer />
-                </SessionProvider>
-            </body>
-        </html>
+        // <html lang="en">
+        //     <body>
+        <SessionProvider>
+            <Navbar />
+            <ToastContainer position="bottom-right" autoClose={3000} />
+            <Toaster />
+            <main className="flex-1 bg-gray-100">{children}</main>
+            <Footer />
+        </SessionProvider>
+        //     </body>
+        // </html>
     );
 }
