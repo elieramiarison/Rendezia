@@ -206,19 +206,19 @@ const AppointmentForm = () => {
                   <p>Jusqu&ops;à : {rdv.endTime}</p>
                   <div className="flex gap-3">
                     {disabledButtons[rdv._id] ? <button
-                      className="mt-2 bg-red-600 hover:bg-red-700 w-full"
+                      className="mt-2 bg-red-600 hover:bg-red-700 w-full p-2 rounded-md text-white"
                       onClick={() => handleClick_(rdv._id)}
                     >
                       Annuler ce date
                     </button> :
                       <button
-                        className="mt-2 bg-[#067f7a] hover:bg-[#1d6965] w-full"
+                        className="mt-2 bg-[#067f7a] hover:bg-[#1d6965] w-full p-2 rounded-md text-white"
                         onClick={() => handleClick(rdv._id, rdv.date, rdv.startTime, rdv.endTime, rdv.doctorId)}
                       >
                         Prendre ce date
                       </button>}
                     <button
-                      className="mt-2 bg-blue-600 hover:bg-blue-700 w-full"
+                      className="mt-2 bg-blue-600 hover:bg-blue-700 w-full p-2 rounded-md text-white"
                       onClick={() => openModal(rdv.doctorId)}
                     >
                       Voir le profil

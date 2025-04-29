@@ -13,12 +13,12 @@ export default function Footer() {
                 </div>
                 <div className=" flex flex-col md:flex-row sm:flex-row gap-4">
 
-                    <button className="p-6 rounded-2xl bg-[#20363d] text-[#fff]">
+                    <button className="rounded-2xl bg-[#20363d] text-[#fff] flex justify-center items-center gap-2 px-3 py-3">
                         <Image src="/apple.svg" alt="apple" width={30} height={30} className="w-6 lg:w-8 md:w-8 sm:w-8" />
                         <div className="lg:text-xs md:text-xs sm:text-xs text-[0.6rem]">Telecharger sur <br /> <span className="font-bold text-l">App Store</span></div>
                     </button>
 
-                    <button className="p-6 rounded-2xl bg-[#20363d] text-[#fff]">
+                    <button className="p-6 rounded-2xl bg-[#20363d] text-[#fff] flex justify-center items-center gap-2 px-3 py-3">
                         <Image src="/playstore.svg" alt="apple" width={30} height={30} className="w-6 lg:w-8 md:w-8 sm:w-8" />
                         <div className="lg:text-xs md:text-xs sm:text-xs text-[0.6rem]">Telecharger sur <br /> <span className="font-bold text-l">Play Store</span></div>
                     </button>

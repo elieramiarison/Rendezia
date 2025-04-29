@@ -251,7 +251,7 @@ export default function UpdateProfil() {
                         </div>
                     </div>
                     <div className=" mt-4">
-                        <button type="submit" disabled={loading} className="...">
+                        <button type="submit" disabled={loading} className="bg-[#067f7a] hover:bg-[#1d6965] py-[0.40rem] px-4 text-white rounded-full md:text-base sm:text-xs text-xs">
                             {loading ? "Enregistrement..." : "Enregistrer la modification"}
                         </button>
 

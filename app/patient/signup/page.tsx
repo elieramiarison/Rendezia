@@ -217,6 +217,8 @@ export default function Login() {
 
 const SubmitButton = () => {
   return (
-    <button type="submit" className="bg-[#067f7a] hover:bg-[#1d6965] rounded-full mt-2">S&apos;inscrire</button>
+    <button type="submit" className="bg-[#067f7a] hover:bg-[#1d6965] p-[0.35rem] text-white rounded-full mt-2">
+      S&apos;inscrire
+    </button>
   )
 }

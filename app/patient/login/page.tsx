@@ -92,8 +92,10 @@ export default function Login() {
                                 </div>
 
                                 <div className="mt-3">
-                                    <button type="submit" className="bg-[#067f7a] hover:bg-[#1d6965] w-full rounded-full">{loading ?
-                                        <TailSpin color="#fff" height={20} width={20} strokeWidth={5} />
+                                    <button type="submit" className="bg-[#067f7a] hover:bg-[#1d6965] w-full rounded-full p-[0.35rem] text-white">{loading ?
+                                        <div className="flex justify-center">
+                                            <TailSpin color="#fff" height={20} width={20} strokeWidth={5} />
+                                        </div>
                                         : "Se connecter"}</button>
                                 </div>
                                 {error && (

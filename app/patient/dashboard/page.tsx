@@ -56,7 +56,7 @@ export default function DoctorDashboard() {
               </AnimatedSection1>
               <AnimatedSection1 delay={1}>
                 <Link href="/patient/dashboard/profil">
-                  <button className="bg-[#fff] hover:bg-gray-300 text-[#20363d] px-7 py-2 rounded-full">
+                  <button className="bg-[#fff] hover:bg-gray-300 text-[#20363d] px-7 py-[0.35rem] rounded-full">
                     Votre profil
                   </button>
                 </Link>
@@ -92,7 +92,7 @@ export default function DoctorDashboard() {
                 <h1 className="font-bold lg:text-4xl md:text-4xl sm:text-3xl text-2xl text-[#20363d] p-2">Votre consultation
                   à tout moment de la journée</h1>
                 <p className="text-[#20363d] p-3 lg:text-base md:text-base sm:text-xs text-xs">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iusto corrupti unde laboriosam similique quod sed autem, possimus ipsum sunt! Asperiores, libero ipsa aut repudiandae ad possimus voluptas adipisci quos natus!</p>
-                <button className="bg-[#067f7a] hover:bg-[#1d6965] text-white px-4 py-2 rounded-3xl" onClick={handleClick}>
+                <button className="bg-[#067f7a] hover:bg-[#1d6965] text-white px-4 py-2 rounded-3xl md:text-base sm:text-xs text-xs" onClick={handleClick}>
                   Teleconsulter avec Rendezia
                 </button>
               </div>
@@ -106,7 +106,7 @@ export default function DoctorDashboard() {
               <div className="ml-[5px] lg:w-[40rem] md:w-[35rem] sm:w-[33rem] w-[23rem] text-start md:p-8">
                 <h1 className="font-bold lg:text-4xl md:text-4xl sm:text-3xl text-2xl text-[#20363d] p-2">Vos documents de santé, toujours avec vous !</h1>
                 <p className="text-[#20363d] p-3 lg:text-base md:text-base sm:text-xs text-xs">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iusto corrupti unde laboriosam similique quod sed autem, possimus ipsum sunt! Asperiores, libero ipsa aut repudiandae ad possimus voluptas adipisci quos natus!</p>
-                <button className="bg-[#067f7a] hover:bg-[#1d6965] text-white px-4 py-2 rounded-3xl" onClick={handleClick}>
+                <button className="bg-[#067f7a] hover:bg-[#1d6965] text-white px-4 py-2 rounded-3xl md:text-base sm:text-xs text-xs" onClick={handleClick}>
                   Acceder a mes medicaments
                 </button>
               </div>

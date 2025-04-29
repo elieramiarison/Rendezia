@@ -61,12 +61,12 @@ export default function Home() {
             <div className="mt-2">
               <div className="flex gap-4">
                 <Link href="/doctor/login">
-                  <button className="bg-[#eb3e5efa] hover:bg-[#f03658] text-white px-4 py-2 rounded-full lg:flex hidden">
+                  <button className="bg-[#eb3e5efa] hover:bg-[#f03658] text-white px-4 py-[0.35rem] rounded-full lg:flex hidden">
                     Se connecter en tant que docteur 👨‍⚕️
                   </button>
                 </Link>
                 <Link href="/patient/login">
-                  <button className="bg-[#eb3e5efa] hover:bg-[#f03658] text-white px-3 py-2 rounded-full lg:flex hidden">
+                  <button className="bg-[#eb3e5efa] hover:bg-[#f03658] text-white px-3 py-[0.35rem] rounded-full lg:flex hidden">
                     Se connecter en tant que patient 🙎‍♂️
                   </button>
                 </Link>

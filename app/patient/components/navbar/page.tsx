@@ -10,27 +10,28 @@ import { useState, useEffect } from "react";
 import { IoAccessibilityOutline, IoPerson, IoHomeOutline } from "react-icons/io5";
 import { FaPowerOff } from "react-icons/fa6";
 import { MdEdit } from "react-icons/md";
+import { useRef } from "react";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 
 export default function Navbar() {
-    if (typeof window === "undefined") {
-        // Pendant le build => pas de session
-        return null;
-    }
+    // if (typeof window === "undefined") {
+    //     return null;
+    // }
 
     const { data: session } = useSession()
     const [isOpen, setIsOpen] = useState(false)
+    const dropdownRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
-            if (!document.getElementById("dropdown")?.contains(event.target as Node)) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
                 setIsOpen(false);
             }
         };
         document.addEventListener("click", handleClickOutside);
         return () => document.removeEventListener("click", handleClickOutside);
-    }, [])
+    }, []);
 
     const handleClick = () => {
         alert("Bonjour, cette section est encore en cours de développement...")
@@ -59,25 +60,25 @@ export default function Navbar() {
                 </Link>
 
                 <Link
-                    href="/patient/dashboard/profil"
-                    className="relative group px-0 py-2"
-                >
-                    Votre profil
-                    <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-gray-100 transition-all duration-300 ease-in-out group-hover:w-full"></span>
-                </Link>
-
-                <Link
                     href="/patient/dashboard/rendez-vous"
                     className="relative group px-0 py-2"
                 >
                     Rendez-vous
                     <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-gray-100 transition-all duration-300 ease-in-out group-hover:w-full"></span>
                 </Link>
+
+                <Link
+                    href="/patient/dashboard/profil"
+                    className="relative group px-0 py-2"
+                >
+                    Votre profil
+                    <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-gray-100 transition-all duration-300 ease-in-out group-hover:w-full"></span>
+                </Link>
             </div>
 
 
 
-            <div className="relative" id="dropdown">
+            <div className="relative" ref={dropdownRef}>
                 <button
                     onClick={() => setIsOpen(!isOpen)}
                     className="flex items-center gap-2 bg-white lg:p-1 md:p-1 sm:p-0 p-0 rounded-full hover:bg-gray-300 transition"
