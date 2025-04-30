@@ -7,7 +7,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Image from "next/image";
-import { TailSpin } from "react-loader-spinner";
 import { signIn } from "next-auth/react";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
@@ -91,9 +90,7 @@ export default function Login() {
 
                                 <div className="mt-3">
                                     <button type="submit" className="bg-[#067f7a] hover:bg-[#1d6965] w-full rounded-full p-[0.35rem] text-white">{loading ?
-                                        <div className="flex justify-center">
-                                            <TailSpin color="#fff" height={20} width={20} strokeWidth={5} />
-                                        </div>
+                                        "Se connecter..."
                                         : "Se connecter"}</button>
                                 </div>
                                 {error && (

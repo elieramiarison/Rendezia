@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { TailSpin } from "react-loader-spinner";
 import { Session } from "next-auth";
 
 interface UserSession {
@@ -26,7 +25,7 @@ const Profile = () => {
 
     if (!session || !session.user) {
         <div className="flex justify-center items-center h-screen ">
-            <TailSpin color="#08a6a0" height={80} width={80} strokeWidth={3} />
+            <h1>Chargement...</h1>
         </div>
     }
 

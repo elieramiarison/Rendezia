@@ -5,7 +5,6 @@ import { useSession } from "next-auth/react";
 import type { Session } from "next-auth";
 import { MdDelete } from "react-icons/md";
 import { FiEdit } from "react-icons/fi";
-import { TailSpin } from "react-loader-spinner";
 // import { Button } from "@/components/ui/button";
 import "react-toastify/dist/ReactToastify.css";
 import toast from "react-hot-toast";
@@ -221,7 +220,7 @@ export default function AddAvailability() {
               <div className="flex gap-2">
                 <button onClick={handleUpdate} className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md transition">
                   {loading ?
-                    <TailSpin color="#fff" height={20} width={20} strokeWidth={5} />
+                    "Enregistrement..."
                     : "Enregistrer"}
                 </button>
                 <button onClick={handleBack} className="w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded-md transition">
@@ -233,7 +232,7 @@ export default function AddAvailability() {
                 <div className="w-full">
                   <button onClick={handleAddAvailability} className="w-full bg-[#08a6a0] hover:bg-[#067f7a] text-white py-2 rounded-md transition">
                     {loading ?
-                      <TailSpin color="#fff" height={20} width={20} strokeWidth={5} />
+                      "Ajouter..."
                       : "Ajouter"}
                   </button>
                 </div>

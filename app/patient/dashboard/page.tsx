@@ -6,7 +6,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import MyCarousel from "../components/swiper/page";
-import { TailSpin } from "react-loader-spinner";
 import AnimatedSection1 from "@/app/animation/animationdif";
 
 export default function DoctorDashboard() {
@@ -19,7 +18,7 @@ export default function DoctorDashboard() {
   if (status === "loading") {
     return (
       <div className="flex justify-center items-center h-screen ">
-        <TailSpin color="#08a6a0" height={80} width={80} strokeWidth={3} />
+        <h1>Chargement...</h1>
       </div>
     );
   }

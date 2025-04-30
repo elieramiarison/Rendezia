@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn, useSession } from "next-auth/react";
-import { TailSpin } from "react-loader-spinner";
 import { Session } from "next-auth";
 import Image from "next/image";
 
@@ -225,7 +224,7 @@ export default function Login() {
           <div className=" mt-4">
             <button type="submit" className="bg-[#08a6a0] hover:bg-[#067f7a] md:text-base p-2 rounded-md text-white w-64 text-[0.6rem]">
               {loading ?
-                <TailSpin color="#fff" height={30} width={30} strokeWidth={5} />
+                "Enregistrer la modification..."
                 : "Enregistrer la modification"}
             </button>
           </div>
