@@ -1,11 +1,11 @@
 "use client";
 
-import { SessionProvider } from "next-auth/react";
+import { SessionrProvider } from "next-auth/react";
 import Footer from "../components/footer/page";
 import { ToastContainer } from "react-toastify";
 import { Toaster } from "react-hot-toast";
 // import dynamic from "next/dynamic";
-import Navbar from "../components/Teste";
+import Navbar from "../components/Navbar";
 
 // const Navbar = dynamic(() => import('../components/Navbar'), { ssr: false });
 
