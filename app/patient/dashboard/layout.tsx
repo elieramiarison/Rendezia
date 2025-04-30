@@ -5,7 +5,7 @@ import Footer from "../components/footer/page";
 import { ToastContainer } from "react-toastify";
 import { Toaster } from "react-hot-toast";
 // import dynamic from "next/dynamic";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/Teste";
 
 // const Navbar = dynamic(() => import('../components/Navbar'), { ssr: false });
 
