@@ -1,6 +1,6 @@
 "use client";
 
-import { SessionrProvider } from "next-auth/react";
+import { SessionProvider } from "next-auth/react";
 import Footer from "../components/footer/page";
 import { ToastContainer } from "react-toastify";
 import { Toaster } from "react-hot-toast";
