@@ -19,7 +19,7 @@ export default function Navbar() {
     //     return null;
     // }
 
-    const { data: session } = useSession?.() || {};
+    const { data: session } = useSession()
     const [isOpen, setIsOpen] = useState(false)
     const dropdownRef = useRef<HTMLDivElement>(null);
 
