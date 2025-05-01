@@ -1,7 +1,8 @@
 import NextAuth, { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
-import { Doctor } from "@/lib/models/Doctor";
+// import { Doctor } from "@/lib/models/Doctor";
+import { Doctor } from "./models/Doctor"
 import { connectDB } from "./mongodb";
 import { JWT } from "next-auth/jwt";
 import { User } from "./models/User";
