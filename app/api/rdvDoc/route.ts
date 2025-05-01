@@ -1,8 +1,11 @@
 import { NextRequest, NextResponse } from "next/server"
-import { Rdv } from "@/lib/models/RendezVous"
-import { connectDB } from "@/lib/mongodb"
+// import { Rdv } from "@/lib/models/RendezVous"
+import { Rdv } from "../../../lib/models/RendezVous"
+// import { connectDB } from "@/lib/mongodb"
+import { connectDB } from "../../../lib/mongodb"
 import { getServerSession } from "next-auth"
-import { authOptions } from "@/lib/auth"
+// import { authOptions } from "@/lib/auth"
+import { authOptions } from "../../../lib/auth"
 
 // connectDB()
 interface AuthenticatedDoctor {

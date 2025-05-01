@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
-import { Dispo } from "@/lib/models/disponibilite";
+// import { Dispo } from "@/lib/models/disponibilite";
+import { Dispo } from "../../../lib/models/disponibilite"
 
 export async function GET() {
     try {

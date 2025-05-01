@@ -1,11 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
-import { connectDB } from "@/lib/mongodb";
-import { User } from "@/lib/models/User";
+// import { connectDB } from "@/lib/mongodb";
+import { connectDB } from "../../../../lib/mongodb"
+// import { User } from "@/lib/models/User";
+import { User } from "../../../../lib/models/User"
 import bcrypt from "bcryptjs";
 import { writeFile, mkdir } from "fs/promises";
 import path from "path";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+// import { authOptions } from "@/lib/auth";
+import { authOptions } from "../../../../lib/auth"
 import fs from "fs";
 
 // connectDB();

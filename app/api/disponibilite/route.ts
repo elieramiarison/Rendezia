@@ -1,8 +1,11 @@
-import { Dispo } from "@/lib/models/disponibilite";
+// import { Dispo } from "@/lib/models/disponibilite";
+import { Dispo } from "../../../lib/models/disponibilite"
 import { NextRequest, NextResponse } from "next/server";
-import { connectDB } from "@/lib/mongodb";
+// import { connectDB } from "@/lib/mongodb";
+import connectDB from "../../../lib/auth"
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+// import { authOptions } from "@/lib/auth";
+import { authOptions } from "../../../lib/auth"
 
 // connectDB()
 

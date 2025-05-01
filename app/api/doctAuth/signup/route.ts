@@ -1,11 +1,14 @@
-import { Doctor } from "@/lib/models/Doctor";
+// import { Doctor } from "@/lib/models/Doctor";
+import { Doctor } from "../../../../lib/models/Doctor"
 import bcrypt from "bcryptjs";
 import { writeFile, mkdir } from "fs/promises";
 import { NextRequest, NextResponse } from "next/server";
 import path from "path";
-import { connectDB } from '@/lib/mongodb';
+// import { connectDB } from '@/lib/mongodb';
+import connectDB from "../../../../lib/auth"
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+// import { authOptions } from '@/lib/auth';
+import { authOptions } from "../../../../lib/auth"
 
 // connectDB()
 export async function POST(req: NextRequest) {
