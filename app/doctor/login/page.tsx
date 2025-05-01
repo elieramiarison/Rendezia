@@ -1,8 +1,8 @@
 "use client"
 // import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+// import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+// import { Input } from "@/components/ui/input";
+// import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -59,7 +59,7 @@ export default function Login() {
             </div>
             <div className="bg-gray-100 flex lg:justify-between md:justify-center sm:justify-center justify-center pt-1 h-full">
                 <div>
-                    <Card className="lg:w-[450px] md:w-[400px] sm:w-[350px] w-[350px] h-[30rem] mt-14">
+                    {/* <Card className="lg:w-[450px] md:w-[400px] sm:w-[350px] w-[350px] h-[30rem] mt-14">
                         <CardHeader className="flex items-start">
                             <CardTitle className="font-bold text-2xl text-[#20363d]">Se connecter</CardTitle>
                         </CardHeader>
@@ -115,7 +115,7 @@ export default function Login() {
                                 </p>
                             </div>
                         </CardContent>
-                    </Card>
+                    </Card> */}
                 </div>
                 <div className="mt-[5rem] lg:flex hidden">
                     <Image src="/pharma.svg" width={600} height={600} alt="User" />
