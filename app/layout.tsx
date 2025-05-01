@@ -30,7 +30,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         // className={`${geistSans.variable} ${geistMono.variable} antialiased h-full`}
-        className={`antialiased h-full`}
+        className={` antialiased h-full`}
       >
         <AuthProvider>
           {children}
