@@ -1,7 +1,11 @@
 "use client";
 
 import { useDisponibilite } from "@/app/hooks/useDisponibilite";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+// import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card } from "../../../../components/ui/card"
+import { CardContent } from "../../../../components/ui/card"
+import { CardHeader } from "../../../../components/ui/card"
+import { CardTitle } from "../../../../components/ui/card"
 // import { Button } from "@/components/ui/button";
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
