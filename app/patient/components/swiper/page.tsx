@@ -2,7 +2,8 @@
 
 import { motion, useAnimation } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useDisponibilite } from "@/app/hooks/useDisponibilite";
+// import { useDisponibilite } from "@/app/hooks/useDisponibilite";
+import { useDisponibilite } from "../../../hooks/useDisponibilite"
 import { useEffect, useState, useCallback } from "react";
 
 const MyAnimatedCarousel = () => {

@@ -1,6 +1,7 @@
 "use client"
 
-import { useDoctors } from "@/app/hooks/useDoctor";
+// import { useDoctors } from "@/app/hooks/useDoctor";
+import { useDoctors } from "../../../hooks/useDoctor"
 import { AiOutlineClose } from "react-icons/ai";
 import Image from "next/image";
 

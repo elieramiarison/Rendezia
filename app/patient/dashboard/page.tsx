@@ -6,7 +6,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import MyCarousel from "../components/swiper/page";
-import AnimatedSection1 from "@/app/animation/animationdif";
+// import AnimatedSection1 from "@/app/animation/animationdif";
+import AnimatedSection1 from "../../animation/animationdif"
 
 export default function DoctorDashboard() {
   const { data: session, status } = useSession()
