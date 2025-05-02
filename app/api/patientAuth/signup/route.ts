@@ -4,14 +4,10 @@ import { connectDB } from "../../../../lib/mongodb"
 // import { User } from "@/lib/models/User";
 import { User } from "../../../../lib/models/User"
 import bcrypt from "bcryptjs";
-import { writeFile, mkdir } from "fs/promises";
-import path from "path";
 import { getServerSession } from "next-auth";
 // import { authOptions } from "@/lib/auth";
 import { authOptions } from "../../../../lib/auth"
-import fs from "fs";
 
-// connectDB();
 
 export async function POST(req: NextRequest) {
     try {
@@ -42,13 +38,28 @@ export async function POST(req: NextRequest) {
 
         let profilePicturePath = "";
         if (pdp) {
-            const fileBuffer = Buffer.from(await pdp.arrayBuffer());
-            const uploadDir = path.join(process.cwd(), "public", "uploads");
-            await mkdir(uploadDir, { recursive: true });
+            const uploadForm = new FormData();
+            uploadForm.append("file", pdp);
 
-            profilePicturePath = `/uploads/${Date.now()}_${pdp.name}`;
-            const filePath = path.join(process.cwd(), "public", profilePicturePath);
-            await writeFile(filePath, fileBuffer);
+            const uploadResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/uploadImg/patient`, {
+                method: "POST",
+                body: uploadForm,
+            });
+
+            if (!uploadResponse.ok) {
+                return NextResponse.json({ message: "Échec de l'upload de l'image" }, { status: 500 });
+            }
+
+            const uploadData = await uploadResponse.json();
+            profilePicturePath = uploadData.path;
+
+            // const fileBuffer = Buffer.from(await pdp.arrayBuffer());
+            // const uploadDir = path.join(process.cwd(), "public", "uploads");
+            // await mkdir(uploadDir, { recursive: true });
+
+            // profilePicturePath = `/uploads/${Date.now()}_${pdp.name}`;
+            // const filePath = path.join(process.cwd(), "public", profilePicturePath);
+            // await writeFile(filePath, fileBuffer);
         }
 
         const newUser = new User({ name, firstName, annif, email, pdp: profilePicturePath, password: hashedPassword, lieu, adresse, tel });
@@ -112,16 +123,31 @@ export async function PUT(req: NextRequest) {
     const imageFile = formData.get("pdp") as File;
     if (imageFile) {
 
-        const uploadDir = path.join(process.cwd(), "public/uploads");
-        if (!fs.existsSync(uploadDir)) {
-            fs.mkdirSync(uploadDir, { recursive: true });
+        const uploadForm = new FormData();
+        uploadForm.append("file", imageFile);
+
+        const uploadResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/uploadImg/patient`, {
+            method: "PUT",
+            body: uploadForm,
+        });
+
+        if (!uploadResponse.ok) {
+            return NextResponse.json({ message: "Échec de l'upload de l'image" }, { status: 500 });
         }
 
-        const filePath = path.join(uploadDir, `${user._id}_${Date.now()}_${imageFile.name}`);
-        const fileBuffer = Buffer.from(await imageFile.arrayBuffer());
-        fs.writeFileSync(filePath, fileBuffer);
+        const uploadData = await uploadResponse.json();
+        user.pdp = uploadData.path;
 
-        user.pdp = `/uploads/${path.basename(filePath)}`;
+        // const uploadDir = path.join(process.cwd(), "public/uploads");
+        // if (!fs.existsSync(uploadDir)) {
+        //     fs.mkdirSync(uploadDir, { recursive: true });
+        // }
+
+        // const filePath = path.join(uploadDir, `${user._id}_${Date.now()}_${imageFile.name}`);
+        // const fileBuffer = Buffer.from(await imageFile.arrayBuffer());
+        // fs.writeFileSync(filePath, fileBuffer);
+
+        // user.pdp = `/uploads/${path.basename(filePath)}`;
     }
 
     await user.save()

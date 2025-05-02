@@ -1,9 +1,9 @@
 // import { Doctor } from "@/lib/models/Doctor";
 import { Doctor } from "../../../../lib/models/Doctor"
 import bcrypt from "bcryptjs";
-import { writeFile, mkdir } from "fs/promises";
+// import { writeFile, mkdir } from "fs/promises";
 import { NextRequest, NextResponse } from "next/server";
-import path from "path";
+// import path from "path";
 // import { connectDB } from '@/lib/mongodb';
 import { connectDB } from "../../../../lib/mongodb"
 import { getServerSession } from 'next-auth';
@@ -15,6 +15,7 @@ export async function POST(req: NextRequest) {
     try {
         await connectDB()
         const formData = await req.formData()
+
         const name = formData.get("name") as string
         const email = formData.get("email") as string
         const firstName = formData.get("firstName") as string
@@ -31,15 +32,32 @@ export async function POST(req: NextRequest) {
         }
 
         const hashedPassword = await bcrypt.hash(password, 10)
-        let pdpPath = "";
-        if (pdpDoc) {
-            const fileBuffer = Buffer.from(await pdpDoc.arrayBuffer())
-            const uploadDir = path.join(process.cwd(), "public", "imageDoc");
-            await mkdir(uploadDir, { recursive: true });
 
-            pdpPath = `/imageDoc/${Date.now()}_${pdpDoc.name}`;
-            const filePath = path.join(process.cwd(), "public", pdpPath);
-            await writeFile(filePath, fileBuffer);
+        let pdpPath = "";
+
+        if (pdpDoc) {
+            const uploadForm = new FormData();
+            uploadForm.append("file", pdpDoc);
+
+            const uploadResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/uploadImg/doctor`, {
+                method: "POST",
+                body: uploadForm,
+            });
+
+            if (!uploadResponse.ok) {
+                return NextResponse.json({ message: "Échec de l'upload de l'image" }, { status: 500 });
+            }
+
+            const uploadData = await uploadResponse.json();
+            pdpPath = uploadData.path;
+
+            // const fileBuffer = Buffer.from(await pdpDoc.arrayBuffer())
+            // const uploadDir = path.join(process.cwd(), "public", "imageDoc");
+            // await mkdir(uploadDir, { recursive: true });
+
+            // pdpPath = `/imageDoc/${Date.now()}_${pdpDoc.name}`;
+            // const filePath = path.join(process.cwd(), "public", pdpPath);
+            // await writeFile(filePath, fileBuffer);
         }
 
         const newDoc = new Doctor({ name, email, tel, genre, password: hashedPassword, specialite, pdpDoc: pdpPath, firstName, clinic })
@@ -92,6 +110,7 @@ export async function PUT(req: NextRequest) {
         if (genre) doctor.genre = genre;
         if (specialite) doctor.specialite = specialite;
         if (clinic) doctor.clinic = clinic;
+
         if (password && newPassword) {
             const isMatch = await bcrypt.compare(password, doctor.password)
             if (!isMatch) {
@@ -103,15 +122,31 @@ export async function PUT(req: NextRequest) {
         }
 
         if (pdpDoc) {
-            const fileBuffer = Buffer.from(await pdpDoc.arrayBuffer());
-            const uploadDir = path.join(process.cwd(), "public", "imageDoc");
-            await mkdir(uploadDir, { recursive: true });
 
-            const pdpPath = `/imageDoc/${Date.now()}_${pdpDoc.name}`;
-            const filePath = path.join(process.cwd(), "public", pdpPath);
-            await writeFile(filePath, fileBuffer);
+            const uploadForm = new FormData();
+            uploadForm.append("file", pdpDoc);
 
-            doctor.pdpDoc = pdpPath;
+            const uploadResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/uploadImg/doctor`, {
+                method: "PUT",
+                body: uploadForm,
+            });
+
+            if (!uploadResponse.ok) {
+                return NextResponse.json({ message: "Échec de l'upload de l'image" }, { status: 500 });
+            }
+
+            const uploadData = await uploadResponse.json();
+            doctor.pdpDoc = uploadData.path;
+
+            // const fileBuffer = Buffer.from(await pdpDoc.arrayBuffer());
+            // const uploadDir = path.join(process.cwd(), "public", "imageDoc");
+            // await mkdir(uploadDir, { recursive: true });
+
+            // const pdpPath = `/imageDoc/${Date.now()}_${pdpDoc.name}`;
+            // const filePath = path.join(process.cwd(), "public", pdpPath);
+            // await writeFile(filePath, fileBuffer);
+
+            // doctor.pdpDoc = pdpPath;
         }
         await doctor.save();
 
