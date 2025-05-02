@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 // import { connectDB } from "@/lib/mongodb";
-import { connectDB } from "../../../../lib/mongodb"
+import { connectDB } from "../../mongodb"
 import { User } from "../../../../lib/models/User";
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken";

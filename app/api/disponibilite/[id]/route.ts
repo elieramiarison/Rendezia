@@ -2,7 +2,7 @@
 import { Dispo } from "../../../../lib/models/disponibilite"
 import { NextRequest, NextResponse } from "next/server";
 // import { connectDB } from "@/lib/mongodb";
-import { connectDB } from "../../../../lib/mongodb"
+import { connectDB } from "../../mongodb"
 // connectDB()
 export async function DELETE(req: NextRequest, { params }: { params: { id?: string } }) {
     if (!params?.id) {

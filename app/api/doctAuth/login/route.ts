@@ -1,7 +1,7 @@
 // import { Doctor } from "@/lib/models/Doctor";
 import { Doctor } from "../../../../lib/models/Doctor"
 // import { connectDB } from "@/lib/mongodb";
-import { connectDB } from "../../../../lib/mongodb"
+import { connectDB } from "../../mongodb"
 import bcrypt from "bcryptjs";
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
