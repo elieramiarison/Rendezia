@@ -2,9 +2,11 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 // import { authOptions } from "@/lib/auth";
 import { authOptions } from "../../../lib/auth"
+import { connectDB } from "../../../lib/mongodb";
 
 export async function GET() {
     const session = await getServerSession(authOptions);
+    await connectDB()
 
     if (!session) {
         return NextResponse.json({ error: "Utilisateur non connecté", session: null }, { status: 401 });
