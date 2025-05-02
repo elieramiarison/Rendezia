@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 import { NextRequest, NextResponse } from "next/server";
 // import path from "path";
 // import { connectDB } from '@/lib/mongodb';
-import { connectDB } from "../../mongodb"
+import { connectDB } from "../../connection/mongodb"
 import { getServerSession } from 'next-auth';
 // import { authOptions } from '@/lib/auth';
 import { authOptions } from "../../../../lib/auth"
