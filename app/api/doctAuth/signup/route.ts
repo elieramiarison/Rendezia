@@ -45,11 +45,13 @@ export async function POST(req: NextRequest) {
             });
 
             if (!uploadResponse.ok) {
+                const errMsg = await uploadResponse.text();
+                console.error("Erreur Cloudinary:", errMsg);
                 return NextResponse.json({ message: "Échec de l'upload de l'image" }, { status: 500 });
             }
 
             const uploadData = await uploadResponse.json();
-            pdpPath = uploadData.path;
+            pdpPath = uploadData.url;
 
             // const fileBuffer = Buffer.from(await pdpDoc.arrayBuffer())
             // const uploadDir = path.join(process.cwd(), "public", "imageDoc");
@@ -136,7 +138,7 @@ export async function PUT(req: NextRequest) {
             }
 
             const uploadData = await uploadResponse.json();
-            doctor.pdpDoc = uploadData.path;
+            doctor.pdpDoc = uploadData.url;
 
             // const fileBuffer = Buffer.from(await pdpDoc.arrayBuffer());
             // const uploadDir = path.join(process.cwd(), "public", "imageDoc");

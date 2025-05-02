@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
             }
 
             const uploadData = await uploadResponse.json();
-            profilePicturePath = uploadData.path;
+            profilePicturePath = uploadData.url;
 
             // const fileBuffer = Buffer.from(await pdp.arrayBuffer());
             // const uploadDir = path.join(process.cwd(), "public", "uploads");
@@ -136,7 +136,7 @@ export async function PUT(req: NextRequest) {
         }
 
         const uploadData = await uploadResponse.json();
-        user.pdp = uploadData.path;
+        user.pdp = uploadData.url;
 
         // const uploadDir = path.join(process.cwd(), "public/uploads");
         // if (!fs.existsSync(uploadDir)) {
