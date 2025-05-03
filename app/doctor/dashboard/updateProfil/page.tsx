@@ -42,6 +42,7 @@ export default function Login() {
   const [pdpDoc_, setPdpDoc] = useState<File | null>(null)
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false)
+  const [errorImg, setErrorImg] = useState(false)
 
   useEffect(() => {
     if (status === "authenticated" && session?.user) {
@@ -62,6 +63,11 @@ export default function Login() {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      const maxSize = 5 * 1024 * 1024;
+      if (file.size > maxSize) {
+        setErrorImg(true)
+        return;
+      }
       setPdpDoc(file);
       setPreviewImage(URL.createObjectURL(file));
     }
@@ -118,14 +124,14 @@ export default function Login() {
         <hr className="my-1" />
         <div>
           <h1 className="font-bold md:text-xl text-base p-3 ml-5">Photo de profil</h1>
-          <div className="flex justify-center">
+          <div className="flex flex-col justify-center items-center">
             <label htmlFor="upload-photo" className="relative cursor-pointer">
               <Image
                 src={previewImage || "/default-avatar.png"}
                 alt="Photo de profil"
                 width={100}
                 height={100}
-                className="w-24 h-24 rounded-full object-cover "
+                className="w-24 h-24 rounded-full border-2 border-gray-600 object-cover "
               />
               <input
                 id="upload-photo"
@@ -136,6 +142,7 @@ export default function Login() {
                 onChange={handleFileChange}
               />
             </label>
+            {errorImg && <p className="text-red-600 text-sm">La taille de l'image ne doit pas dépasser 5MB.</p>}
           </div>
         </div>
         <form onSubmit={handleUpdate} className="p-4">

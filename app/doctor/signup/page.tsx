@@ -27,14 +27,20 @@ export default function Login() {
   const [clinic, setClinic] = useState('')
   const [pdpDoc, setPdpDoc] = useState<File | null>(null)
   const [preview, setPreview] = useState<string | null>(null);
+  const [errorImg, setErrorImg] = useState(false)
 
   const router = useRouter()
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      const maxSize = 5 * 1024 * 1024;
+      if (file.size > maxSize) {
+        setErrorImg(true)
+        return;
+      }
       setPdpDoc(file);
-      setPreview(URL.createObjectURL(file)); // Génère un aperçu de l'image
+      setPreview(URL.createObjectURL(file));
     }
   };
 
@@ -102,6 +108,7 @@ export default function Login() {
               <form onSubmit={handleSignup} className="flex flex-col gap-3">
 
                 <Label className="text-sm text-[#20363d]">Photo de profile<span className="text-red-600">*</span></Label>
+                {errorImg && <p className="text-red-600 text-sm">La taille de l'image ne doit pas dépasser 5MB.</p>}
                 <div className="flex flex-col items-center mb-4">
                   <label htmlFor="pdp">
                     <Image
@@ -205,7 +212,7 @@ export default function Login() {
           </Card>
         </div>
         <div className="mt-[9rem] lg:flex hidden">
-          <Image src="/main.svg" width={400} height={400} alt="User" />
+          <Image src="/main.svg" width={400} height={400} alt="User" className="pointer-events-none select-none" draggable={false} />
         </div>
       </div>
       <Footer />

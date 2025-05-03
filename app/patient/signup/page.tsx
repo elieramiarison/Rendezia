@@ -29,6 +29,7 @@ export default function Login() {
   const [password, setPassword] = useState('')
   const [pdp, setPdp] = useState<File | null>(null)
   const [error, setError] = useState<string | null>(null);
+  const [errorImg, setErrorImg] = useState(false)
 
   const router = useRouter()
   const [preview, setPreview] = useState<string | null>(null);
@@ -36,6 +37,11 @@ export default function Login() {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      const maxSize = 5 * 1024 * 1024;
+      if (file.size > maxSize) {
+        setErrorImg(true)
+        return;
+      }
       setPdp(file);
       setPreview(URL.createObjectURL(file));
     }
@@ -95,11 +101,12 @@ export default function Login() {
             <CardHeader className="flex items-start">
               <CardTitle className="font-bold text-xl text-[#20363d]">Nouveau sur Rendezia ?</CardTitle>
               <p className="text-sm text-[#20363d]">C&apos;est le moment de créer votre compte !</p>
-              <p className="text-sm">Les champs avait <span className="text-red-600">*</span> sont obligatoire</p>
+              <p className="text-sm">Les champs avec <span className="text-red-600">*</span> sont obligatoire</p>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSignup} className="flex flex-col gap-[0.30rem]">
                 <Label className="text-sm text-[#20363d]">Photo de profile<span className="text-red-600">*</span></Label>
+                {errorImg && <p className="text-red-600 text-sm">La taille de l'image ne doit pas dépasser 5MB.</p>}
 
                 <div className="flex flex-col items-center mb-4">
                   <label htmlFor="pdp">
@@ -213,7 +220,7 @@ export default function Login() {
           </Card>
         </div>
         <div className="mt-[9rem] lg:flex hidden">
-          <Image src="/main.svg" width={400} height={400} alt="User" />
+          <Image src="/main.svg" width={400} height={400} alt="User" className="pointer-events-none select-none" draggable={false} />
         </div>
       </div>
       <Footer />

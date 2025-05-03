@@ -93,9 +93,9 @@ export default function Navbar() {
                 {/* Menu déroulant */}
                 <div style={{ display: isOpen ? "block" : "none" }} className="absolute">
                     {isOpen && (
-                        <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg py-2">
+                        <div className="absolute right-[-4.5rem] mt-1 w-48 bg-white shadow-lg rounded-lg py-2">
                             <Link href="/patient/dashboard/profil" onClick={() => setIsOpen(false)} className="flex items-center gap-2 font-bold px-4 py-1 hover:bg-gray-100">
-                                <IoPerson size={17} /> {session?.user?.name}
+                                <IoPerson size={17} /> {session?.user?.name}...
                             </Link>
 
                             <hr className="my-1" />

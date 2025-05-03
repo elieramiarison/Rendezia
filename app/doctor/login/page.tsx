@@ -115,14 +115,14 @@ export default function Login() {
                             </div>
                             <div className="mt-4">
                                 <p className="text-sm">
-                                    <span>⚠ Une fois connecté, cette page est accessible uniquement depuis un ordinateur ⚠ </span>
+                                    <span className="text-yellow-500">⚠ Une fois connecté, cette page est accessible uniquement depuis un ordinateur ⚠ </span>
                                 </p>
                             </div>
                         </CardContent>
                     </Card>
                 </div>
                 <div className="mt-[5rem] lg:flex hidden">
-                    <Image src="/pharma.svg" width={600} height={600} alt="User" />
+                    <Image src="/pharma.svg" width={600} height={600} alt="User" className="pointer-events-none select-none" draggable={false} />
                 </div>
             </div>
             <Footer />

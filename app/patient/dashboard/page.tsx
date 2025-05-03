@@ -36,7 +36,7 @@ export default function DoctorDashboard() {
         <div className="bg-[#08a6a0] h-[33rem] mt-[70px] gap-10 relative">
           {/* Image gauche */}
           <div className="absolute left-0 top-2 z-[1]">
-            <Image src="../../header_left.svg" alt="left" width={150} height={150} className="w-24 sm:w-24 md:w-28 lg:w-32" />
+            <Image src="../../header_left.svg" alt="left" width={150} height={150} className="w-24 sm:w-24 md:w-28 lg:w-32 pointer-events-none select-none" draggable={false} />
           </div>
 
           <div className="flex justify-center items-center text-center h-full z-[5]">
@@ -66,7 +66,7 @@ export default function DoctorDashboard() {
 
           {/* Image droite */}
           <div className="absolute right-0 bottom-5 z-[1]">
-            <Image src="../../right.svg" alt="right" width={100} height={100} className="w-20 sm:w-20 md:w-24 lg:w-28" />
+            <Image src="../../right.svg" alt="right" width={100} height={100} className="w-20 sm:w-20 md:w-24 lg:w-28 pointer-events-none select-none" draggable={false} />
           </div>
         </div>
 
@@ -84,7 +84,7 @@ export default function DoctorDashboard() {
           <div className="lg:flex justify-center items-center lg:text-start md:text-center sm:text-center gap-6 mt-10 py-10">
             <AnimatedSection1 delay={0.3}>
               <div className="md:flex md:justify-center flex justify-center">
-                <Image src="../../femme.svg" alt="dame" width={350} height={350} className="md:ml-[152px] sm:ml-[100px] w-64 lg:w-80" />
+                <Image src="../../femme.svg" alt="dame" width={350} height={350} className="md:ml-[152px] sm:ml-[100px] w-64 lg:w-80 pointer-events-none select-none" draggable={false} />
               </div>
             </AnimatedSection1>
             <AnimatedSection1 delay={0.6}>
@@ -113,7 +113,7 @@ export default function DoctorDashboard() {
             </AnimatedSection1>
             <AnimatedSection1 delay={0.6}>
               <div className="top-40">
-                <Image src="/dame.svg" alt="Prof" width={350} height={350} className=" sm:ml-[100px] w-44 lg:w-80" />
+                <Image src="/dame.svg" alt="Prof" width={350} height={350} className=" sm:ml-[100px] w-44 lg:w-80 pointer-events-none select-none" draggable={false} />
               </div>
             </AnimatedSection1>
           </div>

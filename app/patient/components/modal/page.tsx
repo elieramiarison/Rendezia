@@ -32,7 +32,7 @@ export default function Modal({ doctor, onClose }: { doctor: string | null, onCl
                             alt={`Photo de ${data_.name}`}
                             width={96}
                             height={96}
-                            className="md:w-24 md:h-24 sm:w-24 sm:h-24 w-24 h-24 object-cover rounded-full mb-3 my-2 border-2 border-gray-400"
+                            className="md:w-24 md:h-24 sm:w-24 sm:h-24 w-24 h-24 object-cover rounded-full mb-3 my-2 border-2 border-gray-400 pointer-events-none select-none" draggable={false}
                         />
                     )}
                     <h2 className="text-xl font-semibold mb-2">Dr {data_?.name} {data_.firstName}</h2>

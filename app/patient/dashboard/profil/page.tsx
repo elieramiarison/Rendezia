@@ -41,7 +41,7 @@ const Profile = () => {
                                 alt="Photo de profil"
                                 width={100}
                                 height={100}
-                                className="lg:w-20 lg:h-20 md:w-20 md:h-20 sm:w-16 sm:h-16 w-16 h-16 rounded-full border-2 border-gray-600 object-cover "
+                                className="lg:w-20 lg:h-20 md:w-20 md:h-20 sm:w-16 sm:h-16 w-16 h-16 rounded-full border-2 border-gray-600 object-cover pointer-events-none select-none" draggable={false}
                             />
                         ) : null}
                         {/* </div> */}

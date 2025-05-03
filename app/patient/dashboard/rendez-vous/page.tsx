@@ -198,41 +198,52 @@ const AppointmentForm = () => {
           </div>
         )
         : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-3">
-            {dispo.map((rdv: Appointment) => (
-              <Card key={rdv._id} className="p-4">
-                <CardHeader>
-                  {/* <Image src={rdv.pdp} /> */}
-                  <CardTitle>Dr {rdv.nameDoc} ({rdv.specialiteDoc}) </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p>Date : {rdv.date}</p>
-                  <p>Du : {rdv.startTime}</p>
-                  <p>Jusqu&ops;à : {rdv.endTime}</p>
-                  <div className="flex gap-3">
-                    {disabledButtons[rdv._id] ? <button
-                      className="mt-2 bg-red-600 hover:bg-red-700 w-full p-2 rounded-md text-white"
-                      onClick={() => handleClick_(rdv._id)}
-                    >
-                      Annuler ce date
-                    </button> :
-                      <button
-                        className="mt-2 bg-[#067f7a] hover:bg-[#1d6965] w-full p-2 rounded-md text-white"
-                        onClick={() => handleClick(rdv._id, rdv.date, rdv.startTime, rdv.endTime, rdv.doctorId)}
-                      >
-                        Prendre ce date
-                      </button>}
-                    <button
-                      className="mt-2 bg-blue-600 hover:bg-blue-700 w-full p-2 rounded-md text-white"
-                      onClick={() => openModal(rdv.doctorId)}
-                    >
-                      Voir le profil
-                    </button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          <>
+            {dispo.length === 0 ? (
+              <div className="flex flex-col items-center justify-center min-h-[67vh] py-0">
+                <p className="text-xl font-semibold text-gray-500">Aucun rendez-vous disponible pour le moment</p>
+                <p className="text-sm text-gray-400">Les données s&apos;afficheront ici dès qu&apos;un docteur aura mets la date.</p>
+              </div>
+            ) : (
+              <>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-3">
+                  {dispo.map((rdv: Appointment) => (
+                    <Card key={rdv._id} className="p-4">
+                      <CardHeader>
+                        {/* <Image src={rdv.pdp} /> */}
+                        <CardTitle>Dr {rdv.nameDoc} ({rdv.specialiteDoc}) </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p>Date : {rdv.date}</p>
+                        <p>Du : {rdv.startTime}</p>
+                        <p>Jusqu&ops;à : {rdv.endTime}</p>
+                        <div className="flex gap-3">
+                          {disabledButtons[rdv._id] ? <button
+                            className="mt-2 bg-red-600 hover:bg-red-700 w-full p-2 rounded-md text-white"
+                            onClick={() => handleClick_(rdv._id)}
+                          >
+                            Annuler ce date
+                          </button> :
+                            <button
+                              className="mt-2 bg-[#067f7a] hover:bg-[#1d6965] w-full p-2 rounded-md text-white"
+                              onClick={() => handleClick(rdv._id, rdv.date, rdv.startTime, rdv.endTime, rdv.doctorId)}
+                            >
+                              Prendre ce date
+                            </button>}
+                          <button
+                            className="mt-2 bg-blue-600 hover:bg-blue-700 w-full p-2 rounded-md text-white"
+                            onClick={() => openModal(rdv.doctorId)}
+                          >
+                            Voir le profil
+                          </button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </>
+            )}
+          </>
         )}
       {isModalOpen && <Modal doctor={selectedDoctor} onClose={closeModal} />}
     </div>

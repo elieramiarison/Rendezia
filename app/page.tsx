@@ -46,7 +46,9 @@ export default function Home() {
       <div className="bg-[#08a6a0] h-[35rem] w-full mt-[64px] gap-10 relative">
         {/* Image gauche */}
         <div className="absolute left-0 top-2 z-[1]">
-          <Image src="/header_left.svg" alt="left" width={150} height={150} className="w-24 sm:w-24 md:w-28 lg:w-32" />
+          <Image src="/header_left.svg" alt="left" width={150} height={150} className="w-24 sm:w-24 md:w-28 lg:w-32 pointer-events-none select-none"
+            draggable={false}
+          />
         </div>
 
         <div className="flex justify-start lg:pl-[15%] md:pl-[10%] sm:pl-[5rem] items-center text-start h-full z-[5]">
@@ -90,7 +92,9 @@ export default function Home() {
 
         {/* Image droite */}
         <div className="absolute right-0 bottom-0 z-[1]">
-          <Image src="/right.svg" alt="right" width={100} height={100} className="w-20 sm:w-20 md:w-24 lg:w-full" />
+          <Image src="/right.svg" alt="right" width={100} height={100} className="w-20 sm:w-20 md:w-24 lg:w- pointer-events-none select-none"
+            draggable={false}
+          />
         </div>
       </div>
 
@@ -104,7 +108,7 @@ export default function Home() {
                 <div key={index} className="p-4 border flex lg:flex-row md:flex-col sm:flex-col flex-col gap-4 lg:text-start md:text-center items-center rounded-lg shadow-lg lg:w-[21rem] lg:h-[10rem] md:w-[209px] sm:w-[209px] w-[209px] bg-white">
 
                   <div className="lg:w-[13rem] md:w-[8rem] sm:w-[8rem] w-[8rem] lg:py md:py-1">
-                    <Image src={item.image} alt="Prof" width={10} height={10} className="sm:w-[8rem] w-[8rem] md:w-[8rem]" />
+                    <Image src={item.image} alt="Prof" width={10} height={10} className="sm:w-[8rem] w-[8rem] md:w-[8rem] pointer-events-none select-none" draggable={false} />
                   </div>
                   <h3 className="text-[#20363d] font-semibold lg:text-base md:text-base sm:text-base text-base pt-[-5rem]">{item.title}</h3>
                 </div>
@@ -117,7 +121,7 @@ export default function Home() {
         <div className="flex lg:flex-row sm:flex-col flex-col gap-10 mt-[1rem] items-center">
           <AnimatedSection1 delay={0.2}>
             <div className="left-10 top-40">
-              <Image src="/medication.svg" alt="Docteur" width={150} height={150} className="sm:w-[20rem] w-[18rem] md:w-[29rem]" />
+              <Image src="/medication.svg" alt="Docteur" width={150} height={150} className="sm:w-[20rem] w-[18rem] md:w-[29rem] pointer-events-none select-none" draggable={false} />
             </div>
           </AnimatedSection1>
 
@@ -159,7 +163,7 @@ export default function Home() {
         </AnimatedSection1>
         <AnimatedSection1 delay={0.5}>
           <div className="top-40">
-            <Image src="prof.svg" alt="Prof" width={150} height={150} className="sm:w-[20rem] w-[18rem] md:w-[29rem]" />
+            <Image src="prof.svg" alt="Prof" width={150} height={150} className="sm:w-[20rem] w-[18rem] md:w-[29rem] pointer-events-none select-none" draggable={false} />
           </div>
         </AnimatedSection1>
       </div>

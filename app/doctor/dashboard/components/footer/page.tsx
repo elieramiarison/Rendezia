@@ -1,4 +1,4 @@
-import { FaFacebook, FaInstagram, FaLinkedinIn } from "react-icons/fa";
+import { FaEnvelope, FaWhatsapp, FaLinkedinIn } from "react-icons/fa";
 // import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
@@ -7,9 +7,19 @@ export default function Footer() {
         <div className="bg-[#08a6a0] h-auto sm:h-auto w-full">
             <div className="flex justify-between items-center lg:px-9 md:px-9 sm:px-7 px-4 pt-10">
                 <div className="flex justify-between items-center gap-2">
-                    <FaFacebook size={35} color="white" />
-                    <FaInstagram size={35} color="white" />
-                    <FaLinkedinIn size={35} color="white" />
+                    <div className="bg-[#D44638] p-2 rounded-full w-fit">
+                        <FaEnvelope size={25} color="white" />
+                    </div>
+
+
+                    <div className="bg-[#25D366] p-2 rounded-full w-fit">
+                        <FaWhatsapp size={25} color="white" />
+                    </div>
+
+
+                    <div className="bg-[#0077B5] p-2 rounded-full w-fit">
+                        <FaLinkedinIn size={25} color="white" />
+                    </div>
                 </div>
                 <div className=" flex flex-col md:flex-row sm:flex-row gap-4">
 
