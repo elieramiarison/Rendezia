@@ -97,6 +97,7 @@ export async function PUT(req: NextRequest) {
     const tel = formData.get("tel") as string || null
     const password = formData.get("password") as string || null
     const nouvPassword = formData.get("NouvPassword") as string || null
+    const removePdp = formData.get("removePdpDoc") === "true";
 
     const user = await User.findById(user_.id)
     if (!user) {
@@ -121,7 +122,10 @@ export async function PUT(req: NextRequest) {
     user.tel = tel || user.tel;
 
     const imageFile = formData.get("pdp") as File;
-    if (imageFile) {
+
+    if (removePdp) {
+        user.pdp = null;
+    } else if (imageFile) {
 
         const uploadForm = new FormData();
         uploadForm.append("file", imageFile);

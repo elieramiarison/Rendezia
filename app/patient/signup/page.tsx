@@ -37,7 +37,7 @@ export default function Login() {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      const maxSize = 5 * 1024 * 1024;
+      const maxSize = 1 * 1024 * 1024;
       if (file.size > maxSize) {
         setErrorImg(true)
         return;
@@ -71,11 +71,12 @@ export default function Login() {
     })
     NProgress.done()
 
+    const data = await res.json();
     if (res.ok) {
-      router.push('/patient/login');
+      router.push('/patient/login')
     } else {
-      const error = await res.json();
-      setError(error.error);
+      console.error("Erreur API :", data);
+      alert(data.message || "Erreur lors de l'inscription");
     }
   }
 
@@ -105,8 +106,14 @@ export default function Login() {
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSignup} className="flex flex-col gap-[0.30rem]">
-                <Label className="text-sm text-[#20363d]">Photo de profile<span className="text-red-600">*</span></Label>
-                {errorImg && <p className="text-red-600 text-sm">La taille de l'image ne doit pas dépasser 5MB.</p>}
+                <Label className="text-sm text-[#20363d]">Photo de profile</Label>
+                <div className="mb-5">
+                  {errorImg ?
+                    <Label className="text-red-600 text-sm">La taille de l'image ne doit pas dépasser 1MB.</Label>
+                    :
+                    <Label className="text-sm text-[#20363dd6]">La taille de l'image ne doit pas dépasser 1MB.</Label>
+                  }
+                </div>
 
                 <div className="flex flex-col items-center mb-4">
                   <label htmlFor="pdp">

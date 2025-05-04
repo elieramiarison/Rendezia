@@ -34,7 +34,7 @@ export default function Login() {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      const maxSize = 5 * 1024 * 1024;
+      const maxSize = 1 * 1024 * 1024;
       if (file.size > maxSize) {
         setErrorImg(true)
         return;
@@ -107,8 +107,12 @@ export default function Login() {
             <CardContent>
               <form onSubmit={handleSignup} className="flex flex-col gap-3">
 
-                <Label className="text-sm text-[#20363d]">Photo de profile<span className="text-red-600">*</span></Label>
-                {errorImg && <p className="text-red-600 text-sm">La taille de l'image ne doit pas dépasser 5MB.</p>}
+                <Label className="text-sm text-[#20363d]">Photo de profile</Label>
+                {errorImg ?
+                  <Label className="text-red-600 text-sm">La taille de l'image ne doit pas dépasser 1MB.</Label>
+                  :
+                  <Label className="text-sm text-[#20363dd6]">La taille de l'image ne doit pas dépasser 1MB.</Label>
+                }
                 <div className="flex flex-col items-center mb-4">
                   <label htmlFor="pdp">
                     <Image

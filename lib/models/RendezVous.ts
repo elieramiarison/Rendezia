@@ -67,7 +67,7 @@ const rdvSchema = new Schema<IRdv>({
         required: true
     },
     userId: { type: String, required: true },
-    pdp: { type: String, required: true },
+    pdp: { type: String },
     firstName: { type: String, required: true },
     email: { type: String, required: true },
     annif: { type: String, required: true },

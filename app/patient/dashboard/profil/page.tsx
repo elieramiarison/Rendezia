@@ -43,7 +43,12 @@ const Profile = () => {
                                 height={100}
                                 className="lg:w-20 lg:h-20 md:w-20 md:h-20 sm:w-16 sm:h-16 w-16 h-16 rounded-full border-2 border-gray-600 object-cover pointer-events-none select-none" draggable={false}
                             />
-                        ) : null}
+                        ) : (
+                            <div className="w-20 h-20 rounded-full bg-gray-400 flex items-center justify-center text-white text-2xl font-bold border-2 border-gray-600 cursor-pointer">
+                                {session?.user?.name?.[0]?.toUpperCase() || ""}
+                                {session?.user?.firstName?.[0]?.toUpperCase() || ""}
+                            </div>
+                        )}
                         {/* </div> */}
                         <h2 className="lg:text-3xl md:text-2xl text-lg font-bold text-center"> {session?.user?.name} {session?.user?.firstName}</h2>
                     </div>

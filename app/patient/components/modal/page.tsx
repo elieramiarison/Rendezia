@@ -26,7 +26,7 @@ export default function Modal({ doctor, onClose }: { doctor: string | null, onCl
 
                 </div>
                 <div className="flex flex-col justify-center items-center">
-                    {imageUrl && (
+                    {imageUrl ? (
                         <Image
                             src={imageUrl}
                             alt={`Photo de ${data_.name}`}
@@ -34,6 +34,11 @@ export default function Modal({ doctor, onClose }: { doctor: string | null, onCl
                             height={96}
                             className="md:w-24 md:h-24 sm:w-24 sm:h-24 w-24 h-24 object-cover rounded-full mb-3 my-2 border-2 border-gray-400 pointer-events-none select-none" draggable={false}
                         />
+                    ) : (
+                        <div className="w-24 h-24 rounded-full bg-gray-400 flex items-center justify-center text-white text-2xl font-bold border-2 border-gray-600 cursor-pointer">
+                            {data_?.name?.[0]?.toUpperCase() || ""}
+                            {data_.firstName?.[0]?.toUpperCase() || ""}
+                        </div>
                     )}
                     <h2 className="text-xl font-semibold mb-2">Dr {data_?.name} {data_.firstName}</h2>
                 </div>

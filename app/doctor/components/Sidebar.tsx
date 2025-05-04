@@ -34,15 +34,23 @@ const Sidebar = () => {
     <aside className="w-48 bg-[#08a6a0] text-white min-h-screen p-5">
       <div className="text-center flex flex-col justify-center items-center">
         <div className="relative w-20 h-20">
-          <Image
-            src={session?.user?.image || "/default-avatar.png"}
-            alt="Photo de profil"
-            width={100}
-            height={100}
-            className="w-20 h-20 rounded-full object-cover cursor-pointer border-2 border-gray-300"
-          />
+          {session?.user?.image ? (
+            <Image
+              src={session.user.image}
+              alt="Photo de profil"
+              width={100}
+              height={100}
+              className="w-20 h-20 rounded-full object-cover cursor-pointer border-2 border-gray-300"
+            />
+          ) : (
+            <div className="w-20 h-20 rounded-full bg-gray-300 flex items-center justify-center text-white text-2xl font-bold border-2 border-gray-300">
+              {session?.user?.name?.[0]?.toUpperCase() || ""}
+              {session?.user?.firstName?.[0]?.toUpperCase() || ""}
+            </div>
+          )}
           <span className="absolute bottom-0 right-3 w-[0.85rem] h-[0.85rem] bg-green-500 border border-white rounded-full"></span>
         </div>
+
 
         <h2 className="text-xl font-semibold mt-2">
           {session?.user?.name} {session?.user?.firstName}

@@ -24,7 +24,10 @@ export async function POST(req: NextRequest) {
         const password = formData.get("password") as string
         const clinic = formData.get("clinic") as string
         const specialite = formData.get("specialite") as string
-        const pdpDoc = formData.get("pdpDoc") as File | null
+        // const pdpDoc = formData.get("pdpDoc") as File | null
+        const pdpDoc = formData.get("pdpDoc");
+        const isValidFile = pdpDoc instanceof File && pdpDoc.size > 0;
+
 
         const existDoc = await Doctor.findOne({ email })
         if (existDoc) {
@@ -35,9 +38,35 @@ export async function POST(req: NextRequest) {
 
         let pdpPath = "";
 
-        if (pdpDoc) {
+        // if (pdpDoc) {
+        //     const uploadForm = new FormData();
+        //     uploadForm.append("file", pdpDoc);
+
+        //     const uploadResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/uploadImg/doctor`, {
+        //         method: "POST",
+        //         body: uploadForm,
+        //     });
+
+        //     if (!uploadResponse.ok) {
+        //         const errMsg = await uploadResponse.text();
+        //         console.error("Erreur Cloudinary:", errMsg);
+        //         return NextResponse.json({ message: "Échec de l'upload de l'image" }, { status: 500 });
+        //     }
+
+        //     const uploadData = await uploadResponse.json();
+        //     pdpPath = uploadData.url;
+
+        //     // const fileBuffer = Buffer.from(await pdpDoc.arrayBuffer())
+        //     // const uploadDir = path.join(process.cwd(), "public", "imageDoc");
+        //     // await mkdir(uploadDir, { recursive: true });
+
+        //     // pdpPath = `/imageDoc/${Date.now()}_${pdpDoc.name}`;
+        //     // const filePath = path.join(process.cwd(), "public", pdpPath);
+        //     // await writeFile(filePath, fileBuffer);
+        // }
+        if (isValidFile) {
             const uploadForm = new FormData();
-            uploadForm.append("file", pdpDoc);
+            uploadForm.append("file", pdpDoc as File);
 
             const uploadResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/uploadImg/doctor`, {
                 method: "POST",
@@ -52,15 +81,8 @@ export async function POST(req: NextRequest) {
 
             const uploadData = await uploadResponse.json();
             pdpPath = uploadData.url;
-
-            // const fileBuffer = Buffer.from(await pdpDoc.arrayBuffer())
-            // const uploadDir = path.join(process.cwd(), "public", "imageDoc");
-            // await mkdir(uploadDir, { recursive: true });
-
-            // pdpPath = `/imageDoc/${Date.now()}_${pdpDoc.name}`;
-            // const filePath = path.join(process.cwd(), "public", pdpPath);
-            // await writeFile(filePath, fileBuffer);
         }
+
 
         const newDoc = new Doctor({ name, email, tel, genre, password: hashedPassword, specialite, pdpDoc: pdpPath, firstName, clinic })
         await newDoc.save()
@@ -99,6 +121,7 @@ export async function PUT(req: NextRequest) {
         const specialite = formData.get("specialite") as string | null;
         const clinic = formData.get("clinic") as string | null;
         const pdpDoc = formData.get("pdpDoc") as File | null;
+        const removePdpDoc = formData.get("removePdpDoc") === "true";
         const newPassword = formData.get("newPassword") as string || null
 
         const doctor = await Doctor.findById(user.id)
@@ -122,12 +145,11 @@ export async function PUT(req: NextRequest) {
             const hashedPassword = await bcrypt.hash(newPassword, 10)
             doctor.password = hashedPassword
         }
-
-        if (pdpDoc) {
-
+        if (removePdpDoc) {
+            doctor.pdpDoc = null;
+        } else if (pdpDoc) {
             const uploadForm = new FormData();
             uploadForm.append("file", pdpDoc);
-
             const uploadResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/uploadImg/doctor`, {
                 method: "PUT",
                 body: uploadForm,

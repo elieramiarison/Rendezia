@@ -36,7 +36,12 @@ const Profile = () => {
                 height={90}
                 className="w-20 h-20 rounded-full object-cover cursor-pointer border-2 border-gray-300"
               />
-            ) : null}
+            ) : (
+              <div className="w-20 h-20 rounded-full bg-gray-300 flex items-center justify-center text-white text-2xl font-bold border-2 border-gray-300">
+                {session?.user?.name?.[0]?.toUpperCase() || ""}
+                {session?.user?.firstName?.[0]?.toUpperCase() || ""}
+              </div>
+            )}
             <h2 className="lg:text-3xl md:text-2xl text-xl font-bold text-center"> {session?.user?.name} {session?.user?.firstName}</h2>
           </div>
           <Link href="/doctor/dashboard/updateProfil">

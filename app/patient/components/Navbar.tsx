@@ -12,14 +12,25 @@ import { FaPowerOff } from "react-icons/fa6";
 import { MdEdit } from "react-icons/md";
 import { useRef } from "react";
 import NProgress from "nprogress";
+import { Session } from "next-auth";
 import "nprogress/nprogress.css";
+
+interface UserSession {
+    name?: string;
+    firstName?: string;
+    image?: string;
+}
+
+interface CustomSession extends Session {
+    user?: UserSession;
+}
 
 export default function Navbar() {
     // if (typeof window === "undefined") {
     //     return null;
     // }
 
-    const { data: session } = useSession()
+    const { data: session } = useSession() as { data: CustomSession | null };
     const [isOpen, setIsOpen] = useState(false)
     const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -81,12 +92,19 @@ export default function Navbar() {
                     onClick={() => setIsOpen(!isOpen)}
                     className="flex items-center gap-2 bg-white lg:p-1 md:p-1 sm:p-0 p-0 rounded-full hover:bg-gray-300 transition"
                 >
-                    <Image
-                        src={session?.user?.image || "/default-avatar.png"}
-                        alt="Photo de profil"
-                        width={40} height={40}
-                        className="w-10 h-10 rounded-full object-cover  border-2 border-gray-200"
-                    />
+                    {session?.user?.image ? (
+                        <Image
+                            src={session?.user?.image || "/default-avatar.png"}
+                            alt="Photo de profil"
+                            width={40} height={40}
+                            className="w-10 h-10 rounded-full object-cover  border-2 border-gray-200"
+                        />
+                    ) : (
+                        <div className="w-10 h-10 rounded-full bg-gray-400 flex items-center justify-center text-white text-base font-bold border-2 border-gray-600 cursor-pointer">
+                            {session?.user?.name?.[0]?.toUpperCase() || ""}
+                            {session?.user?.firstName?.[0]?.toUpperCase() || ""}
+                        </div>
+                    )}
                     {isOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
                 </button>
 

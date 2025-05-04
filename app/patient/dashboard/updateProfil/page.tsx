@@ -60,6 +60,9 @@ export default function UpdateProfil() {
     const [loading, setLoading] = useState(false)
     const [nouvPassword, setNouvPassword] = useState<string>("")
     const [errorImg, setErrorImg] = useState(false)
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [toggle, setToggle] = useState(false)
+    const [removePdpDoc, setRemovePdpDoc] = useState(false);
     const router = useRouter()
 
     useEffect(() => {
@@ -81,7 +84,7 @@ export default function UpdateProfil() {
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
-            const maxSize = 5 * 1024 * 1024;
+            const maxSize = 1 * 1024 * 1024;
             if (file.size > maxSize) {
                 setErrorImg(true)
                 return;
@@ -113,14 +116,19 @@ export default function UpdateProfil() {
         updatedFormData.append("nouvPassword", nouvPassword)
         if (pdp) {
             updatedFormData.append("pdp", pdp)
+        } else {
+            updatedFormData.append("removePdpDoc", "true");
         }
+
         try {
             const res = await fetch('/api/patientAuth/signup', {
                 method: "PUT",
                 body: updatedFormData
             })
             const data = await res.json();
-            if (!res.ok) throw new Error(data.message || "Une erreur s'est produite.");
+            if (!res.ok) {
+                throw new Error(data.message || "Une erreur s'est produite.");
+            }
             const updatedSession = await update({
                 name: formData.name,
                 firstName: formData.firstName,
@@ -137,11 +145,18 @@ export default function UpdateProfil() {
             const errorMessage = error instanceof Error ? error.message : "Erreur inconnue";
             console.error("Erreur API :", errorMessage);
             alert(errorMessage);
+            NProgress.done()
         }
         finally {
             setLoading(false);
         }
     }
+    const handleRemoveImage = () => {
+        setPreviewImage(null);
+        setPdp(null);
+        setIsModalOpen(false);
+        setRemovePdpDoc(true)
+    };
 
     return (
         <main className="bg-gray-100 w-full h-full mx-auto">
@@ -153,24 +168,97 @@ export default function UpdateProfil() {
                 <div>
                     <h1 className="font-bold md:text-xl text-base p-3 ml-5">Photo de profil</h1>
                     <div className="flex flex-col justify-center items-center">
-                        <label htmlFor="upload-photo" className="relative cursor-pointer">
-                            <Image
-                                src={previewImage || "/default-avatar.png"}
-                                alt="Photo de profil"
-                                width={100}
-                                height={100}
-                                className="w-24 h-24 rounded-full border-2 border-gray-600 object-cover pointer-events-none select-none" draggable={false}
-                            />
-                            <input
-                                id="upload-photo"
-                                type="file"
-                                name="pdpDoc"
-                                accept="image/*"
-                                className="hidden"
-                                onChange={handleFileChange}
-                            />
-                        </label>
-                        {errorImg && <p className="text-red-600 text-sm">La taille de l'image ne doit pas dépasser 5MB.</p>}
+                        {previewImage ? (
+                            <>
+                                <div>
+                                    <Image
+                                        src={previewImage}
+                                        alt="Photo de profil"
+                                        width={100}
+                                        height={100}
+                                        className="w-24 h-24 rounded-full border-2 border-gray-600 object-cover cursor-pointer"
+                                        onClick={() => {
+                                            setIsModalOpen(true)
+                                            setToggle(false);
+                                        }}
+                                    />
+                                </div>
+                                {/* Modale */}
+                                <div>
+                                    {isModalOpen && (
+                                        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+                                            <div className="bg-white p-4 rounded-md flex flex-col items-center">
+                                                <div
+                                                    className="cursor-pointer"
+                                                    onClick={() => setToggle(true)}
+                                                >
+                                                    {toggle ? '' : (
+                                                        <Image
+                                                            src={previewImage}
+                                                            alt="Aperçu"
+                                                            width={100}
+                                                            height={100}
+                                                            className="lg:w-[14rem] lg:h-[16rem] md:w-[14rem] md:h-[16rem] w-[12rem] h-[14rem] rounded-md mb-4"
+                                                        />
+                                                    )}
+                                                    {toggle && (
+                                                        <label className="relative">
+                                                            <Image
+                                                                src={previewImage}
+                                                                alt="Aperçu"
+                                                                width={200}
+                                                                height={200}
+                                                                className="rounded-md mb-4"
+                                                            />
+
+                                                            <input
+                                                                id="upload-photo"
+                                                                type="file"
+                                                                name="pdpDoc"
+                                                                accept="image/*"
+                                                                className="hidden"
+                                                                onChange={handleFileChange}
+                                                                ref={(input) => input?.click()}
+                                                            />
+                                                        </label>
+                                                    )}
+                                                </div>
+                                                <button
+                                                    onClick={handleRemoveImage}
+                                                    className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 mb-2"
+                                                >
+                                                    Supprimer la photo
+                                                </button>
+                                                <button
+                                                    onClick={() => setIsModalOpen(false)}
+                                                    className="text-gray-500 text-sm underline"
+                                                >
+                                                    Fermer
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            </>
+                        ) : (
+                            <label className="relative">
+                                <div className="w-24 h-24 rounded-full bg-gray-400 flex items-center justify-center text-white text-2xl font-bold border-2 border-gray-600 cursor-pointer">
+
+                                    <input
+                                        id="upload-photo"
+                                        type="file"
+                                        name="pdpDoc"
+                                        accept="image/*"
+                                        className="hidden"
+                                        onChange={handleFileChange}
+                                    />
+
+                                    {session?.user?.name?.[0]?.toUpperCase() || ""}
+                                    {session?.user?.firstName?.[0]?.toUpperCase() || ""}
+                                </div>
+                            </label>
+                        )}
+                        {errorImg && <p className="text-red-600 text-sm">La taille de l'image ne doit pas dépasser 1MB.</p>}
                     </div>
                 </div>
                 <form onSubmit={handleUpdate} className="p-4">
