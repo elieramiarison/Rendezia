@@ -1,4 +1,5 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, Document } from "mongoose";
+import "./RendezVous"
 
 interface IUser {
     name: string,
@@ -25,5 +26,28 @@ const UserSchema = new Schema<IUser>({
     adresse: { type: String, required: true },
     tel: { type: String, required: true }
 })
+
+UserSchema.pre("save", async function (this: IUser & Document, next) {
+    try {
+        await mongoose.model("Rdv").updateMany(
+            { userId: this._id },
+            {
+                $set: {
+                    name: this.name,
+                    firstName: this.firstName,
+                    email: this.email,
+                    tel: this.tel,
+                    annif: this.annif,
+                    lieu: this.lieu,
+                    adresse: this.adresse,
+                    pdp: this.pdp
+                },
+            }
+        );
+        next();
+    } catch (error) {
+        next(error as any);
+    }
+});
 
 export const User = mongoose.models.User || mongoose.model<IUser>("User", UserSchema)

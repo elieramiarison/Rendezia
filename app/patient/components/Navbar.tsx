@@ -45,7 +45,7 @@ export default function Navbar() {
     }, []);
 
     const handleClick = () => {
-        alert("Bonjour, cette section est encore en cours de développement... Merci")
+        alert("Bonjour,\n \nCette section est encore en cours de développement...");
     }
 
     const handleLogout = async () => {

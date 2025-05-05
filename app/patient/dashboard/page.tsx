@@ -4,6 +4,7 @@ import Link from "next/link";
 // import { Button } from "@/components/ui/button";
 // import { Avatar } from "@/components/ui/avatar";
 import Image from "next/image";
+import { useEffect } from "react";
 import { useSession } from "next-auth/react";
 import MyCarousel from "../components/swiper/page";
 // import AnimatedSection1 from "@/app/animation/animationdif";
@@ -13,8 +14,18 @@ export default function DoctorDashboard() {
   const { data: session, status } = useSession()
 
   const handleClick = () => {
-    alert("Bonjour, cette section est encore en cours de développement...")
+    alert("Bonjour,\n \nCette section est encore en cours de développement...");
   }
+
+  useEffect(() => {
+    const handleFocus = () => {
+      // Forcer une refetch de la session quand l’onglet devient actif
+      window.location.reload();
+    };
+
+    window.addEventListener("focus", handleFocus);
+    return () => window.removeEventListener("focus", handleFocus);
+  }, []);
 
   if (status === "loading") {
     return (
@@ -25,7 +36,11 @@ export default function DoctorDashboard() {
   }
 
   if (status !== "authenticated") {
-    return null;
+    return (
+      <div className="flex justify-center items-center h-screen ">
+        <h1 className="text-red-600">Non connecté</h1>
+      </div>
+    );
   }
 
   return (

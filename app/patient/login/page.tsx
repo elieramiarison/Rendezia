@@ -98,9 +98,17 @@ export default function Login() {
                                 </div>
 
                                 <div className="mt-3">
-                                    <button type="submit" className="bg-[#067f7a] hover:bg-[#1d6965] w-full rounded-full p-[0.35rem] text-white">{loading ?
-                                        "Se connecter..."
-                                        : "Se connecter"}</button>
+                                    <button
+                                        type="submit"
+                                        className={`w-full rounded-full p-[0.35rem] text-white ${email && password
+                                            ? 'bg-[#067f7a] hover:bg-[#1d6965]'
+                                            : 'bg-gray-400 cursor-not-allowed'
+                                            }`}
+                                        disabled={!email || !password || loading}
+                                    >
+                                        {loading ? "Se connecter..." : "Se connecter"}
+                                    </button>
+
                                 </div>
                                 {error && (
                                     <div className="text-red-700 text-sm text-start">

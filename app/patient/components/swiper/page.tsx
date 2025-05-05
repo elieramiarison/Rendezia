@@ -73,7 +73,7 @@ const MyAnimatedCarousel = () => {
                             <p className="text-sm">Du : {rdv.startTime}</p>
                             <p className="text-sm">Jusqu&apos;à : {rdv.endTime}</p>
                             <button
-                                onClick={() => alert("Bonjour, cette section est encore en cours de développement...")}
+                                onClick={() => alert("Bonjour,\n \nCette section est encore en cours de développement...")}
                                 className="text-[#067f7a] bg-white border border-[#067f7a] hover:text-white hover:bg-[#067f7a] rounded-3xl mt-1 text-xs px-3 py-1"
                             >
                                 Voir Détails

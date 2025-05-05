@@ -23,6 +23,27 @@ interface IRdv {
   adresse: string
 }
 
+const avatarColors = [
+  "bg-red-500",
+  "bg-green-500",
+  "bg-blue-500",
+  "bg-yellow-500",
+  "bg-pink-500",
+  "bg-indigo-500",
+  "bg-teal-500",
+  "bg-orange-500",
+  "bg-amber-500",
+];
+
+function getColorFromString(str: string) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const index = Math.abs(hash) % avatarColors.length;
+  return avatarColors[index];
+}
+
 const Dashboard = () => {
 
   const [rdv, setRdv] = useState<IRdv[]>([])
@@ -45,7 +66,6 @@ const Dashboard = () => {
     }
     fetchData()
   }, [])
-
 
   return (
     <div>
@@ -78,13 +98,22 @@ const Dashboard = () => {
                 <div key={patient._id} className="border-b last:border-none">
                   <div className="flex justify-between items-center p-0 px-4 hover:bg-gray-50 hover:text-blue-500 cursor-pointer">
                     <div className="flex justify-center items-center gap-4">
-                      <Image
-                        src={patient.pdp}
-                        alt={`Photo de ${patient.name}`}
-                        width={96}
-                        height={96}
-                        className="md:w-12 md:h-12 sm:w-24 sm:h-24 w-24 h-24 object-cover rounded-full mb-5 my-2"
-                      />
+                      {patient.pdp ? (
+                        <Image
+                          src={patient.pdp}
+                          alt={`Photo de ${patient.name}`}
+                          width={96}
+                          height={96}
+                          className="md:w-12 md:h-12 sm:w-24 sm:h-24 w-24 h-24 object-cover rounded-full mb-5 my-2"
+                        />
+                      ) : (
+                        <div className="my-5">
+                          <div className={`w-11 h-11 rounded-full ${getColorFromString(patient.email || patient.name || "")} flex items-center justify-center text-white text-lg font-bold border-2 border-gray-300`}>
+                            {patient.name?.[0]?.toUpperCase() || ""}
+                            {patient.firstName?.[0]?.toUpperCase() || ""}
+                          </div>
+                        </div>
+                      )}
                       <h2 className="text-lg font-semibold font-sans">{patient.name} {patient.firstName}</h2>
                     </div>
                     <button className="text-gray-600 text-lg" onClick={() => toggleDetails(patient._id)}>

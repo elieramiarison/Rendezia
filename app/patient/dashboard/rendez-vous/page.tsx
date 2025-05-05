@@ -156,7 +156,21 @@ const AppointmentForm = () => {
     if (!session?.user?.id) {
       return;
     }
-    const rdvDoc = { id, name: session.user.name, firstName: session.user.firstName, email: session.user.email, annif: session.user.annif, lieu: session.user.lieu, adresse: session.user.adresse, tel: session.user.tel, pdp: session.user.image, date, startTime, endTime, doctorId };
+    const rdvDoc = {
+      id,
+      name: session.user.name,
+      firstName: session.user.firstName,
+      email: session.user.email,
+      annif: session.user.annif,
+      lieu: session.user.lieu,
+      adresse: session.user.adresse,
+      tel: session.user.tel,
+      pdp: session.user.image,
+      date,
+      startTime,
+      endTime,
+      doctorId
+    };
 
     try {
       const res = await fetch("/api/rdvDoc", {
@@ -168,7 +182,8 @@ const AppointmentForm = () => {
         throw new Error("Échec de la réservation !");
       }
       setDisabledButtons((prev) => ({ ...prev, [id]: true }));
-    } catch {
+    } catch (error: any) {
+      console.log("Ty ngia:::", error.message)
       setDisabledButtons((prev) => ({ ...prev, [id]: false }));
     } finally {
       NProgress.done();

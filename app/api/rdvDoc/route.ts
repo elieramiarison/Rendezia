@@ -23,18 +23,14 @@ export async function POST(req: NextRequest) {
         }
 
         const { id, firstName, email, annif, lieu, adresse, tel, date, startTime, endTime, name, doctorId, pdp } = await req.json()
+
         const userId = user.id
-
-        if (!id || !date || !startTime || !endTime || !name || !doctorId || !pdp) {
-            return NextResponse.json({ message: "Il y a une champs manquant" }, { status: 400 })
-        }
-
         const existingRdv = await Rdv.findOne({ dispoId: id, userId })
         if (existingRdv) {
             return NextResponse.json({ message: "Rendez-vous déjà pris" }, { status: 400 });
         }
 
-        const rdvDoc = new Rdv({ id: id, date, startTime, endTime, name, doctorId, userId, pdp, firstName, email, annif, lieu, adresse, tel })
+        const rdvDoc = new Rdv({ id, date, startTime, endTime, name, doctorId, userId, pdp, firstName, email, annif, lieu, adresse, tel })
         await rdvDoc.save()
 
         return NextResponse.json({ message: "Rendez-vous docteur ajoutée avec succès" }, { status: 201 })

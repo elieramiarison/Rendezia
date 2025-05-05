@@ -11,7 +11,7 @@ export default function Modal({ doctor, onClose }: { doctor: string | null, onCl
     if (!doctor) return null;
     const data_ = data.find((item) => item._id === doctor)
     if (!data_) return null
-    const imageUrl = data_?.pdpDoc || "/default-avatar.png";
+    // const imageUrl = data_?.pdpDoc || "/default-avatar.png";
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
@@ -26,10 +26,10 @@ export default function Modal({ doctor, onClose }: { doctor: string | null, onCl
 
                 </div>
                 <div className="flex flex-col justify-center items-center">
-                    {imageUrl ? (
+                    {data_?.pdpDoc ? (
                         <Image
-                            src={imageUrl}
-                            alt={`Photo de ${data_.name}`}
+                            src={data_?.pdpDoc || "/default-avatar.png"}
+                            alt="Photo de profil"
                             width={96}
                             height={96}
                             className="md:w-24 md:h-24 sm:w-24 sm:h-24 w-24 h-24 object-cover rounded-full mb-3 my-2 border-2 border-gray-400 pointer-events-none select-none" draggable={false}

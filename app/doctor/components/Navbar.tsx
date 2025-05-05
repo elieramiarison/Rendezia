@@ -13,7 +13,8 @@ const Navbar = () => {
     };
 
     const handleClick = () => {
-        alert("Bonjour, cette section est encore en cours de développement...")
+        alert("Bonjour,\n \nCette section est encore en cours de développement...");
+
     }
 
     const title = getTitle(pathname);

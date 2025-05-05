@@ -1,15 +1,16 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, Document } from "mongoose";
+import "./disponibilite";
 
 interface IDoctor {
-    name: string,
-    email: string,
-    tel: string,
-    genre: string,
-    password: string,
-    specialite: string,
-    pdpDoc: string,
-    firstName: string,
-    clinic: string,
+    name: string;
+    email: string;
+    tel: string;
+    genre: string;
+    password: string;
+    specialite: string;
+    pdpDoc: string;
+    firstName: string;
+    clinic: string;
 }
 
 const DoctorSchema = new Schema<IDoctor>({
@@ -21,7 +22,29 @@ const DoctorSchema = new Schema<IDoctor>({
     specialite: { type: String, required: true },
     pdpDoc: { type: String, default: "" },
     firstName: { type: String, required: true },
-    clinic: { type: String, required: true }
-})
+    clinic: { type: String, required: true },
+});
 
-export const Doctor = mongoose.models.Doctor || mongoose.model<IDoctor>("Doctor", DoctorSchema)
+DoctorSchema.pre("save", async function (this: IDoctor & Document, next) {
+    try {
+        await mongoose.model("Disponibilite").updateMany(
+            { doctorId: this._id },
+            {
+                $set: {
+                    nameDoc: this.name,
+                    specialiteDoc: this.specialite,
+                    tel: this.tel,
+                    email: this.email,
+                    firstName: this.firstName,
+                    clinic: this.clinic,
+                },
+            }
+        );
+        next();
+    } catch (error) {
+        next(error as any);
+    }
+});
+
+export const Doctor =
+    mongoose.models.Doctor || mongoose.model<IDoctor>("Doctor", DoctorSchema);

@@ -44,8 +44,8 @@ interface IRdv {
     startTime: string;
     endTime: string;
     name: string;
-    doctorId: Types.ObjectId; // Typage fort pour l'ObjectId
-    userId: string;
+    doctorId: Types.ObjectId;
+    userId: Types.ObjectId;
     pdp: string;
     firstName: string;
     email: string;
@@ -66,7 +66,11 @@ const rdvSchema = new Schema<IRdv>({
         ref: "Doctor",
         required: true
     },
-    userId: { type: String, required: true },
+    userId: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+        required: true
+    },
     pdp: { type: String },
     firstName: { type: String, required: true },
     email: { type: String, required: true },

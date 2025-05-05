@@ -102,7 +102,9 @@ interface AuthenticatedSession {
 }
 
 export async function PUT(req: NextRequest) {
+    console.log("Ao e")
     try {
+        console.log("Tafiditra")
         await connectDB()
         const session = await getServerSession(authOptions)
         const user = session?.user as AuthenticatedSession | undefined;
@@ -184,6 +186,7 @@ export async function PUT(req: NextRequest) {
         }, { status: 200 });
 
     } catch (error: unknown) {
+        console.log("Tsy Tafiditra")
         // return NextResponse.json({ message: "Erreur serveur", error: error.message }, { status: 500 });
         const errorMessage = error instanceof Error ? error.message : "Erreur inconnue";
         return NextResponse.json({ message: "Erreur serveur", error: errorMessage }, { status: 500 });
