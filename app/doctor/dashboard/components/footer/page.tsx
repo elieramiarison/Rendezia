@@ -1,3 +1,4 @@
+"use client"
 import { FaEnvelope, FaWhatsapp, FaLinkedinIn } from "react-icons/fa";
 // import { Button } from "@/components/ui/button";
 import Image from "next/image";
