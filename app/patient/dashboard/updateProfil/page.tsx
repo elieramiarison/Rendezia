@@ -79,13 +79,13 @@ export default function UpdateProfil() {
             });
             setPreviewImage(session.user.image || "");
         }
-        // const handleFocus = () => {
-        //     // Forcer une refetch de la session quand l’onglet devient actif
-        //     window.location.reload();
-        // };
+        const handleFocus = () => {
+            // Forcer une refetch de la session quand l’onglet devient actif
+            window.location.reload();
+        };
 
-        // window.addEventListener("focus", handleFocus);
-        // return () => window.removeEventListener("focus", handleFocus);
+        window.addEventListener("focus", handleFocus);
+        return () => window.removeEventListener("focus", handleFocus);
     }, [session, status])
 
     if (status === "loading") {
