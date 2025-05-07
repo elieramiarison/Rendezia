@@ -5,8 +5,6 @@ import { User } from "../../../../lib/models/User";
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken";
 
-// connectDB()
-
 const SECRET_KEY = "process.env.JWT_SECRET"
 
 export async function POST(req: NextRequest) {

@@ -22,22 +22,21 @@ interface CustomSession extends Session {
 }
 
 const Profile = () => {
-    const { data: session, status, update } = useSession() as {
+    const { data: session, status } = useSession() as {
         data: CustomSession | null;
         status: "loading" | "authenticated" | "unauthenticated";
-        update: (data?: Partial<UserSession>) => Promise<Session | null>;
     };
 
 
-    useEffect(() => {
-        const handleFocus = () => {
-            // Forcer une refetch de la session quand l’onglet devient actif
-            update()
-        };
+    // useEffect(() => {
+    //     const handleFocus = () => {
+    //         // Forcer une refetch de la session quand l’onglet devient actif
+    //         window.location.reload();
+    //     };
 
-        window.addEventListener("focus", handleFocus);
-        return () => window.removeEventListener("focus", handleFocus);
-    }, []);
+    //     window.addEventListener("focus", handleFocus);
+    //     return () => window.removeEventListener("focus", handleFocus);
+    // }, []);
 
     if (status === "loading") {
         return (

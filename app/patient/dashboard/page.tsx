@@ -11,20 +11,21 @@ import MyCarousel from "../components/swiper/page";
 import AnimatedSection1 from "../../animation/animationdif"
 
 export default function DoctorDashboard() {
-  const { data: session, status, update } = useSession()
+  const { data: session, status } = useSession()
 
   const handleClick = () => {
     alert("Bonjour,\n \nCette section est encore en cours de développement...");
   }
 
-  useEffect(() => {
-    const handleFocus = () => {
-      update();
-    };
+  // useEffect(() => {
+  //   const handleFocus = () => {
+  //     // Forcer une refetch de la session quand l’onglet devient actif
+  //     window.location.reload();
+  //   };
 
-    window.addEventListener("focus", handleFocus);
-    return () => window.removeEventListener("focus", handleFocus);
-  }, []);
+  //   window.addEventListener("focus", handleFocus);
+  //   return () => window.removeEventListener("focus", handleFocus);
+  // }, []);
 
   if (status === "loading") {
     return (
