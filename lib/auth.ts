@@ -151,6 +151,12 @@ export const authOptions: AuthOptions = {
             }
             return token;
         },
+        async redirect({ url, baseUrl }) {
+            // Si url commence par '/', c'est une redirection interne
+            if (url.startsWith("/")) return `${baseUrl}${url}`;
+            // Sinon retourne vers le dashboard par défaut
+            return `${baseUrl}/patient/dashboard`;
+        },
     },
     secret: process.env.NEXTAUTH_SECRET,
 };

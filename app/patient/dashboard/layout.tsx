@@ -12,6 +12,7 @@ export default async function DashboardLayout({
 
     if (!session) {
         redirect("/patient/login");
+        alert("Vous devez vous connecter pour acceder a cette page.")
     }
 
     return <DashboardClientLayout>{children}</DashboardClientLayout>;
