@@ -12,6 +12,7 @@ interface IUser {
     lieu: string,
     adresse: string,
     tel: string,
+    pdpDeleteHash: string
 }
 
 const UserSchema = new Schema<IUser>({
@@ -24,7 +25,8 @@ const UserSchema = new Schema<IUser>({
     role: { type: String, default: "patient" },
     lieu: { type: String, required: true },
     adresse: { type: String, required: true },
-    tel: { type: String, required: true }
+    tel: { type: String, required: true },
+    pdpDeleteHash: { type: String, default: null }
 })
 
 UserSchema.pre("save", async function (this: IUser & Document, next) {

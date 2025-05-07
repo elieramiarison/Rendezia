@@ -22,7 +22,10 @@ export async function POST(req: NextRequest) {
         const lieu = formData.get("lieu") as string
         const adresse = formData.get("adresse") as string
         const tel = formData.get("tel")
-        const pdp = formData.get("pdp") as File | null
+        // const pdp = formData.get("pdp") as File | null
+        const pdp = formData.get("pdp")
+
+        const isValidFile = pdp instanceof File && pdp.size > 0;
 
         if (!name || !firstName || !annif || !email || !password || !lieu || !adresse || !tel) {
             return NextResponse.json({ message: "Tous les champs sont obligatoire" }, { status: 400 })
@@ -37,29 +40,30 @@ export async function POST(req: NextRequest) {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         let profilePicturePath = "";
-        if (pdp) {
-            const uploadForm = new FormData();
-            uploadForm.append("file", pdp);
+        if (isValidFile) {
+            const buffer = await pdp.arrayBuffer();
+            const base64Image = Buffer.from(buffer).toString("base64");
 
-            const uploadResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/uploadImg/patient`, {
+            const response = await fetch("https://api.imgur.com/3/image", {
                 method: "POST",
-                body: uploadForm,
+                headers: {
+                    Authorization: `Client-ID ${process.env.IMGUR_CLIENT_ID as string}`,
+                },
+                body: new URLSearchParams({
+                    image: base64Image,
+                    type: "base64",
+                }),
             });
 
-            if (!uploadResponse.ok) {
+            const data = await response.json();
+
+            if (!response.ok || !data.success) {
+                console.error("Erreur upload Imgur:", data);
                 return NextResponse.json({ message: "Échec de l'upload de l'image" }, { status: 500 });
             }
 
-            const uploadData = await uploadResponse.json();
-            profilePicturePath = uploadData.url;
+            profilePicturePath = data.data.link;
 
-            // const fileBuffer = Buffer.from(await pdp.arrayBuffer());
-            // const uploadDir = path.join(process.cwd(), "public", "uploads");
-            // await mkdir(uploadDir, { recursive: true });
-
-            // profilePicturePath = `/uploads/${Date.now()}_${pdp.name}`;
-            // const filePath = path.join(process.cwd(), "public", profilePicturePath);
-            // await writeFile(filePath, fileBuffer);
         }
 
         const newUser = new User({ name, firstName, annif, email, pdp: profilePicturePath, password: hashedPassword, lieu, adresse, tel });
@@ -124,34 +128,67 @@ export async function PUT(req: NextRequest) {
     const imageFile = formData.get("pdp") as File;
 
     if (removePdp) {
-        user.pdp = null;
+        // user.pdp = null;
+        if (user.pdpDocDeleteHash) {
+            await fetch(`https://api.imgur.com/3/image/${user.pdpDocDeleteHash}`, {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Client-ID ${process.env.IMGUR_CLIENT_ID}`,
+                },
+            });
+        }
+        user.pdpDoc = null;
+        user.pdpDocDeleteHash = null;
     } else if (imageFile) {
 
-        const uploadForm = new FormData();
-        uploadForm.append("file", imageFile);
+        // const uploadForm = new FormData();
+        // uploadForm.append("file", imageFile);
 
-        const uploadResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/uploadImg/patient`, {
-            method: "PUT",
-            body: uploadForm,
-        });
+        // const uploadResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/uploadImg/patient`, {
+        //     method: "PUT",
+        //     body: uploadForm,
+        // });
 
-        if (!uploadResponse.ok) {
-            return NextResponse.json({ message: "Échec de l'upload de l'image" }, { status: 500 });
-        }
-
-        const uploadData = await uploadResponse.json();
-        user.pdp = uploadData.url;
-
-        // const uploadDir = path.join(process.cwd(), "public/uploads");
-        // if (!fs.existsSync(uploadDir)) {
-        //     fs.mkdirSync(uploadDir, { recursive: true });
+        // if (!uploadResponse.ok) {
+        //     return NextResponse.json({ message: "Échec de l'upload de l'image" }, { status: 500 });
         // }
 
-        // const filePath = path.join(uploadDir, `${user._id}_${Date.now()}_${imageFile.name}`);
-        // const fileBuffer = Buffer.from(await imageFile.arrayBuffer());
-        // fs.writeFileSync(filePath, fileBuffer);
+        // const uploadData = await uploadResponse.json();
+        // user.pdp = uploadData.url;
 
-        // user.pdp = `/uploads/${path.basename(filePath)}`;
+        // Supprimer l’ancienne image Imgur
+        if (user.pdpDocDeleteHash) {
+            await fetch(`https://api.imgur.com/3/image/${user.pdpDocDeleteHash}`, {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Client-ID ${process.env.IMGUR_CLIENT_ID}`,
+                },
+            });
+        }
+
+        // Préparer le fichier à uploader
+        const buffer = Buffer.from(await imageFile.arrayBuffer());
+        const base64Image = buffer.toString('base64');
+
+        const uploadResponse = await fetch("https://api.imgur.com/3/image", {
+            method: "POST",
+            headers: {
+                Authorization: `Client-ID ${process.env.IMGUR_CLIENT_ID}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                image: base64Image,
+                type: "base64",
+            }),
+        });
+
+        const uploadData = await uploadResponse.json();
+        if (!uploadData.success) {
+            return NextResponse.json({ message: "Échec de l'upload Imgur" }, { status: 500 });
+        }
+
+        user.pdp = uploadData.data.link;
+        user.pdpDocDeleteHash = uploadData.data.deletehash;
     }
 
     await user.save()

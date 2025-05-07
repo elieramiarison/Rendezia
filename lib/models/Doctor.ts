@@ -11,6 +11,7 @@ interface IDoctor {
     pdpDoc: string;
     firstName: string;
     clinic: string;
+    pdpDocDeleteHash: string;
 }
 
 const DoctorSchema = new Schema<IDoctor>({
@@ -23,6 +24,7 @@ const DoctorSchema = new Schema<IDoctor>({
     pdpDoc: { type: String, default: "" },
     firstName: { type: String, required: true },
     clinic: { type: String, required: true },
+    pdpDocDeleteHash: { type: String, default: null }
 });
 
 DoctorSchema.pre("save", async function (this: IDoctor & Document, next) {

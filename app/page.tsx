@@ -2,11 +2,9 @@
 import Link from "next/link"
 import Image from "next/image";
 import { FaCalendarAlt } from "react-icons/fa";
-// import { Button } from "@/components/ui/button";
 import { MdSecurity } from "react-icons/md";
 import Footer from "./doctor/dashboard/components/footer/page";
 import AnimatedSection1 from "./animation/animationdif";
-
 
 export default function Home() {
   const icone = [
@@ -136,6 +134,10 @@ export default function Home() {
           </AnimatedSection1>
         </div>
       </div>
+
+      {/* <div>
+        <MyAnimatedCarouselAccueil />
+      </div> */}
 
       <div className="mt-10 bg-[#e0f5f4] w-full h-auto flex justify-around items-center gap-10 py-10 flex-wrap">
         {icone.map((item, index) => (
