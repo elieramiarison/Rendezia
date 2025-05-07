@@ -79,13 +79,12 @@ export default function UpdateProfil() {
             });
             setPreviewImage(session.user.image || "");
         }
-        // const handleFocus = () => {
-        //     // Forcer une refetch de la session quand l’onglet devient actif
-        //     window.location.reload();
-        // };
+        const handleFocus = () => {
+            update();
+        };
 
-        // window.addEventListener("focus", handleFocus);
-        // return () => window.removeEventListener("focus", handleFocus);
+        window.addEventListener("focus", handleFocus);
+        return () => window.removeEventListener("focus", handleFocus);
     }, [session, status])
 
     if (status === "loading") {
@@ -107,7 +106,7 @@ export default function UpdateProfil() {
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
-            const maxSize = 1 * 1024 * 1024;
+            const maxSize = 5 * 1024 * 1024;
             if (file.size > maxSize) {
                 setErrorImg(true)
                 return;
@@ -281,7 +280,7 @@ export default function UpdateProfil() {
                                 </div>
                             </label>
                         )}
-                        {errorImg && <p className="text-red-600 text-sm">La taille de l'image ne doit pas dépasser 1MB.</p>}
+                        {errorImg && <p className="text-red-600 text-sm">La taille de l'image ne doit pas dépasser 5MB.</p>}
                     </div>
                 </div>
                 <form onSubmit={handleUpdate} className="p-4">

@@ -22,16 +22,17 @@ interface CustomSession extends Session {
 }
 
 const Profile = () => {
-    const { data: session, status } = useSession() as {
+    const { data: session, status, update } = useSession() as {
         data: CustomSession | null;
         status: "loading" | "authenticated" | "unauthenticated";
+        update: (data?: Partial<UserSession>) => Promise<Session | null>;
     };
 
 
     useEffect(() => {
         const handleFocus = () => {
             // Forcer une refetch de la session quand l’onglet devient actif
-            window.location.reload();
+            update()
         };
 
         window.addEventListener("focus", handleFocus);

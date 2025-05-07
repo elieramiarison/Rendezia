@@ -66,9 +66,9 @@ export default function Login() {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      const maxSize = 1 * 1024 * 1024;
+      const maxSize = 5 * 1024 * 1024;
       if (file.size > maxSize) {
-        alert("La taille de l'image ne doit pas dépasser 1MB")
+        alert("La taille de l'image ne doit pas dépasser 5MB")
         setErrorImg(true)
         return;
       }
@@ -231,7 +231,7 @@ export default function Login() {
               </label>
             )}
             {/* </label> */}
-            {errorImg && <p className="text-red-600 text-sm">La taille de l'image ne doit pas dépasser 1MB.</p>}
+            {errorImg && <p className="text-red-600 text-sm">La taille de l'image ne doit pas dépasser 5MB.</p>}
           </div>
         </div>
         <form onSubmit={handleUpdate} className="p-4">

@@ -15,6 +15,7 @@ import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import "react-toastify/dist/ReactToastify.css";
 import toast from "react-hot-toast";
+import { Session } from "next-auth";
 import SkeletonCard from "../../components/skeleton/rendez-vous/page";
 import 'react-loading-skeleton/dist/skeleton.css';
 
@@ -45,13 +46,16 @@ interface CustomSession {
 }
 
 interface UserAppointment {
+  data: CustomSession | null
   id: string;
+  status: 'loading' | 'authenticated' | 'unauthenticated';
+  update: (data?: Partial<UserSession>) => Promise<Session | null>;
 }
 
 
 const AppointmentForm = () => {
   const { dispo, loading } = useDisponibilite();
-  const { data: session } = useSession() as { data: CustomSession | null };
+  const { data: session, status, update } = useSession() as UserAppointment;
   const [disabledButtons, setDisabledButtons] = useState<{ [key: string]: boolean }>({});
   const [selectedDoctor, setSelectedDoctor] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -74,7 +78,29 @@ const AppointmentForm = () => {
     };
 
     fetchUserAppointments();
-  }, [session]);
+    const handleFocus = () => {
+      update();
+    };
+
+    window.addEventListener("focus", handleFocus);
+    return () => window.removeEventListener("focus", handleFocus);
+  }, [session, status]);
+
+  if (status === "loading") {
+    return (
+      <div className="flex justify-center items-center h-screen ">
+        <h1>Chargement...</h1>
+      </div>
+    );
+  }
+
+  if (status !== "authenticated") {
+    return (
+      <div className="flex justify-center items-center h-screen ">
+        <h1 className="text-red-600">Non connecté</h1>
+      </div>
+    );
+  }
 
   const handleCancel = async (id: string) => {
     NProgress.start()

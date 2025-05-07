@@ -11,7 +11,7 @@ import MyCarousel from "../components/swiper/page";
 import AnimatedSection1 from "../../animation/animationdif"
 
 export default function DoctorDashboard() {
-  const { data: session, status } = useSession()
+  const { data: session, status, update } = useSession()
 
   const handleClick = () => {
     alert("Bonjour,\n \nCette section est encore en cours de développement...");
@@ -19,8 +19,7 @@ export default function DoctorDashboard() {
 
   useEffect(() => {
     const handleFocus = () => {
-      // Forcer une refetch de la session quand l’onglet devient actif
-      window.location.reload();
+      update();
     };
 
     window.addEventListener("focus", handleFocus);
