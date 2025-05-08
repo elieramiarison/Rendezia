@@ -79,18 +79,13 @@ export default function UpdateProfil() {
             });
             setPreviewImage(session.user.image || "");
         }
-        // const handleFocus = () => {
-        //     // window.location.reload();
-        //     update()
-        // };
+        const handleFocus = () => {
+            // window.location.reload();
+            update()
+        };
 
-        // window.addEventListener("focus", handleFocus);
-        // return () => window.removeEventListener("focus", handleFocus);
-        const interval = setInterval(() => {
-            update(); // update() de useSession pour forcer le refresh du token
-        }, 60 * 1000); // chaque minute
-
-        return () => clearInterval(interval);
+        window.addEventListener("focus", handleFocus);
+        return () => window.removeEventListener("focus", handleFocus);
     }, [session, status])
 
     // if (status === "loading") {
