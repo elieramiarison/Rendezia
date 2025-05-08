@@ -103,6 +103,7 @@ export const authOptions: AuthOptions = {
                 secure: process.env.NODE_ENV === "production",
                 sameSite: "lax",
                 path: "/",
+                domain: process.env.NODE_ENV === "production" ? ".vercel.app" : undefined,
             },
         },
     },
@@ -155,8 +156,6 @@ export const authOptions: AuthOptions = {
         },
     },
     secret: process.env.NEXTAUTH_SECRET,
-    // @ts-expect-error trustHost is not yet in types
-    trustHost: true,
 };
 
 export default NextAuth(authOptions);
