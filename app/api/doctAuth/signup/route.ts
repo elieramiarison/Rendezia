@@ -200,6 +200,7 @@ export async function PUT(req: NextRequest) {
             });
 
             const uploadData = await uploadResponse.json();
+            console.log("IMGUR upload response:", uploadData);
             if (!uploadData.success) {
                 return NextResponse.json({ message: "Échec de l'upload Imgur" }, { status: 500 });
             }
