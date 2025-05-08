@@ -155,6 +155,8 @@ export const authOptions: AuthOptions = {
         },
     },
     secret: process.env.NEXTAUTH_SECRET,
+    // @ts-expect-error trustHost is not yet in types
+    trustHost: true,
 };
 
 export default NextAuth(authOptions);
