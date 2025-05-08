@@ -9,7 +9,7 @@ export default async function DashboardLayout({
     children: React.ReactNode;
 }) {
     const session = await getServerSession(authOptions);
-
+    console.log("Session layout:", session)
     if (!session) {
         redirect("/patient/login");
     }
