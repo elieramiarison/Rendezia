@@ -81,7 +81,6 @@ export const authOptions: AuthOptions = {
                         type: "doctor",
                     }
 
-                // console.log("✅ Données renvoyées par authorize :", userData);
                 return userData
             },
         }),

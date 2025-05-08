@@ -78,6 +78,10 @@ export default function UpdateProfil() {
                 password: "",
             });
             setPreviewImage(session.user.image || "");
+        } else {
+            <div className="flex justify-center items-center h-screen ">
+                <h1 className="text-red-600">Non connecté</h1>
+            </div>
         }
         const handleFocus = () => {
             // window.location.reload();
@@ -96,13 +100,13 @@ export default function UpdateProfil() {
     //     );
     // }
 
-    if (status !== "authenticated") {
-        return (
-            <div className="flex justify-center items-center h-screen ">
-                <h1 className="text-red-600">Non connecté</h1>
-            </div>
-        );
-    }
+    // if (status !== "authenticated") {
+    //     return (
+    //         <div className="flex justify-center items-center h-screen ">
+    //             <h1 className="text-red-600">Non connecté</h1>
+    //         </div>
+    //     );
+    // }
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
