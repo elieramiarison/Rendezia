@@ -20,14 +20,19 @@ export default function DoctorDashboard() {
   }
 
   useEffect(() => {
-    const interval = setInterval(async () => {
-      const res = await fetch("/api/auth/session/[...nextauth]");
-      if (res.status === 401) {
-        router.push("/patient/login");
+    const handleVisibilityChange = async () => {
+      if (document.visibilityState === "visible") {
+        const res = await fetch("/api/auth/[...nextauth]");
+        if (res.status === 401) {
+          router.push("/patient/login");
+        }
       }
-    }, 5 * 60 * 1000);
+    };
 
-    return () => clearInterval(interval);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
   }, []);
 
   // if (status === "loading") {

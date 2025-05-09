@@ -31,7 +31,7 @@ const Profile = () => {
 
     useEffect(() => {
         const interval = setInterval(async () => {
-            const res = await fetch("/api/auth/session/[...nextauth]");
+            const res = await fetch("/api/auth/[...nextauth]");
             if (res.status === 401) {
                 router.push("/patient/login");
             }
