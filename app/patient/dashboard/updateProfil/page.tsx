@@ -83,30 +83,7 @@ export default function UpdateProfil() {
                 <h1 className="text-red-600">Non connecté</h1>
             </div>
         }
-        const handleFocus = () => {
-            // window.location.reload();
-            update()
-        };
-
-        window.addEventListener("focus", handleFocus);
-        return () => window.removeEventListener("focus", handleFocus);
     }, [session, status])
-
-    // if (status === "loading") {
-    //     return (
-    //         <div className="flex justify-center items-center h-screen ">
-    //             <h1>Chargement...</h1>
-    //         </div>
-    //     );
-    // }
-
-    // if (status !== "authenticated") {
-    //     return (
-    //         <div className="flex justify-center items-center h-screen ">
-    //             <h1 className="text-red-600">Non connecté</h1>
-    //         </div>
-    //     );
-    // }
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
