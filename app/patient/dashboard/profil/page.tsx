@@ -23,7 +23,12 @@ interface CustomSession extends Session {
 }
 
 const Profile = () => {
-    const { data: session, status } = useSession() as {
+    const { data: session, status } = useSession({
+        required: true,
+        onUnauthenticated() {
+            window.location.href = "/patient/login"
+        },
+    }) as {
         data: CustomSession | null;
         status: "loading" | "authenticated" | "unauthenticated";
     };
@@ -40,21 +45,21 @@ const Profile = () => {
         return () => clearInterval(interval);
     }, []);
 
-    if (status === "loading") {
-        return (
-            <div className="flex justify-center items-center h-screen ">
-                <h1>Chargement...</h1>
-            </div>
-        );
-    }
+    // if (status === "loading") {
+    //     return (
+    //         <div className="flex justify-center items-center h-screen ">
+    //             <h1>Chargement...</h1>
+    //         </div>
+    //     );
+    // }
 
-    if (status !== "authenticated") {
-        return (
-            <div className="flex justify-center items-center h-screen ">
-                <h1 className="text-red-600">Non connecté</h1>
-            </div>
-        );
-    }
+    // if (status !== "authenticated") {
+    //     return (
+    //         <div className="flex justify-center items-center h-screen ">
+    //             <h1 className="text-red-600">Non connecté</h1>
+    //         </div>
+    //     );
+    // }
 
     return (
         <main className="bg-gray-100 w-full h-full mx-auto">

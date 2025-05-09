@@ -93,6 +93,9 @@ export const authOptions: AuthOptions = {
         maxAge: 30 * 24 * 60 * 60,
         updateAge: 30 * 24 * 60 * 60
     },
+    jwt: {
+        maxAge: 30 * 24 * 60 * 60,
+    },
     cookies: {
         sessionToken: {
             name: `next-auth.session-token`,
