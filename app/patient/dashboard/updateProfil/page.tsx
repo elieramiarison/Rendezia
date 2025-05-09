@@ -79,12 +79,14 @@ export default function UpdateProfil() {
             });
             setPreviewImage(session.user.image || "");
         } else {
-            const handleFocus = () => {
-                window.location.reload();
-            };
+            const interval = setInterval(async () => {
+                const res = await fetch("/api/auth/session/[...nextauth]");
+                if (res.status === 401) {
+                    router.push("/patient/login");
+                }
+            }, 5 * 60 * 1000);
 
-            window.addEventListener("focus", handleFocus);
-            return () => window.removeEventListener("focus", handleFocus);
+            return () => clearInterval(interval);
         }
     }, [session, status])
 
