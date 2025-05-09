@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Session } from "next-auth";
 
@@ -27,14 +26,33 @@ const Profile = () => {
         data: CustomSession | null;
         status: "loading" | "authenticated" | "unauthenticated";
     };
-    const router = useRouter();
 
 
-    useEffect(() => {
-        if (status === "unauthenticated") {
-            router.push("/patient/login");
-        }
-    }, []);
+    // useEffect(() => {
+    //     const handleFocus = () => {
+    //         // Forcer une refetch de la session quand l’onglet devient actif
+    //         window.location.reload();
+    //     };
+
+    //     window.addEventListener("focus", handleFocus);
+    //     return () => window.removeEventListener("focus", handleFocus);
+    // }, []);
+
+    if (status === "loading") {
+        return (
+            <div className="flex justify-center items-center h-screen ">
+                <h1>Chargement...</h1>
+            </div>
+        );
+    }
+
+    if (status !== "authenticated") {
+        return (
+            <div className="flex justify-center items-center h-screen ">
+                <h1 className="text-red-600">Non connecté</h1>
+            </div>
+        );
+    }
 
     return (
         <main className="bg-gray-100 w-full h-full mx-auto">

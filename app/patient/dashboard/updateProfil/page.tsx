@@ -79,9 +79,12 @@ export default function UpdateProfil() {
             });
             setPreviewImage(session.user.image || "");
         } else {
-            <div className="flex justify-center items-center h-screen ">
-                <h1 className="text-red-600">Non connecté</h1>
-            </div>
+            const handleFocus = () => {
+                window.location.reload();
+            };
+
+            window.addEventListener("focus", handleFocus);
+            return () => window.removeEventListener("focus", handleFocus);
         }
     }, [session, status])
 
