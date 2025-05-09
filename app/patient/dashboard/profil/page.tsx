@@ -36,21 +36,21 @@ const Profile = () => {
         }
     }, []);
 
-    if (status === "loading") {
-        return (
-            <div className="flex justify-center items-center h-screen ">
-                <h1>Chargement...</h1>
-            </div>
-        );
-    }
+    // if (status === "loading") {
+    //     return (
+    //         <div className="flex justify-center items-center h-screen ">
+    //             <h1>Chargement...</h1>
+    //         </div>
+    //     );
+    // }
 
-    if (status === "unauthenticated") {
-        return (
-            <div className="flex justify-center items-center h-screen ">
-                <h1 className="text-red-600">Redirection...</h1>
-            </div>
-        );
-    }
+    // if (status === "unauthenticated") {
+    //     return (
+    //         <div className="flex justify-center items-center h-screen ">
+    //             <h1 className="text-red-600">Redirection...</h1>
+    //         </div>
+    //     );
+    // }
 
     return (
         <main className="bg-gray-100 w-full h-full mx-auto">
