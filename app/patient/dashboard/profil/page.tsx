@@ -23,12 +23,7 @@ interface CustomSession extends Session {
 }
 
 const Profile = () => {
-    const { data: session, status } = useSession({
-        required: true,
-        onUnauthenticated() {
-            window.location.href = "/patient/login"
-        },
-    }) as {
+    const { data: session, status } = useSession() as {
         data: CustomSession | null;
         status: "loading" | "authenticated" | "unauthenticated";
     };

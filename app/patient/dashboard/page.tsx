@@ -38,13 +38,13 @@ export default function DoctorDashboard() {
   //   );
   // }
 
-  if (status !== "authenticated") {
-    return (
-      <div className="flex justify-center items-center h-screen ">
-        <h1 className="text-red-600">Non connecté</h1>
-      </div>
-    );
-  }
+  // if (status !== "authenticated") {
+  //   return (
+  //     <div className="flex justify-center items-center h-screen ">
+  //       <h1 className="text-red-600">Non connecté</h1>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="flex h-full">
@@ -61,7 +61,7 @@ export default function DoctorDashboard() {
             <div className="lg:w-[45rem] md:w-[45rem] sm:w-[35rem] w-[23rem] z-10">
               <AnimatedSection1 delay={0.3}>
                 <h1 className="lg:text-5xl md:text-5xl sm:text-4xl text-3xl font-bold text-white">
-                  Bienvenue {session.user?.name}, heureux de vous accueillir
+                  Bienvenue {session?.user?.name}, heureux de vous accueillir
                 </h1>
               </AnimatedSection1>
               <AnimatedSection1 delay={0.6}>

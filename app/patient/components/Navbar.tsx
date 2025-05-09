@@ -13,6 +13,7 @@ import { MdEdit } from "react-icons/md";
 import { useRef } from "react";
 import NProgress from "nprogress";
 import { Session } from "next-auth";
+import { useRouter } from "next/navigation";
 import "nprogress/nprogress.css";
 
 interface UserSession {
@@ -26,13 +27,11 @@ interface CustomSession extends Session {
 }
 
 export default function Navbar() {
-    // if (typeof window === "undefined") {
-    //     return null;
-    // }
 
     const { data: session } = useSession() as { data: CustomSession | null };
     const [isOpen, setIsOpen] = useState(false)
     const dropdownRef = useRef<HTMLDivElement>(null);
+    const router = useRouter()
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -42,6 +41,17 @@ export default function Navbar() {
         };
         document.addEventListener("click", handleClickOutside);
         return () => document.removeEventListener("click", handleClickOutside);
+    }, []);
+
+    useEffect(() => {
+        const interval = setInterval(async () => {
+            const res = await fetch("/api/auth/session/[...nextauth]");
+            if (res.status === 401) {
+                router.push("/patient/login");
+            }
+        }, 5 * 60 * 1000);
+
+        return () => clearInterval(interval);
     }, []);
 
     const handleClick = () => {
