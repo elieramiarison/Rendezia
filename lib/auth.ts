@@ -91,7 +91,7 @@ export const authOptions: AuthOptions = {
     session: {
         strategy: "jwt",
         maxAge: 30 * 24 * 60 * 60,
-        updateAge: 24 * 60 * 60
+        updateAge: 30 * 24 * 60 * 60
     },
     cookies: {
         sessionToken: {
