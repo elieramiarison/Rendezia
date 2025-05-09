@@ -6,34 +6,37 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect } from "react";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import MyCarousel from "../components/swiper/page";
 // import AnimatedSection1 from "@/app/animation/animationdif";
 import AnimatedSection1 from "../../animation/animationdif"
 
 export default function DoctorDashboard() {
   const { data: session, status } = useSession()
+  const router = useRouter()
 
   const handleClick = () => {
     alert("Bonjour,\n \nCette section est encore en cours de développement...");
   }
 
-  // useEffect(() => {
-  //   const handleFocus = () => {
-  //     // Forcer une refetch de la session quand l’onglet devient actif
-  //     window.location.reload();
-  //   };
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      const res = await fetch("/api/auth/session/[...nextauth]");
+      if (res.status === 401) {
+        router.push("/patient/login");
+      }
+    }, 5 * 60 * 1000);
 
-  //   window.addEventListener("focus", handleFocus);
-  //   return () => window.removeEventListener("focus", handleFocus);
-  // }, []);
+    return () => clearInterval(interval);
+  }, []);
 
-  if (status === "loading") {
-    return (
-      <div className="flex justify-center items-center h-screen ">
-        <h1>Chargement...</h1>
-      </div>
-    );
-  }
+  // if (status === "loading") {
+  //   return (
+  //     <div className="flex justify-center items-center h-screen ">
+  //       <h1>Chargement...</h1>
+  //     </div>
+  //   );
+  // }
 
   if (status !== "authenticated") {
     return (

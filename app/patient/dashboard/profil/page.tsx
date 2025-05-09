@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { Session } from "next-auth";
+import { useRouter } from "next/navigation";
 
 interface UserSession {
     name?: string;
@@ -26,17 +27,18 @@ const Profile = () => {
         data: CustomSession | null;
         status: "loading" | "authenticated" | "unauthenticated";
     };
+    const router = useRouter()
 
+    useEffect(() => {
+        const interval = setInterval(async () => {
+            const res = await fetch("/api/auth/session/[...nextauth]");
+            if (res.status === 401) {
+                router.push("/patient/login");
+            }
+        }, 5 * 60 * 1000);
 
-    // useEffect(() => {
-    //     const handleFocus = () => {
-    //         // Forcer une refetch de la session quand l’onglet devient actif
-    //         window.location.reload();
-    //     };
-
-    //     window.addEventListener("focus", handleFocus);
-    //     return () => window.removeEventListener("focus", handleFocus);
-    // }, []);
+        return () => clearInterval(interval);
+    }, []);
 
     if (status === "loading") {
         return (

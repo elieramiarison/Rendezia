@@ -23,7 +23,7 @@ export function useDisponibilite() {
                 setDispo(data)
                 setTimeout(() => {
                     setLoading(false);
-                }, 2000);
+                }, 1500);
             } catch {
                 // console.log("Erreur de serveur")
                 setLoading(false)

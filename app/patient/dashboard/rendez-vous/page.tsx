@@ -11,6 +11,7 @@ import { CardTitle } from "../../../../components/ui/card"
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import Modal from "../../components/modal/page";
+import { useRouter } from "next/navigation";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -55,13 +56,13 @@ const AppointmentForm = () => {
   const [disabledButtons, setDisabledButtons] = useState<{ [key: string]: boolean }>({});
   const [selectedDoctor, setSelectedDoctor] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const router = useRouter()
 
   useEffect(() => {
     const fetchUserAppointments = async () => {
       if (!session?.user?.id) return;
 
       const res = await fetch(`/api/rdvUser/${session.user.id}`);
-
       if (res.ok) {
         const userAppointments = await res.json();
         const takenDates = userAppointments.reduce((acc: Record<string, boolean>, rdv: UserAppointment) => {
@@ -70,6 +71,14 @@ const AppointmentForm = () => {
         }, {} as { [key: string]: boolean });
         setDisabledButtons(takenDates);
       }
+      const interval = setInterval(async () => {
+        const res = await fetch("/api/auth/session/[...nextauth]");
+        if (res.status === 401) {
+          router.push("/patient/login");
+        }
+      }, 5 * 60 * 1000);
+
+      return () => clearInterval(interval);
 
     };
 
