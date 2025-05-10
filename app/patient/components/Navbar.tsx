@@ -114,7 +114,7 @@ export default function Navbar() {
                             src={session?.user?.image || "/default-avatar.png"}
                             alt="Photo de profil"
                             width={40} height={40}
-                            className="w-5 h-5 rounded-full object-cover  border-2 border-gray-200"
+                            className="w-9 h-9 rounded-full object-cover  border-2 border-gray-200"
                         />
                     ) : (
                         <div className="w-10 h-10 rounded-full bg-gray-400 flex items-center justify-center text-white text-base font-bold border-2 border-gray-600 cursor-pointer">
