@@ -7,11 +7,12 @@ import { signOut } from "next-auth/react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { Settings } from "lucide-react";
 import { useState, useEffect } from "react";
-import { IoAccessibilityOutline, IoPerson, IoHomeOutline } from "react-icons/io5";
+import { IoAccessibilityOutline, IoPerson, IoHomeOutline, IoChatbox } from "react-icons/io5";
 import { FaPowerOff } from "react-icons/fa6";
 import { MdEdit } from "react-icons/md";
 import { useRef } from "react";
 import NProgress from "nprogress";
+import { MdNotificationsNone } from "react-icons/md";
 import { Session } from "next-auth";
 import { useRouter } from "next/navigation";
 import "nprogress/nprogress.css";
@@ -97,7 +98,13 @@ export default function Navbar() {
                 </Link>
             </div>
 
-            <div className="relative" ref={dropdownRef}>
+            <div className="relative flex gap-4" ref={dropdownRef}>
+                <div onClick={handleClick} className="relative flex justify-center items-center cursor-pointer">
+                    <MdNotificationsNone size={28} color="#fff" />
+                    <span className="absolute top-3 right-[0.3rem] translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs font-bold px-1 py-.25 rounded-full">
+                        +5
+                    </span>
+                </div>
                 <button
                     onClick={() => setIsOpen(!isOpen)}
                     className="flex items-center gap-2 bg-white lg:p-1 md:p-1 sm:p-0 p-0 rounded-full hover:bg-gray-300 transition"
@@ -107,7 +114,7 @@ export default function Navbar() {
                             src={session?.user?.image || "/default-avatar.png"}
                             alt="Photo de profil"
                             width={40} height={40}
-                            className="w-10 h-10 rounded-full object-cover  border-2 border-gray-200"
+                            className="w-5 h-5 rounded-full object-cover  border-2 border-gray-200"
                         />
                     ) : (
                         <div className="w-10 h-10 rounded-full bg-gray-400 flex items-center justify-center text-white text-base font-bold border-2 border-gray-600 cursor-pointer">
@@ -121,7 +128,7 @@ export default function Navbar() {
                 {/* Menu déroulant */}
                 <div style={{ display: isOpen ? "block" : "none" }} className="absolute">
                     {isOpen && (
-                        <div className="absolute right-[-4.5rem] mt-1 w-48 bg-white shadow-lg rounded-lg py-2">
+                        <div className="absolute right-[-6rem] mt-12 w-48 bg-white shadow-lg rounded-lg py-2">
                             <Link href="/patient/dashboard/profil" onClick={() => setIsOpen(false)} className="flex items-center gap-2 font-bold px-4 py-1 hover:bg-gray-100">
                                 <IoPerson size={17} /> {session?.user?.name}...
                             </Link>
@@ -135,6 +142,10 @@ export default function Navbar() {
                             <Link href="/patient/dashboard/rendez-vous" onClick={() => setIsOpen(false)} className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
                                 <IoAccessibilityOutline size={17} /> Rendez-vous
                             </Link>
+
+                            <div onClick={handleClick} className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                                <IoChatbox size={17} /> Message
+                            </div>
 
                             <Link href="/patient/dashboard/updateProfil" onClick={() => setIsOpen(false)} className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100">
                                 <MdEdit size={17} /> Modifier profil

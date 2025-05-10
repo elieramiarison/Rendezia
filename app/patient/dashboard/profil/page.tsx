@@ -30,6 +30,12 @@ const Profile = () => {
     const router = useRouter()
 
     useEffect(() => {
+        // const handleFocus = () => {
+        //     window.location.reload();
+        // };
+
+        // window.addEventListener("focus", handleFocus);
+        // return () => window.removeEventListener("focus", handleFocus);
         const interval = setInterval(async () => {
             const res = await fetch("/api/auth/[...nextauth]");
             if (res.status === 401) {
