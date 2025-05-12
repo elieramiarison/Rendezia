@@ -208,7 +208,17 @@ export default function Login() {
                   required
                 />
 
-                <SubmitButton />
+                <button
+                  type="submit"
+                  className={`text-white px-4 py-2 rounded-full ${name && firstName && email && password && tel && adresse && annif && pdp && lieu
+                    ?
+                    'bg-[#067f7a] hover:bg-[#1d6965]'
+                    :
+                    'bg-gray-400 cursor-not-allowed'
+                    }`
+                  }
+                  disabled={!name || !firstName || !email || !password || !tel || !adresse || !annif || !pdp || !lieu}
+                >S&apos;inscrire</button>
                 {error && (
                   <div className="text-red-700 text-sm text-start">
                     {error}
@@ -232,13 +242,5 @@ export default function Login() {
       </div>
       <Footer />
     </div>
-  )
-}
-
-const SubmitButton = () => {
-  return (
-    <button type="submit" className="bg-[#067f7a] hover:bg-[#1d6965] p-[0.35rem] text-white rounded-full mt-2">
-      S&apos;inscrire
-    </button>
   )
 }

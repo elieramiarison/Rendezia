@@ -44,7 +44,7 @@ export default function Home() {
       <div className="bg-[#08a6a0] h-[35rem] w-full mt-[64px] gap-10 relative">
         {/* Image gauche */}
         <div className="absolute left-0 top-2 z-[1]">
-          <Image src="/header_left.svg" alt="left" width={150} height={150} className="w-24 sm:w-24 md:w-28 lg:w-32 pointer-events-none select-none"
+          <Image src="/header_left.svg" alt="left" width={150} height={150} className="w-24 sm:w-24 md:w-28 lg:w-32 pointer-events-none select-none opacity-55"
             draggable={false}
           />
         </div>

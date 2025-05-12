@@ -8,6 +8,7 @@ interface IDoctor {
     genre: string;
     password: string;
     specialite: string;
+    numOnm: string;
     pdpDoc: string;
     firstName: string;
     clinic: string;
@@ -21,6 +22,7 @@ const DoctorSchema = new Schema<IDoctor>({
     genre: { type: String },
     password: { type: String, required: true },
     specialite: { type: String, required: true },
+    numOnm: { type: String, required: true },
     pdpDoc: { type: String, default: "" },
     firstName: { type: String, required: true },
     clinic: { type: String, required: true },

@@ -25,11 +25,14 @@ export default function Login() {
   const [genre, setGenre] = useState('')
   const [specialite, setSpecialite] = useState('')
   const [clinic, setClinic] = useState('')
+  const [numOnm, setNumOnm] = useState('')
   const [pdpDoc, setPdpDoc] = useState<File | null>(null)
   const [preview, setPreview] = useState<string | null>(null);
   const [errorImg, setErrorImg] = useState(false)
+  const [errorOnm, setErrorOnm] = useState(false);
 
   const router = useRouter()
+  const onmRegex = /^[0-9]{3,5}-ONM\/[0-9]{4}$/;
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -48,6 +51,12 @@ export default function Login() {
     NProgress.start()
     e.preventDefault()
 
+    if (!onmRegex.test(numOnm)) {
+      NProgress.done();
+      setErrorOnm(true)
+      return;
+    }
+
     const formData = new FormData()
     formData.append("name", name)
     formData.append("firstName", firstName)
@@ -56,9 +65,9 @@ export default function Login() {
     formData.append("tel", tel)
     formData.append("clinic", clinic)
     formData.append("specialite", specialite)
+    formData.append("numOnm", numOnm)
     if (!genre) {
       formData.append("genre", genre)
-      // console.log("Genre:::", genre)
     }
 
     if (pdpDoc) {
@@ -160,13 +169,25 @@ export default function Login() {
                   name="email"
                 />
 
+                <Label className="text-sm text-[#20363d]">Numéro ONM<span className="text-red-600">*</span></Label>
+                <Input
+                  value={numOnm}
+                  onChange={(e) => {
+                    setNumOnm(e.target.value);
+                    // setErrorOnm(!onmRegex.test(e.target.value));
+                  }}
+                  type="text"
+                  placeholder="Votre numéro ONM valide"
+                  name="tel"
+                />
+
                 <Label className="text-sm text-[#20363d]">Numéro de telephone<span className="text-red-600">*</span></Label>
                 <Input
                   value={tel}
                   onChange={(e) => setTel(e.target.value)}
                   type="text"
                   placeholder="03X XX XXX XX"
-                  name="tel"
+                  name="numOnm"
                 />
 
                 <Label className="text-sm text-[#20363d]">Genre<span className="text-red-600">*</span></Label>
@@ -202,7 +223,20 @@ export default function Login() {
                   name="password"
                 />
 
-                <SubmitButton />
+                <button
+                  type="submit"
+                  className={`text-white px-4 py-2 rounded-full ${name && firstName && email && password && tel && specialite && clinic && pdpDoc
+                    ?
+                    'bg-[#067f7a] hover:bg-[#1d6965]'
+                    :
+                    'bg-gray-400 cursor-not-allowed'
+                    }`
+                  }
+                  disabled={!name || !firstName || !email || !password || !tel || !specialite || !clinic || !pdpDoc}
+                >S&apos;inscrire</button>
+                {errorOnm && (
+                  <p className="text-red-600 text-sm">Format ONM invalide</p>
+                )}
               </form>
               <div className="flex justify-center p-2">
                 <p>
@@ -221,11 +255,5 @@ export default function Login() {
       </div>
       <Footer />
     </div>
-  )
-}
-
-const SubmitButton = () => {
-  return (
-    <button type="submit" className="bg-[#067f7a] hover:bg-[#1d6965] text-white px-4 py-2 rounded-full">S&apos;inscrire</button>
   )
 }

@@ -11,6 +11,7 @@ interface UserSession {
     email?: string;
     tel?: string;
     specialite?: string;
+    numOnm: string;
     clinic?: string;
     genre?: string;
     image?: string;
@@ -70,6 +71,12 @@ const Profile = () => {
           <div className="bg-white py-6 px-2 cursor-pointer mt-5 rounded-md shadow-md">
             <h1 className="font-bold text-xl">Mail</h1>
             <h1 className="font-semibold text-base">{session?.user?.email}</h1>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit facilis ipsa consequuntur</p>
+          </div>
+
+          <div className="bg-white py-6 px-2 cursor-pointer mt-5 rounded-md shadow-md">
+            <h1 className="font-bold text-xl">Numéro ONM</h1>
+            <h1 className="font-semibold text-base">{session?.user?.numOnm}</h1>
             <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit facilis ipsa consequuntur</p>
           </div>
 

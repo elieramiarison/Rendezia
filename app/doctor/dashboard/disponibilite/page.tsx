@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import type { Session } from "next-auth";
 import { MdDelete } from "react-icons/md";
 import { FiEdit } from "react-icons/fi";
+import { ClipLoader } from "react-spinners";
 // import { Button } from "@/components/ui/button";
 import "react-toastify/dist/ReactToastify.css";
 import toast from "react-hot-toast";
@@ -220,7 +221,7 @@ export default function AddAvailability() {
               <div className="flex gap-2">
                 <button onClick={handleUpdate} className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md transition">
                   {loading ?
-                    "Enregistrement..."
+                    <ClipLoader size={20} color="#fff" />
                     : "Enregistrer"}
                 </button>
                 <button onClick={handleBack} className="w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded-md transition">
@@ -232,7 +233,7 @@ export default function AddAvailability() {
                 <div className="w-full">
                   <button onClick={handleAddAvailability} className="w-full bg-[#08a6a0] hover:bg-[#067f7a] text-white py-2 rounded-md transition">
                     {loading ?
-                      "Ajouter..."
+                      <ClipLoader size={20} color="#fff" />
                       : "Ajouter"}
                   </button>
                 </div>

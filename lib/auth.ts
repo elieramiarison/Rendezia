@@ -77,6 +77,7 @@ export const authOptions: AuthOptions = {
                         tel: user.tel,
                         genre: user.genre,
                         specialite: user.specialite,
+                        numOnm: user.numOnm,
                         clinic: user.clinic,
                         type: "doctor",
                     }
@@ -132,6 +133,7 @@ export const authOptions: AuthOptions = {
                     firstName: updatedUser.firstName || null,
                     annif: updatedUser.annif || null,
                     clinic: updatedUser.clinic || null,
+                    numOnm: updatedUser.numOnm || null,
                     type: token.type,
                 };
             }
@@ -151,6 +153,7 @@ export const authOptions: AuthOptions = {
                 token.firstName = user.firstName || null;
                 token.annif = user.annif || null;
                 token.clinic = user.clinic || null;
+                token.numOnm = user.numOnm || null;
                 token.type = user.type;
             }
             return token;

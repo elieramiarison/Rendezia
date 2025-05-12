@@ -22,6 +22,7 @@ export async function POST(req: NextRequest) {
     const password = formData.get("password") as string;
     const clinic = formData.get("clinic") as string;
     const specialite = formData.get("specialite") as string;
+    const numOnm = formData.get("numOnm") as string;
     const pdpDoc = formData.get("pdpDoc");
 
     const isValidFile = pdpDoc instanceof File && pdpDoc.size > 0;
@@ -32,7 +33,6 @@ export async function POST(req: NextRequest) {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    // console.log("Client ID:", process.env.IMGUR_CLIENT_ID);
 
     let pdpPath = "";
 
@@ -68,6 +68,7 @@ export async function POST(req: NextRequest) {
       genre,
       password: hashedPassword,
       specialite,
+      numOnm,
       pdpDoc: pdpPath,
       firstName,
       clinic,
@@ -106,6 +107,7 @@ export async function PUT(req: NextRequest) {
     const genre = formData.get("genre") as string | null;
     const password = formData.get("password") as string | null;
     const specialite = formData.get("specialite") as string | null;
+    const numOnm = formData.get("numOnm") as string | null;
     const clinic = formData.get("clinic") as string | null;
     const pdpDoc = formData.get("pdpDoc") as File | null;
     const removePdpDoc = formData.get("removePdpDoc") === "true";
@@ -121,6 +123,7 @@ export async function PUT(req: NextRequest) {
     if (tel) doctor.tel = tel;
     if (genre) doctor.genre = genre;
     if (specialite) doctor.specialite = specialite;
+    if (numOnm) doctor.numOnm = numOnm;
     if (clinic) doctor.clinic = clinic;
 
     if (password && newPassword) {

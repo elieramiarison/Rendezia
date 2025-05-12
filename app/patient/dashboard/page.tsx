@@ -59,7 +59,7 @@ export default function DoctorDashboard() {
         <div className="bg-[#08a6a0] h-[33rem] mt-[70px] gap-10 relative">
           {/* Image gauche */}
           <div className="absolute left-0 top-2 z-[1]">
-            <Image src="../../header_left.svg" alt="left" width={150} height={150} className="w-24 sm:w-24 md:w-28 lg:w-32 pointer-events-none select-none" draggable={false} />
+            <Image src="../../header_left.svg" alt="left" width={150} height={150} className="w-24 sm:w-24 md:w-28 lg:w-32 pointer-events-none select-none opacity-60" draggable={false} />
           </div>
 
           <div className="flex justify-center items-center text-center h-full z-[5]">

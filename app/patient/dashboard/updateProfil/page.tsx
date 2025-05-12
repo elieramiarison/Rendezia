@@ -6,6 +6,7 @@ import { Session } from "next-auth";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
+import { ClipLoader } from "react-spinners";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 
@@ -354,8 +355,10 @@ export default function UpdateProfil() {
                         </div>
                     </div>
                     <div className=" mt-4">
-                        <button type="submit" disabled={loading} className="bg-[#067f7a] hover:bg-[#1d6965] py-[0.40rem] px-4 text-white rounded-full md:text-base sm:text-xs text-xs">
-                            {loading ? "Enregistrement..." : "Enregistrer la modification"}
+                        <button type="submit" className="bg-[#08a6a0] hover:bg-[#067f7a] md:text-base p-2 rounded-md text-white w-64 text-[0.6rem]">
+                            {loading === true ?
+                                <ClipLoader size={20} color="#fff" />
+                                : "Enregistrer la modification"}
                         </button>
 
                     </div>

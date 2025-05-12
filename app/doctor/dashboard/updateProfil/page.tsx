@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn, useSession } from "next-auth/react";
+import ClipLoader from 'react-spinners/ClipLoader';
 import { Session } from "next-auth";
 import Image from "next/image";
 
@@ -16,6 +17,7 @@ interface UserSession {
     clinic?: string;
     genre?: string;
     image?: string;
+    numOnm?: string;
   };
 }
 
@@ -37,6 +39,7 @@ export default function Login() {
     specialite: "",
     clinic: "",
     password: "",
+    numOnm: "",
   })
   const [newPassword, setNewPassword] = useState("")
   const [pdpDoc_, setPdpDoc] = useState<File | null>(null)
@@ -57,6 +60,7 @@ export default function Login() {
         genre: session.user.genre || "Homme",
         specialite: session.user.specialite || "",
         clinic: session.user.clinic || "",
+        numOnm: session.user.numOnm || "",
         password: "",
       })
       setPreviewImage(session.user.image || "");
@@ -91,6 +95,7 @@ export default function Login() {
     updatedFormData.append("clinic", formData.clinic)
     updatedFormData.append("password", formData.password)
     updatedFormData.append("tel", formData.tel)
+    updatedFormData.append("numOnm", formData.numOnm)
     updatedFormData.append("newPassword", newPassword)
     if (formData.genre) {
       updatedFormData.append("genre", formData.genre)
@@ -265,6 +270,15 @@ export default function Login() {
                 className="w-full border-0 border-b-2 border-gray-300 focus:ring-0 focus:border-[#08a6a0] outline-none md:text-base text-sm" />
             </div>
             <div className="flex flex-col">
+              <label className="md:text-base text-sm">Numéro ONM</label>
+              <input
+                value={formData.numOnm}
+                name="numOnm"
+                type="text"
+                onChange={handleChange}
+                className="w-full border-0 border-b-2 border-gray-300 focus:ring-0 focus:border-[#08a6a0] outline-none md:text-base text-sm" />
+            </div>
+            <div className="flex flex-col">
               <label className="md:text-base text-sm">Specialite</label>
               <input
                 value={formData.specialite}
@@ -319,8 +333,8 @@ export default function Login() {
           </div>
           <div className=" mt-4">
             <button type="submit" className="bg-[#08a6a0] hover:bg-[#067f7a] md:text-base p-2 rounded-md text-white w-64 text-[0.6rem]">
-              {loading ?
-                "Enregistrer la modification..."
+              {loading === true ?
+                <ClipLoader size={20} color="#fff" />
                 : "Enregistrer la modification"}
             </button>
           </div>

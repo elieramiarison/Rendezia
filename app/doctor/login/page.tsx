@@ -7,6 +7,7 @@ import { CardHeader } from "../../../components/ui/card"
 import { CardTitle } from "../../../components/ui/card"
 import { Input } from "../../../components/ui/input";
 import { Label } from "../../../components/ui/label";
+import ClipLoader from 'react-spinners/ClipLoader';
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -95,13 +96,13 @@ export default function Login() {
                                 <div className="mt-3">
                                     <button
                                         type="submit"
-                                        className={`w-full rounded-full p-[0.35rem] text-white ${email && password
+                                        className={`w-full rounded-full p-[0.35rem] text-white flex items-center justify-center ${email && password
                                             ? 'bg-[#067f7a] hover:bg-[#1d6965]'
                                             : 'bg-gray-400 cursor-not-allowed'
                                             }`}
                                         disabled={!email || !password || loading}
                                     >
-                                        {loading ? "Se connecter..." : "Se connecter"}
+                                        {loading ? <ClipLoader size={23} color="#fff" /> : "Se connecter"}
                                     </button>
                                 </div>
                                 {error && (

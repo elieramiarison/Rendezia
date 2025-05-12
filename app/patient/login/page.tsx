@@ -9,6 +9,7 @@ import { CardHeader } from "../../../components/ui/card"
 import { CardTitle } from "../../../components/ui/card"
 import { Input } from "../../../components/ui/input"
 import { Label } from "../../../components/ui/label"
+import { ClipLoader } from "react-spinners"
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -106,7 +107,7 @@ export default function Login() {
                                             }`}
                                         disabled={!email || !password || loading}
                                     >
-                                        {loading ? "Se connecter..." : "Se connecter"}
+                                        {loading ? <ClipLoader size={20} color="#fff" /> : "Se connecter"}
                                     </button>
 
                                 </div>

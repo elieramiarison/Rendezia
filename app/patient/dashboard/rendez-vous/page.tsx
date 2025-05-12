@@ -234,13 +234,12 @@ const AppointmentForm = () => {
                   {dispo.map((rdv: Appointment) => (
                     <Card key={rdv._id} className="p-4">
                       <CardHeader>
-                        {/* <Image src={rdv.pdp} /> */}
                         <CardTitle>Dr {rdv.nameDoc} ({rdv.specialiteDoc}) </CardTitle>
                       </CardHeader>
                       <CardContent>
                         <p>Date : {rdv.date}</p>
                         <p>Du : {rdv.startTime}</p>
-                        <p>Jusqu&ops;à : {rdv.endTime}</p>
+                        <p>Jusqu&apos;à : {rdv.endTime}</p>
                         <div className="flex gap-3">
                           {disabledButtons[rdv._id] ? <button
                             className="mt-2 bg-red-600 hover:bg-red-700 w-full p-2 rounded-md text-white"
