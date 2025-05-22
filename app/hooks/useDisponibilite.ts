@@ -21,9 +21,9 @@ export function useDisponibilite() {
                 const res = await fetch('/api/rdv')
                 const data = await res.json()
                 setDispo(data)
-                setTimeout(() => {
-                    setLoading(false);
-                }, 1000);
+                // setTimeout(() => {
+                setLoading(false);
+                // }, 1000);
             } catch {
                 // console.log("Erreur de serveur")
                 setLoading(false)

@@ -97,7 +97,7 @@ export default function DoctorDashboard() {
         <section className=" bg-white lg:h-[33rem] md:h-auto flex flex-col justify-center items-center">
           <div className="flex flex-col justify-center items-center mx-auto z-[50px] lg:mt-[-8rem] md:mt-[-5rem] sm:mt-[-4rem] mt-[-4rem] relative">
             {/* <h2 className="text-xl font-semibold top-0">Liste des rendez-vous 📅</h2> */}
-            <AnimatedSection1 delay={1.3}>
+            <AnimatedSection1 delay={1.18}>
               <div className="mx-auto">
                 <MyCarousel />
               </div>
